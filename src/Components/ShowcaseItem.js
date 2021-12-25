@@ -24,7 +24,7 @@ const ClubProfiles = () => {
         <div key={index}>
           {clubProfiles.nomClub}
           {clubProfiles.idClub ? (
-            <img src={'http://localhost:8080/api/'+ clubProfiles.idClub +'/image/download'} ></img>
+            <img alt={clubProfiles.idClub} src={'http://localhost:8080/api/'+ clubProfiles.idClub +'/image/download'} ></img>
           ) : null }
           <Dropzone {...clubProfiles}></Dropzone>
         </div>
@@ -77,7 +77,6 @@ const ShowcaseItem = ({width, height}) => {
     return (
         <div className="flex items-center justify-center py-2 col-span-2 md:col-auto">
             <ClubProfiles></ClubProfiles>
-            
         </div>
     )
 }

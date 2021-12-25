@@ -33,21 +33,23 @@ const NavbarAuth = () => {
                     </div>
 
                     <nav className="flex flex-grow">
-                        <Link  to="/profile" className="flex flex-grow justify-end flex-wrap items-center"> 
-                            <div class="bg-gray-200 flex justify-center items-center relative rounded-full">
+                        <div className="flex flex-grow justify-end flex-wrap items-center"> 
+                            <div className="bg-gray-200 flex justify-center items-center relative rounded-full">
                                 {/* <svg class="w-4 h-4 m-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg> */}
 
-                                <img 
-                                    width={32}
-                                    height={32}
-                                    class="rounded-full" 
-                                    alt="A" 
-                                    src="https://uifaces.co/our-content/donated/BMGfa1yq.png"
-                                />
+                                <Link  to="/profile">
+                                    <img 
+                                        width={32}
+                                        height={32}
+                                        className="rounded-full" 
+                                        alt="A" 
+                                        src="https://uifaces.co/our-content/donated/BMGfa1yq.png"
+                                    />
+                                </Link>
 
-                                <span class="w-2 h-2 bg-green-500 absolute bottom-0 right-0 rounded-full"></span>
+                                <span className="w-2 h-2 bg-green-500 absolute bottom-0 right-0 rounded-full"></span>
                                 {/* 
                                     Sleep : Li hya yellow
                                     <span class="w-2 h-2 bg-yellow-500 absolute bottom-0 right-0 rounded-full"></span>
@@ -55,7 +57,7 @@ const NavbarAuth = () => {
                                     <span class="w-2 h-2 bg-red-500 absolute bottom-0 right-0 rounded-full"></span> 
                                 */}
                             </div>
-                        </Link>
+                        </div>
                     </nav>
 
                 </div>
