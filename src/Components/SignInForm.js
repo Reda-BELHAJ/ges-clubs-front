@@ -125,12 +125,29 @@ export default class Login extends Component {
                     </div>
                     <div className="flex flex-wrap -mx-3 mt-6">
                         <div className="w-full px-3 grid grid-cols-2 gap-4">
-                            <button className="btn text-white bg-blue-600 hover:bg-blue-700 w-full gap-4">
-                                Sign in
+                            <button className="btn text-white bg-blue-600 hover:bg-blue-700 w-full" disabled={this.state.loading}>
+                                {this.state.loading && (
+                                    <span className="spinner-border spinner-border-sm"></span>
+                                )}
+                                <span>Login</span>
                             </button>
                             
                         </div>
                     </div>
+
+                    {this.state.message && (
+                        <div className="form-group">
+                            <div className="alert alert-danger" role="alert" style={{ color: 'red' }}>
+                                {this.state.message}
+                            </div>
+                        </div>
+                    )}
+                    <CheckButton
+                        style={{ display: "none" }}
+                        ref={c => {
+                            this.checkBtn = c;
+                        }}
+                    />
                 </Form>
     
                 <div className="flex items-center my-6">
