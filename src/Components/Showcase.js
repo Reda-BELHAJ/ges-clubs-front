@@ -31,15 +31,6 @@ const Showcase = () => {
                     
                     <div className="max-w-sm md:max-w-4xl mx-auto grid gap-2 grid-cols-4 md:grid-cols-5">
                         <ShowcaseItem width="124" height="24"/>
-                        <ShowcaseItem width="124" height="24"/>
-                        <ShowcaseItem width="124" height="24"/>
-                        <ShowcaseItem width="124" height="24"/>
-                        <ShowcaseItem width="124" height="24"/>
-                        <ShowcaseItem width="124" height="24"/>
-                        <ShowcaseItem width="124" height="24"/>
-                        <ShowcaseItem width="124" height="24"/>
-                        <ShowcaseItem width="124" height="24"/>
-                        <ShowcaseItem width="124" height="24"/>
                     </div>
                 </div>
             </div>

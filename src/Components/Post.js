@@ -1,6 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-const Post = ({avatar, image, text, likes, comments}) => {
+export default function Post ({avatar, image, text, likes, comments, username, creaAt}) {
+
+    const [like,setLike] = useState(likes)
+    const [isLiked,setIsLiked] = useState(false)
     return (
         <div className="flex w-full">
             <div className="border-gray-200 rounded-xl border p-4">
@@ -8,12 +11,12 @@ const Post = ({avatar, image, text, likes, comments}) => {
                     <div className="flex items-center">
                         <img 
                             className="h-11 w-11 rounded-full" 
-                            src={avatar}
+                            src={avatar}   // IMAGE CLUB
                             alt="avatar"
                         />
                         
                         <div className="ml-1.5 text-sm leading-tight">
-                            <span className="text-black font-bold block ">Deltondo Matthew</span>
+                            <span className="text-black font-bold block ">{username}</span>
                         </div>
                     </div>
                 </div>
@@ -25,12 +28,15 @@ const Post = ({avatar, image, text, likes, comments}) => {
                 
                 <img 
                     className="mt-2 rounded-2xl border border-gray-100" 
-                    src={image}
+                    src={image}          //IMAGE POST
                     alt="post"
+                    width={400}
+                    height={200}
+                    
                 />
 
                 <p className="text-gray-500 text-base py-1 my-0.5">
-                    10:05 AM · Dec 19, 2020
+                    {creaAt}
                 </p>
 
                 <div className="border-gray-200 border border-b-0 my-1"></div>
@@ -63,4 +69,3 @@ const Post = ({avatar, image, text, likes, comments}) => {
     )
 }
 
-export default Post
