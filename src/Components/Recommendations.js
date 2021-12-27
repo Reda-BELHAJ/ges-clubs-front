@@ -45,6 +45,34 @@ const Recommendations = ({header, recomState}) => {
                     numberMembers={34}
                     recomState={recomState}
                 />
+                <ClubToFollow 
+                    image="https://uifaces.co/our-content/donated/BMGfa1yq.png"
+                    alt="A"
+                    path="/"
+                    numberMembers={34}
+                    recomState={recomState}
+                />
+                <ClubToFollow 
+                    image="https://uifaces.co/our-content/donated/BMGfa1yq.png"
+                    alt="A"
+                    path="/"
+                    numberMembers={34}
+                    recomState={recomState}
+                />
+                <ClubToFollow 
+                    image="https://uifaces.co/our-content/donated/BMGfa1yq.png"
+                    alt="A"
+                    path="/"
+                    numberMembers={34}
+                    recomState={recomState}
+                />
+                <ClubToFollow 
+                    image="https://uifaces.co/our-content/donated/BMGfa1yq.png"
+                    alt="A"
+                    path="/"
+                    numberMembers={34}
+                    recomState={recomState}
+                />
 
             </div>
         </div>

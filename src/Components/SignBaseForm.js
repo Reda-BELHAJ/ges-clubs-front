@@ -51,7 +51,7 @@ const SignBaseForm = ({flag}) => {
                                 </Link>
                             </div> : <div>
                                 Already using Simple?{" "}
-                                <Link to="/signup" className="text-blue-600 hover:underline transition duration-150 ease-in-out">
+                                <Link to="/signin" className="text-blue-600 hover:underline transition duration-150 ease-in-out">
                                     Sign in
                                 </Link>
                             </div> }

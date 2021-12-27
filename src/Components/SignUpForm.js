@@ -1,9 +1,11 @@
-import React, { Component, setState } from 'react'
+import React, { Component, useState } from 'react'
 import UserService from '../Services/User/UserService';
 import Form from "react-validation/build/form";
 import Input from 'react-validation/build/input';
 import CheckButton from "react-validation/build/button";
 import Select from 'react-select';
+import { useNavigate } from 'react-router-dom';
+
 
 const required = value => {
     if (!value) {
@@ -48,71 +50,55 @@ const required = value => {
     { value: 'Etudiant UIR', label: 'Interne de UIR' },
   ];
 
-export default class SignUpForm extends Component {
+const SignUpForm = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [role, setRole] = useState("none");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [successful, setSuccessful] = useState(false);
+    const [message, setMessage] = useState("");
+    const [form, setForm] = useState("");
+    const [checkBtn, setCheckBtn] = useState("");
+    let navigate = useNavigate();
 
-    constructor(props) {
-        super(props);
-
-        this.handleRegister = this.handleRegister.bind(this);
-        this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
-        this.onChangeconfirmPassword = this.onChangeconfirmPassword.bind(this);
-
-        this.state = {
-            username: "",
-            role: "",
-            password: "",
-            confirmPassword: "",
-            successful: false,
-            message: ""
-        }
-    }
-
-    onChangeUsername(e) {
-        this.setState({
-            username: e.target.value
-        }, () => {console.log(this.state.username);});
+    const onChangeUsername = (e) => {
+        setUsername(e.target.value);
     }
     
-    onChangeRole = e => {
-        this.setState({
-            role: e.value
-        }, () => {console.log(this.state.role);});
+    const onChangeRole = (e) => {
+        setRole(e.value);
     }
     
-    onChangePassword(e) {
-        this.setState({
-            password: e.target.value
-        });
+    const onChangePassword = (e) => {
+        setPassword(e.target.value);
     }
 
-    onChangeconfirmPassword(e) {
-        this.setState({
-            confirmPassword: e.target.value
-        });
+    const onChangeconfirmPassword = (e) => {
+        setConfirmPassword(e.target.value);
     }
 
-    handleRegister(e) {
+    const handleRegister = (e) => {
         e.preventDefault();
 
-        this.setState({
-            message: "",
-            successful: false
-        });
+        setSuccessful(false);
+        setMessage("");
 
-        this.form.validateAll();
+        form.validateAll();
 
-        if (this.checkBtn.context._errors.length === 0) {
+        if (checkBtn.context._errors.length === 0) {
+            console.log(role);
+            if (role == null || role === '') {
+                role = [];
+            }
+            console.log(role);
             UserService.register(
-                this.state.username,
-                this.state.role,
-                this.state.password
+                username,
+                role,
+                password
             ).then(
                 response => {
-                    this.setState({
-                        message: response.data.message,
-                        successful: true
-                    });
+                    setMessage(response.data.message);
+                    setSuccessful(true);
                 },
                 error => {
                     const resMessage =
@@ -122,30 +108,27 @@ export default class SignUpForm extends Component {
                         error.message ||
                         error.toString();
 
-                    this.setState({
-                        successful: false,
-                        message: resMessage
-                    });
+                    setSuccessful(false);
+                    setMessage(resMessage);
                 }
             );
         }
     }
 
-    render() {
-        return (
-            <>
+    return(
+        <>
                 <Form
-                    onSubmit={this.handleRegister}
+                    onSubmit={handleRegister}
                     ref={c => {
-                        this.form = c;
+                        setForm(c);
                     }} 
                 >
-                    {!this.state.successful && (
+                    {!successful && (
                         <div>
                             <div className="flex flex-wrap -mx-3 mb-4">
                                 <div className="w-full px-3">
                                     <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="affiliation">Affiliation<span className="text-red-600">*</span></label>
-                                    <Select name="affiliation" id="affiliation" onChange={this.onChangeRole} value={this.state.role} options={options} />
+                                    <Select name="affiliation" id="affiliation" onChange={onChangeRole} value={role.label} options={options} placeholder="Choisir affiliation" />
                                 </div>
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-4">
@@ -153,8 +136,8 @@ export default class SignUpForm extends Component {
                                     <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="username">Username <span className="text-red-600">*</span></label>
                                     <Input id="username" type="text" className="form-input w-full text-gray-800" placeholder="Enter your username" 
                                         name="username"
-                                        value={this.state.username}
-                                        onChange={this.onChangeUsername}
+                                        value={username}
+                                        onChange={onChangeUsername}
                                         validations={[required, vusername]}               
                                     />
                                 </div>
@@ -164,8 +147,8 @@ export default class SignUpForm extends Component {
                                     <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="password">Password <span className="text-red-600">*</span></label>
                                     <Input id="password" type="password" className="form-input w-full text-gray-800" placeholder="Enter your password"
                                         name="password"
-                                        value={this.state.password}
-                                        onChange={this.onChangePassword}
+                                        value={password}
+                                        onChange={onChangePassword}
                                         validations={[required, vpassword]}
                                     />
                                 </div>
@@ -175,8 +158,8 @@ export default class SignUpForm extends Component {
                                     <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="confirmPassword">Confirm Password <span className="text-red-600">*</span></label>
                                     <Input id="confirmPassword" type="password" className="form-input w-full text-gray-800" placeholder="Confirm your password"
                                         name="confirmPassword"
-                                        value={this.state.confirmPassword}
-                                        onChange={this.onChangeconfirmPassword}
+                                        value={confirmPassword}
+                                        onChange={onChangeconfirmPassword}
                                         validations={[required, vpassword]}
                                     />
                                 </div>
@@ -192,24 +175,24 @@ export default class SignUpForm extends Component {
                         </div>
                     )}
                     
-                    {this.state.message && (
+                    {message && (
                         <div className="form-group">
                             <div style={{ color: 'red' }}
                                 className={
-                                    this.state.successful
+                                    successful
                                     ? "alert alert-success"
                                     : "alert alert-danger"
                                 }
                                 role="alert"
                             >
-                                {this.state.message}
+                                {message}
                             </div>
                         </div>
                         )}
                         <CheckButton
                             style={{ display: "none" }}
                             ref={c => {
-                                this.checkBtn = c;
+                                setCheckBtn(c);
                             }}
                         />
                     </Form>
@@ -220,12 +203,8 @@ export default class SignUpForm extends Component {
                         <div className="border-t border-gray-300 flex-grow ml-3" aria-hidden="true"></div>
                     </div>
             </>
-        )
-    }
-    
-    
-    
+    );
 }
 
-
+export default SignUpForm
 
