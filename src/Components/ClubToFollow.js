@@ -13,7 +13,6 @@ const ClubToFollow = ({image, alt, path, numberMembers, recomState}) => {
             <div className="text-sm">
                 <p className="block font-semibold overflow-hidden truncate">Deltondo Matthew </p>
                 <span className="block text-xs font-light text-gray-700 overflow-hidden truncate">{numberMembers} members</span>
-
             </div>
 
             <Link 

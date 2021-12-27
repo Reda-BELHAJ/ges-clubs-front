@@ -5,7 +5,7 @@ import ClubToFollow from './ClubToFollow'
 
 const Recommendations = ({header, recomState}) => {
     return (
-        <div className={`flex flex-col items-start justify-between w-full h-auto ${recomState && 'mt-20'} mb-5 overflow-hidden bg-white rounded-lg shadow-xl`}>
+        <div className={`flex flex-col items-start justify-between w-full h-auto  mb-5 overflow-hidden bg-white rounded-lg shadow-xl`}>
             <div className="flex flex-row items-baseline justify-around w-full p-2 pb-0 mb-3">
                 <h2 className="mr-auto text-lg font-semibold tracking-wide">
                     {header}
