@@ -4,6 +4,7 @@ export default function Post ({avatar, image, text, likes, comments, username, c
 
     const [like,setLike] = useState(likes)
     const [isLiked,setIsLiked] = useState(false)
+
     return (
         <div className="flex w-full">
             <div className="border-gray-200 rounded-xl border p-4">
@@ -20,8 +21,7 @@ export default function Post ({avatar, image, text, likes, comments, username, c
                         </div>
                     </div>
                 </div>
-                <p 
-                    className="text-black block text-xl leading-snug mt-3 "
+                <p className="text-black block text-xl leading-snug mt-3 "
                 >
                     {text}
                 </p>
@@ -29,10 +29,7 @@ export default function Post ({avatar, image, text, likes, comments, username, c
                 <img 
                     className="mt-2 rounded-2xl border border-gray-100" 
                     src={image}          //IMAGE POST
-                    alt="post"
-                    width={400}
-                    height={200}
-                    
+                    alt="post"                    
                 />
 
                 <p className="text-gray-500 text-base py-1 my-0.5">

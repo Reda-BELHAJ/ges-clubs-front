@@ -11,10 +11,9 @@ const Home = () => {
             <NavbarAuth />
 
             <main >
-                
                 <div className="w-full lg:grid lg:grid-cols-7 gap-2 max-w-6xl mx-auto px-5 sm:px-6">
                     <div className='lg:col-span-2 hidden lg:block'>
-                        <Widgets />
+                        <Widgets recomState={true} />
                         
                         <Recommendations 
                             header="Which Club To Follow"
@@ -25,11 +24,10 @@ const Home = () => {
                             header="Clubs You Follow"
                             recomState={false}
                         />
-
                         
                     </div>
                     
-                    <Feed />
+                    <Feed recomState={true}/>
                 </div>
 
             </main>

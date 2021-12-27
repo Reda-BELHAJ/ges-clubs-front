@@ -7,9 +7,9 @@ import { MdOutlineEvent, MdLogout } from "react-icons/md";
 import { VscOrganization } from "react-icons/vsc";
 import { AiFillHome } from "react-icons/ai";
 
-const Widgets = () => {
+const Widgets = ({recomState}) => {
     return (
-        <div className='mt-20 mb-5 flex flex-col items-start justify-between w-full h-auto overflow-hidden bg-white rounded-lg shadow-xl'>
+        <div className={`${recomState && 'mt-20'} mb-5 flex flex-col items-start justify-between w-full h-auto overflow-hidden bg-white rounded-lg shadow-xl`}>
             <div className="flex flex-row items-baseline justify-around w-full p-2 pb-0 mb-3">
                 <h2 className="mr-auto text-lg font-semibold tracking-wide">
                     Menu
