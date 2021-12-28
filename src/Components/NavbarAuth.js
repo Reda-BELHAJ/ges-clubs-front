@@ -1,12 +1,15 @@
+import { any } from 'prop-types';
 import React, {useState, useEffect} from 'react'
+import { MdMargin } from 'react-icons/md';
 import { Link } from 'react-router-dom'
+import UserService from '../Services/User/UserService';
+import EventBus from '../Utils/EventBus';
 
-const Navbar = () => {
+
+
+const NavbarAuth = () => {
+    const user = UserService.getCurrentUser();
     const [top, setTop] = useState(true);
-
-    const [currentUser, setCurrentUser] = useState(null);
-    const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-    const [showAdminBoard, setShowAdminBoard] = useState(false);
 
     useEffect(() => {
         const scrollHandler = () => {
@@ -15,6 +18,10 @@ const Navbar = () => {
         window.addEventListener('scroll', scrollHandler);
         return () => window.removeEventListener('scroll', scrollHandler);
     }, [top]); 
+
+    const onLogoutOut = () => {
+        EventBus.dispatch("logout", any);
+    }
 
     return (
         <header className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${!top && `bg-white backdrop-blur-sm shadow-lg`}`}>
@@ -36,6 +43,12 @@ const Navbar = () => {
                         </Link>
                     </div>
 
+                    <div >
+                        <Link to="/" >
+                            <button style={{margin: 300, borderWidth: 5}} onClick={onLogoutOut}>Log out</button>
+                        </Link>
+                    </div>
+
                     <nav className="flex flex-grow">
                         <div className="flex flex-grow justify-end flex-wrap items-center"> 
                             <div className="bg-gray-200 flex justify-center items-center relative rounded-full">
@@ -49,7 +62,7 @@ const Navbar = () => {
                                         height={32}
                                         className="rounded-full" 
                                         alt="A" 
-                                        src="https://uifaces.co/our-content/donated/BMGfa1yq.png"
+                                        src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg"
                                     />
                                 </Link>
 
@@ -70,4 +83,4 @@ const Navbar = () => {
     )
 }    
 
-export default Navbar
+export default NavbarAuth
