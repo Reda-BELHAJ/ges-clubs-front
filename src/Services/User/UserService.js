@@ -24,6 +24,7 @@ class UserService {
   }
 
   register(username, role, password) {
+    console.log("UserService: " + role);
     return axios.post(API_URL + "signup", {
       username,
       role,

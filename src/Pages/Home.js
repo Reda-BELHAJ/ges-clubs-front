@@ -24,6 +24,7 @@ const Home = () => {
   }
 
   useEffect(() => {
+    
     if (user) {
       setCurrentUser(user);
       console.log(user);
