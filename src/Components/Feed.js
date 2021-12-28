@@ -8,17 +8,20 @@ export default class Feed extends Component {
         posts: [],
     };
    
+    /*
     componentDidMount() {
         PostService.getPosts().then(res => {
             this.setState({posts: res.data})
             console.log(this.state.posts)
         });
     }
+    */
 
     render() {
         return (
             <div className={`lg:col-span-5 h-auto ${this.props.recomState && 'mt-20'}`}>
-                {this.state.posts.map((p) => (
+                
+                 {/*this.state.posts.map((p) => (
                         <Post
                             key={p.postId}
                             likes={p.likes}
@@ -30,7 +33,7 @@ export default class Feed extends Component {
                             //comments
                         />
                     ))
-                }
+                 */}
 
                 {/* For Testing */}
 

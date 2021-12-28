@@ -1,38 +1,65 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 
 import NavbarAuth from '../Components/NavbarAuth'
 import Feed from '../Components/Feed'
 import Recommendations from '../Components/Recommendations'
 import Widgets from '../Components/Widgets'
+import Admin from './Admin'
+import UserService from '../Services/User/UserService'
+import EventBus from '../Utils/EventBus'
+import User from './User';
 
 const Home = () => {
+    
+  const user = UserService.getCurrentUser();
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const [showUserBoard, setShowUserBoard] = useState(false);
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
+
+  const logOut = () => {
+    UserService.logout();
+    setShowAdminBoard(false);
+    setShowUserBoard(false);
+    setCurrentUser(undefined);
+  }
+
+  useEffect(() => {
+    if (user) {
+      setCurrentUser(user);
+      console.log(user);
+      setShowUserBoard(user.roles.includes("ROLE_USER_INTERNAL"));
+      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+    }
+
+    EventBus.on("logout", () => {
+      logOut();
+    })
+    
+    return () => {
+      EventBus.remove("logout");
+    }
+
+  }, []);
     return (
-        <div className='flex flex-col min-h-screen overflow-hidden'>
-            <NavbarAuth />
+        <div>
+           {console.log("admin " + showAdminBoard)}
+           {console.log("user " + showUserBoard)}
+           {
+            showUserBoard && (
+             <div>
+                <User> </User>
+             </div> 
+           )} 
 
-            <main >
-                <div className="w-full lg:grid lg:grid-cols-7 gap-2 max-w-6xl mx-auto px-5 sm:px-6">
-                    <div className='lg:col-span-2 hidden lg:block'>
-                        <Widgets recomState={true} />
-                        
-                        <Recommendations 
-                            header="Which Club To Follow"
-                            recomState={true}
-                        />
-
-                        <Recommendations 
-                            header="Clubs You Follow"
-                            recomState={false}
-                        />
-                        
-                    </div>
-                    
-                    <Feed recomState={true}/>
-                </div>
-
-            </main>
+            { showAdminBoard && (
+             <div>
+                <Admin> </Admin>
+             </div> 
+             )} 
         </div>
+        
     )
 }
+
 
 export default Home
