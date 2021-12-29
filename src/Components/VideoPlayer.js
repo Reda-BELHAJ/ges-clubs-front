@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Modal from '../Utils/Modal'
 
 const VideoPlayer = () => {
-    const [videoModalOpen, setVideoModalOpen] = useState(false);
+    const [videoModalOpen, setVideoModalOpen] = useState(true);
 
     return (
         <section className="relative">
@@ -25,7 +25,9 @@ const VideoPlayer = () => {
             </div>
 
             <div className="max-w-6xl mx-auto px-4 sm:px-6">
+
                 <div className="pt-32 pb-12 md:pt-40 md:pb-20">
+
                     <div className="text-center pb-12 md:pb-16">
                         <h1 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out">Welcome to <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">GesClub</span></h1>
                         <div className="max-w-3xl mx-auto">
@@ -77,9 +79,16 @@ const VideoPlayer = () => {
                         handleClose={() => setVideoModalOpen(false)}
                     >
                         <div className="relative pb-9/16">
-                            <iframe className="absolute w-full h-full" src="https://youtu.be/MGXM2K5FeYk" title="Video" allowFullScreen></iframe>
+                            <iframe 
+                                className="absolute w-full h-full" 
+                                src="https://www.youtube-nocookie.com/embed/MGXM2K5FeYk" 
+                                title="Video" 
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                                allowFullScreen
+                            />
                         </div>
                     </Modal>
+                    
                 </div>
             </div>
         </section>

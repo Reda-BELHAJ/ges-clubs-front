@@ -62,7 +62,7 @@ const NavbarAuth = () => {
                                         height={32}
                                         className="rounded-full" 
                                         alt="A" 
-                                        src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg"
+                                        src="https://w1.pngwing.com/pngs/40/861/png-transparent-circle-silhouette-user-user-interface-avatar-menu-bar-css-sprites-data-personalization-thumbnail.png"
                                     />
                                 </Link>
 

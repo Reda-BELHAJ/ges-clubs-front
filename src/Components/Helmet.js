@@ -1,6 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
+
+import ModalJoin from './ModalJoin';
 
 const Helmet = () => {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleOpen = () => setShowModal(true);
+    const handleClose = () => setShowModal(false);
+
     return (
         <div className='mt-20 '>
             <div className='bg-cover bg-no-repeat bg-center'>
@@ -27,15 +34,24 @@ const Helmet = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col text-right">
+                    <div className="flex flex-row gap-3 text-right">
                         <button 
                             className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                         >
                             Follow
                         </button>
+
+                        <button
+                            onClick={handleOpen} 
+                            className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                        >
+                            Join
+                        </button>
                     </div>
                 </div>
             </div>
+
+            <ModalJoin handleClose={handleClose} show={showModal}/>
         </div>
 
     )

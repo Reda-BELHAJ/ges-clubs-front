@@ -48,13 +48,13 @@ const Home = () => {
            {
             showUserBoard && (
              <div>
-                <User> </User>
+                <User />
              </div> 
            )} 
 
             { showAdminBoard && (
              <div>
-                <Admin> </Admin>
+                <Admin />
              </div> 
              )} 
         </div>

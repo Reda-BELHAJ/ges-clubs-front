@@ -6,7 +6,7 @@ import UserService from '../Services/User/UserService';
 
 
 
-const Feed = (recomState) => {
+const Feed = ({recomState}) => {
     const user = UserService.getCurrentUser();
     const [post, setPost] = useState([]);
 
