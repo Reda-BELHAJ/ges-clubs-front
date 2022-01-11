@@ -43,12 +43,6 @@ const NavbarAuth = () => {
                         </Link>
                     </div>
 
-                    <div >
-                        <Link to="/" >
-                            <button style={{margin: 300, borderWidth: 5}} onClick={onLogoutOut}>Log out</button>
-                        </Link>
-                    </div>
-
                     <nav className="flex flex-grow">
                         <div className="flex flex-grow justify-end flex-wrap items-center"> 
                             <div className="bg-gray-200 flex justify-center items-center relative rounded-full">

@@ -35,6 +35,12 @@ class UserService {
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));;
   }
+
+  getUserByName(username) {
+    return axios.get("http://localhost:8080/api/user/findUser/");
+  }
+
+ 
 }
 
 export default new UserService()
