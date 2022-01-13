@@ -54,7 +54,8 @@ const Settings = () => {
                         <h1>id =: <b>{userDetails.id}</b> </h1>
                         <h1>username =: <b>{user.username}</b> </h1>
                         <h1>password =: <b>{userDetails.password}</b> </h1>
-                        <h1>password =: <b>{userDetails.password}</b> </h1>
+                        <h1>Nom d'utilisateur =: <b>{userDetails.name} PlaceHolder</b> </h1>
+                        <h1 style={{whiteSpace: 'nowrap'}}>Adresse email =: <b>{userDetails.email}Placeholder (Sawb Input bach ymodifie settings dyalo 3ad ngad lupdate dyal settings) </b> </h1>
                     </div>
                 </div>
 
