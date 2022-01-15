@@ -2,7 +2,7 @@ import React from 'react'
 
 import Modal from '@mui/material/Modal';
 
-const ModalJoin = ({ handleClose, show }) => {
+const ModalJoin = ({ handleClose, show, club }) => {
     const style = {
         position: 'absolute',
         top: '50%',
@@ -25,9 +25,9 @@ const ModalJoin = ({ handleClose, show }) => {
                     <div className="py-4 px-8">
 
                         <div className="mb-4">
-                            <label className="block text-grey-darker text-sm font-bold mb-2">Student ID:</label>
+                            <label className="block text-grey-darker text-sm font-bold mb-2">Username:</label>
                             <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                                name="student_id" id="student_id" placeholder="Enter Your ID"/>
+                                name="student_id" id="student_id" placeholder="Enter Your username"/>
                         </div>
 
                         <div className="mb-4">
@@ -37,9 +37,21 @@ const ModalJoin = ({ handleClose, show }) => {
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-grey-darker text-sm font-bold mb-2">Addmission Date:</label>
-                            <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="date"
-                                name="addmission_date" id="addmission_date"/>
+                            <label className="block text-grey-darker text-sm font-bold mb-2">Filiere</label>
+                            <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
+                                name="student_a" id="student_name" placeholder="enter "/>
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="block text-grey-darker text-sm font-bold mb-2">Année d'etude :</label>
+                            <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
+                                name="student_b" id="student_name" placeholder="year"/>
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="block text-grey-darker text-sm font-bold mb-2">Raison de pour rejoindre le club</label>
+                            <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
+                                name="student_c" id="student_name" placeholder="Why?"/>
                         </div>
 
                         <div className="mb-4">

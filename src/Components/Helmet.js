@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import ModalJoin from './ModalJoin';
 
-const Helmet = () => {
+const Helmet = ({club}) => {
     const [showModal, setShowModal] = useState(false);
 
     const handleOpen = () => setShowModal(true);
@@ -51,7 +51,7 @@ const Helmet = () => {
                 </div>
             </div>
 
-            <ModalJoin handleClose={handleClose} show={showModal}/>
+            <ModalJoin handleClose={handleClose} show={showModal} club={club}/>
         </div>
 
     )

@@ -43,7 +43,7 @@ const Home = () => {
   }, []);
     return (
         <div>
-          <User> </User>
+          
            {console.log("admin " + showAdminBoard)}
            {console.log("user " + showUserBoard)}
            {

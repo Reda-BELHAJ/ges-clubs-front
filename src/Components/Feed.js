@@ -30,7 +30,7 @@ const Feed = ({recomState}) => {
                     comments="45"
                     creaAt="10:05 AM · Dec 19, 2020"
                 />
-            {/*this.state.posts.map((p) => (
+            {post.map((p) => (
                         <Post
                             key={p.postId}
                             likes={p.likes}
@@ -42,7 +42,7 @@ const Feed = ({recomState}) => {
                             //comments
                         />
                     ))
-                 */}
+                 }
         </div>
     )
 }

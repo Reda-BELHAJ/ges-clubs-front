@@ -19,6 +19,16 @@ class UserService {
       });
   }
 
+  saveMember(fullName, filiere, anneE, username, club){
+    return axios.post("http://localhost:8080/api/memberService/save", {
+      fullName,
+      filiere,
+      anneE,
+      username,
+      club
+    });
+  }
+
   logout() {
     localStorage.removeItem("user");
   }

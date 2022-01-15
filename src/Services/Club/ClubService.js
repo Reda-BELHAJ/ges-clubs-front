@@ -8,10 +8,17 @@ class ClubService {
         return axios.get("/api/club");
     }
 
-    createClub(club) {
-        return axios.post("/api/createClub", club);
-    }
-
+    createClub(nomClub, descClub, nomReferent, president, vicepresident, tresorier, secretaire){
+        return axios.post("http://localhost:8080/api/clubService/save", {
+            nomClub,
+            descClub,
+            nomReferent,
+            president,
+            vicepresident,
+            tresorier,
+            secretaire
+        });
+      }
     
 }
 
