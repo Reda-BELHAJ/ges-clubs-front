@@ -21,15 +21,15 @@ const Feed = ({recomState}) => {
     return(
         <div className={`lg:col-span-5 h-auto ${recomState && 'mt-20'}`}>
             <Post 
-                    key="12"
-                    username="Reda"
-                    text="“SIUUUUUUUUUUUUU.” — Cristiano Ronaldo"
-                    avatar="https://uifaces.co/our-content/donated/BMGfa1yq.png"
-                    image="https://talksport.com/wp-content/uploads/sites/5/2020/12/NINTCHDBPICT000628686290-e1610650343631.jpg?strip=all&w=960"
-                    likes="7"
-                    comments="45"
-                    creaAt="10:05 AM · Dec 19, 2020"
-                />
+                key="12"
+                username="Reda"
+                text="“SIUUUUUUUUUUUUU.” — Cristiano Ronaldo"
+                avatar="https://uifaces.co/our-content/donated/BMGfa1yq.png"
+                image="https://talksport.com/wp-content/uploads/sites/5/2020/12/NINTCHDBPICT000628686290-e1610650343631.jpg?strip=all&w=960"
+                likes="7"
+                comments="45"
+                creaAt="10:05 AM · Dec 19, 2020"
+            />
             {post.map((p) => (
                         <Post
                             key={p.postId}

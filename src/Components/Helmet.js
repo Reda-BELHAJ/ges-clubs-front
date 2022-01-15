@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
 
 import ModalJoin from './ModalJoin';
+import ModalJoin2 from './ModalJoin2';
 
-const Helmet = ({club}) => {
-    const [showModal, setShowModal] = useState(false);
+const Helmet = ({club, state}) => {
+    const [showModal1, setShowModal1] = useState(false);
 
-    const handleOpen = () => setShowModal(true);
-    const handleClose = () => setShowModal(false);
+    const handleOpen1 = () => setShowModal1(true);
+    const handleClose1 = () => setShowModal1(false);
 
     return (
         <div className='mt-20 '>
@@ -35,23 +37,35 @@ const Helmet = ({club}) => {
                         </div>
                     </div>
                     <div className="flex flex-row gap-3 text-right">
-                        <button 
-                            className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                        >
-                            Follow
-                        </button>
+                        {state ? 
+                            <>
+                                <Link
+                                    to='/createClub'
+                                    className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                >
+                                    Create Club
+                                </Link>
+                            </> : 
+                            <>
+                                <button 
+                                    className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                >
+                                    Follow
+                                </button>
 
-                        <button
-                            onClick={handleOpen} 
-                            className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                        >
-                            Join
-                        </button>
+                                <button
+                                    onClick={handleOpen1} 
+                                    className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                >
+                                    Join
+                                </button>
+                            </> 
+                        }
                     </div>
                 </div>
             </div>
 
-            <ModalJoin handleClose={handleClose} show={showModal} club={club}/>
+            <ModalJoin handleClose={handleClose1} show={showModal1} club={club}/>
         </div>
 
     )

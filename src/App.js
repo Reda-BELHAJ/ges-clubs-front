@@ -11,10 +11,12 @@ import Profile from './Pages/Profile';
 import Clubs from './Pages/Clubs';
 import Events from './Pages/Events';
 import Settings from './Pages/Settings';
+import CreateClub from './Pages/CreateClub';
 import Admin from './Pages/Admin';
+
+
 import UserService from './Services/User/UserService';
 import EventBus from './Utils/EventBus';
-
 
 function App() {
   const location = useLocation();
@@ -51,6 +53,8 @@ function App() {
 
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+
+        <Route path="/createClub" element={<CreateClub />} />
       </Routes>
     </>
     
