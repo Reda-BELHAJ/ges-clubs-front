@@ -1,50 +1,43 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import UserService from '../../Services/User/UserService'
 
-const ClubInfo = () => {
-    const username = "RedaBELHAJ" // for testing
+const ClubInfo = (props) => {
 
+    const username = UserService.getCurrentUser().username
+    const [clubName, setClubName] = useState("");
+    const [clubDesc, setClubDesc] = useState(""); 
+   
     const [logo, setLogo] = useState(null)
     const [coverImg, setCoverImg] = useState(null)
 
     const onCoverImgChange = event => {
         setCoverImg(event.target.files[0]);
-    };
-
-    const onCoverImgUpload = () => {
-        // Create an object of formData
-        const formData = new FormData();
-      
-        // Update the formData object
-        formData.append(
-          "myFile",
-          coverImg,
-        );
-        
-        // hna ila bghiti t post lfile b axios
+        {props.cover(coverImg)}
     };
 
     const onLogoChange = event => {
         setLogo(event.target.files[0]);
+        {props.logo(logo)}
     };
 
-    const onLogoUpload = () => {
-        // Create an object of formData
-        const formData = new FormData();
-      
-        // Update the formData object
-        formData.append(
-          "myFile",
-          logo,
-        );
+    const handleChangeName =  (e) => {
+        setClubName(e.target.value);
+        props.clubName(clubName);
         
-        // hna ila bghiti t post lfile b axios
+    };
+    
+    const handleChangeDesc =  (e) => {
+        setClubDesc(e.target.value);
+        props.clubDesc(clubDesc);
+        
     };
 
     function handleEntailmentRequest(e, num) {
         e.preventDefault();
-        if (num === 1)
+        if (num === 1){
             onCoverImgChange(e);
+        }     
         else
             onLogoChange(e);
     }
@@ -63,13 +56,15 @@ const ClubInfo = () => {
             <div className="mb-4">
                 <label className="block text-grey-darker text-sm font-bold mb-2">Club Name:</label>
                 <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text" 
-                    name="student_name" id="student_name" placeholder="Enter The Club Name"/>
+                    name="student_name" id="student_name" placeholder="Enter The Club Name"
+                    onChange={handleChangeName} value={clubName}/>
             </div>
 
             <div className="mb-4">
                 <label className="block text-grey-darker text-sm font-bold mb-2">Club Description:</label>
                 <textarea className=" border rounded w-full py-2 px-3 text-grey-darker" rows="3"
-                    name="student_name" id="student_name" placeholder="Enter The Club Description"/>
+                    name="student_name" id="student_name" placeholder="Enter The Club Description"
+                    onChange={handleChangeDesc} value={clubDesc}/>
             </div>
 
             <div className="mb-4">

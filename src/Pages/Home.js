@@ -5,7 +5,7 @@ import Feed from '../Components/Feed'
 import Recommendations from '../Components/Recommendations'
 import Widgets from '../Components/Widgets'
 import Admin from './Admin'
-import UserService from '../Services/User/UserService'
+import UserService from '../Services/User/UserService';
 import EventBus from '../Utils/EventBus'
 import User from './User';
 
