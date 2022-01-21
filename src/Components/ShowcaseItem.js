@@ -8,7 +8,7 @@ const ClubProfiles = () => {
     const [ClubProfiles, setClubProfiles] = useState([]);
   
     const fetchClubProfiles = () => {
-      axios.get("http://localhost:8080/api/club").then(res => {
+      axios.get("http://localhost:8080/api/clubService/getClubs").then(res => {
         console.log(res);
         setClubProfiles(res.data);
       });
@@ -21,57 +21,15 @@ const ClubProfiles = () => {
     return ClubProfiles.map((clubProfiles, index) => {
   
       return (
-        <div key={index}>
+        <div  style={{margin: 30}} key={index}>
           {clubProfiles.nomClub}
           {clubProfiles.idClub ? (
-            <img alt={clubProfiles.idClub} src={'http://localhost:8080/api/'+ clubProfiles.idClub +'/image/download'} ></img>
+            <img alt={clubProfiles.idClub} src={'http://localhost:8080/api/clubService/landing/'+ clubProfiles.idClub +'/image/downloadIcon'} ></img>
           ) : null }
-          <Dropzone {...clubProfiles}></Dropzone>
         </div>
       )
     })
   };
-  
-  function Dropzone({ idClub }) {
-    const onDrop = useCallback(acceptedFiles => {
-      const file = acceptedFiles[0];
-      console.log(file);
-  
-      const formData = new FormData();
-      formData.append("file", file);
-      
-      axios.post(
-        'http://localhost:8080/api/'+ idClub +'/image/upload', 
-        formData,
-        {
-          headers: {
-            "Content-Type" : "multipart/form-data"
-          }
-        }
-      )
-      .then(() => {
-        console.log("file  uploaded successfully");
-      })
-      .catch(err => {
-        console.log(err);
-      });
-      
-    }, [])
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
-  
-    return (
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        {
-          isDragActive ?
-            <p>Drop the files here ...</p> :
-            <button> <small> <small> <small>jUST FOR TESING : Update club logo</small></small></small>  </button>
-            
-        }
-      </div>
-    )
-  }
-
 
 const ShowcaseItem = ({width, height}) => {
     return (

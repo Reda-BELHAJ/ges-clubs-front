@@ -4,12 +4,12 @@ import UserService from '../User/UserService';
 
 class ClubService {
 
-    uploadImageCover(file, idClub) {
+    uploadImageCover(fileC, idClub) {
 
         const token = UserService.getCurrentUser().accessToken;
         console.log(token);
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append("file", fileC);
         
         axios.post(
             'http://localhost:8080/api/clubService/'+ idClub +'/image/uploadCover', 
@@ -22,23 +22,76 @@ class ClubService {
             }
         )
         .then(() => {
-            console.log("file  uploaded successfully");
+            console.log("club created successuflly");
         })
         .catch(err => {
             console.log(err);
         });
     }
 
-    async createClub(requestCreateClub){
+    uploadImageLogo(fileL, fileC, idClub) {
 
+        const token = UserService.getCurrentUser().accessToken;
+        console.log(token);
+        const formData = new FormData();
+        formData.append("file", fileL);
+        
+        axios.post(
+            'http://localhost:8080/api/clubService/'+ idClub +'/image/uploadIcon', 
+            formData,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        .then(() => {
+            this.uploadImageCover(fileC, idClub);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+    getClubByName(nom, fileC, fileL) {
+
+        const token = UserService.getCurrentUser().accessToken;
+        axios.get("http://localhost:8080/api/clubService/findClubByName?nomClub=" + nom,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+                return response.data
+            })
+            .then(data => {
+                this.uploadImageLogo(fileL, fileC, data.idClub)
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+    }
+
+    createClub(requestCreateClub, nom, fileC, fileL){
+
+        const token = UserService.getCurrentUser().accessToken;
         const headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         }
-        return axios.post("http://localhost:8080/api/clubService/save",
+        axios.post("http://localhost:8080/api/clubService/save",
             JSON.stringify(requestCreateClub), {
                 headers: headers
             }   
-        );
+        ).then(() => {
+            this.getClubByName(nom, fileC, fileL);
+        })
+        .catch(err => {
+            console.log(err);
+        });
       }
     
 }

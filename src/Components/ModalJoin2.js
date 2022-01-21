@@ -53,26 +53,11 @@ const ModalJoin2 = ({recomState}) => {
         e.preventDefault();
         console.log("submit");
         
-        setPage(1);   // hadi wakha redirect mata7yadhach hiya lif lakhar kat update state dyal RequestCreateClub
-        //ClubService.createClub(requestCreateClub);
         const token = UserService.getCurrentUser().accessToken;
-        axios.get("http://localhost:8080/api/clubService/findClubByName?nomClub=" + "aaaaaaaaaaaaaaaaaa",
-        {
-            headers: {
-                "Content-Type" : "multipart/form-data",
-                'Authorization': `Bearer ${token}`
-            }
-        }
-        ).then(response => {
-            return response.data
-        })
-        .then(data => {
-            ClubService.uploadImageCover(fileC, data.idClub)
-        })
-        .catch(error => {
-            console.log(error.message);
-        })  
-
+        setPage(1);   // hadi wakha redirect mata7yadhach hiya lif lakhar kat update state dyal RequestCreateClub
+        
+        ClubService.createClub(requestCreateClub, club.nomClub, fileC, fileL);
+    
         //
 
         return <Navigate to='/profil' />     // redirect la page profil mnin y submit formulaire
