@@ -13,12 +13,12 @@ const ClubInfo = (props) => {
 
     const onCoverImgChange = event => {
         setCoverImg(event.target.files[0]);
-        {props.cover(coverImg)}
+        props.cover(coverImg)
     };
 
     const onLogoChange = event => {
         setLogo(event.target.files[0]);
-        {props.logo(logo)}
+        props.logo(logo)
     };
 
     const handleChangeName =  (e) => {

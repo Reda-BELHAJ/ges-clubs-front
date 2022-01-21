@@ -1,25 +1,32 @@
 import axios from 'axios';
-
+import UserService from '../User/UserService';
 
 
 class ClubService {
 
-    findClubByName(name) {
+    uploadImageCover(file, idClub) {
 
-        const headers = {
-            'Content-Type': 'application/json'
-        }
-
-        axios.get("http://localhost:8080/api/clubService/findClubByName?nomClub=" + name ).then(response => {
-            return response.data
-        })
-        .then(data => {
-            console.log(data)
-        })
-        .catch(error => {
-            console.log(error.message);
-        })
+        const token = UserService.getCurrentUser().accessToken;
+        console.log(token);
+        const formData = new FormData();
+        formData.append("file", file);
         
+        axios.post(
+            'http://localhost:8080/api/clubService/'+ idClub +'/image/uploadCover', 
+            formData,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        .then(() => {
+            console.log("file  uploaded successfully");
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     async createClub(requestCreateClub){

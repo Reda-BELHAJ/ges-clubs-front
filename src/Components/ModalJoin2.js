@@ -9,12 +9,13 @@ import Treasurer from './StepsForm/Treasurer';
 import GeneralSecretary from './StepsForm/GeneralSecretary';
 import AcademicReferent from './StepsForm/AcademicReferent';
 import ClubService from '../Services/Club/ClubService';
+import UserService from '../Services/User/UserService';
 
 
 const ModalJoin2 = ({recomState}) => {
 
     const [page, setPage] = useState(1);
-    const [ClubProfiles, setClubProfiles] = useState([]);
+    const [ClubProfiles, setClubProfiles] = useState({});
 
     const [club, setClub] = useState({ nomClub: "", descClub: ""});
     const [president, setPresident] = useState({ nom: "", filiere: "", anneeE: "", email: "", nameUser: ""});
@@ -48,15 +49,31 @@ const ModalJoin2 = ({recomState}) => {
     function setData() {
         setRequestCreateClub({clubRequest: club, referentRequest: academicReferent, presidentRequest: president, vicePresidentRequest: vicePresident, tresorierRequest: treasurer, secretaireRequest: generalSecretary}); 
     }
-
-      
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("submit");
-        console.log(requestCreateClub);
+        
         setPage(1);   // hadi wakha redirect mata7yadhach hiya lif lakhar kat update state dyal RequestCreateClub
-        ClubService.createClub(requestCreateClub);
-        ClubService.findClubByName("qsd");
+        //ClubService.createClub(requestCreateClub);
+        const token = UserService.getCurrentUser().accessToken;
+        axios.get("http://localhost:8080/api/clubService/findClubByName?nomClub=" + "aaaaaaaaaaaaaaaaaa",
+        {
+            headers: {
+                "Content-Type" : "multipart/form-data",
+                'Authorization': `Bearer ${token}`
+            }
+        }
+        ).then(response => {
+            return response.data
+        })
+        .then(data => {
+            ClubService.uploadImageCover(fileC, data.idClub)
+        })
+        .catch(error => {
+            console.log(error.message);
+        })  
+
+        //
 
         return <Navigate to='/profil' />     // redirect la page profil mnin y submit formulaire
     }
@@ -76,7 +93,7 @@ const ModalJoin2 = ({recomState}) => {
                             logo={c => setFileL(c)}
                             cover={c => setFileC(c)}
                             />}
-                       {console.log(club)}
+                        
                         {page === 2 && <PresidentInfo
                             filiere={c => setPresident({ ...president, filiere: c})}
                             nom={c => setPresident({ ...president, nom: c})}
