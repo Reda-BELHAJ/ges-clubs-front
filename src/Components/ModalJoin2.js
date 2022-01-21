@@ -76,7 +76,7 @@ const ModalJoin2 = ({recomState}) => {
                             logo={c => setFileL(c)}
                             cover={c => setFileC(c)}
                             />}
-                       
+                       {console.log(club)}
                         {page === 2 && <PresidentInfo
                             filiere={c => setPresident({ ...president, filiere: c})}
                             nom={c => setPresident({ ...president, nom: c})}
