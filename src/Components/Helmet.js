@@ -2,9 +2,10 @@ import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 
 import ModalJoin from './ModalJoin';
-import ModalJoin2 from './ModalJoin2';
 
 const Helmet = ({club, state}) => {
+    const username = "RedaBELHAJ"
+
     const [showModal1, setShowModal1] = useState(false);
 
     const handleOpen1 = () => setShowModal1(true);
@@ -29,13 +30,16 @@ const Helmet = ({club, state}) => {
                                     height={120}
                                     width={120}
                                     className="md rounded-full relative" 
-                                    src="https://uifaces.co/our-content/donated/BMGfa1yq.png"
+                                    src="https://randomuser.me/api/portraits/men/86.jpg"
                                     alt=""
                                 />
-                                <div className="absolute"></div>
+                                <div className="absolute font-bold ">{username}</div>
                             </div>
+                            
                         </div>
+                        
                     </div>
+                    
                     <div className="flex flex-row gap-3 text-right">
                         {state ? 
                             <>
