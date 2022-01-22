@@ -19,12 +19,12 @@ const ClubProfiles = () => {
     }, []);
   
     return ClubProfiles.map((clubProfiles, index) => {
-  
+        // 'http://localhost:8080/api/clubService/landing/'+ clubProfiles.idClub +'/image/downloadIcon'  ============== src={}
       return (
         <div  style={{margin: 30}} key={index}>
           {clubProfiles.nomClub}
           {clubProfiles.idClub ? (
-            <img alt={clubProfiles.idClub} src={'http://localhost:8080/api/clubService/landing/'+ clubProfiles.idClub +'/image/downloadIcon'} ></img>
+            <img alt={clubProfiles.idClub} ></img>
           ) : null }
         </div>
       )

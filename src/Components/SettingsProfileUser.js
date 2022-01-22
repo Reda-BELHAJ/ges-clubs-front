@@ -6,6 +6,8 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Input from "@material-ui/core/Input";
 import IconButton from "@material-ui/core/IconButton";
 
+import UserService from '../Services/User/UserService';
+
 const SettingsProfileUser = () => {
     const [passwordShown, setPasswordShown] = useState(false);
 
@@ -17,9 +19,10 @@ const SettingsProfileUser = () => {
         e.preventDefault();
     };
 
-    const username = "RedaBELHAJ"
-    const password = "RedaBELHAJ"
-    const email = "RedaBELHAJ@Test.com"
+    const id = UserService.getCurrentUser().id;
+    const [username, setUsername] = useState(UserService.getCurrentUser().username);
+    const [password, setPassword] = useState(UserService.getCurrentUser().password);
+    const [email, setEmail] = useState(UserService.getCurrentUser().email);
 
     // ghir for test above
 
@@ -27,7 +30,7 @@ const SettingsProfileUser = () => {
     const [coverImg, setCoverImg] = useState(null)
 
     const onCoverImgChange = event => {
-        setCoverImg(event.target.files[0]);
+        setCoverImg(event.target.files[0])
     };
 
     const onLogoChange = event => {
@@ -42,11 +45,32 @@ const SettingsProfileUser = () => {
         else
             onLogoChange(e);
     }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        UserService.uploadLogoAndCover(coverImg, logo, id);
+        UserService.updateUser(username, password, email, id);
+    }
+
+    function handleUsername(e) {
+        e.preventDefault();
+        setUsername(e.target.value);
+    }
+
+    function handlePassword(e) {
+        e.preventDefault();
+        setPassword(e.target.value);
+    }
+
+    function handleEmail(e) {
+        e.preventDefault();
+        setEmail(e.target.value);
+    }
     
     return (
         <div className="lg:col-span-5 mb-5 h-auto border-gray-300 rounded-xl border">
             <div className="mx-auto">
-                <form name="settings_profile" id="settings_profile">
+                <form name="settings_profile" id="settings_profile" onSubmit={handleSubmit}>
                     <div className="py-4 px-8">
                         <div className="block text-grey-darker text-lg font-bold mb-2">
                             Profile Settings
@@ -55,7 +79,7 @@ const SettingsProfileUser = () => {
                         <div className="mb-4">
                             <label className="block text-grey-darker text-sm font-bold mb-2">Username:</label>
                             <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                                name="student_user" id="student_user" defaultValue={username}/>
+                                name="student_user" id="student_user" defaultValue={username} onChange={handleUsername}/>
                         </div>
 
                         <div className="mb-4">
@@ -63,6 +87,7 @@ const SettingsProfileUser = () => {
                             <Input
                                 className=" border rounded w-full py-2 px-3 text-grey-darker"
                                 type={passwordShown ? "text" : "password"}
+                                onChange={handlePassword}
                                 value={password}
                                 endAdornment={
                                     <InputAdornment position="end">
@@ -80,7 +105,7 @@ const SettingsProfileUser = () => {
                         <div className="mb-4">
                             <label className="block text-grey-darker text-sm font-bold mb-2">E-mail:</label>
                             <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="email"
-                                name="student_email" id="student_email" defaultValue={email}/>
+                                name="student_email" id="student_email" defaultValue={email} onChange={handleEmail} />
                         </div>
 
                         <div className="mb-4">

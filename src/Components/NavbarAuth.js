@@ -9,6 +9,7 @@ import EventBus from '../Utils/EventBus';
 
 const NavbarAuth = () => {
     const user = UserService.getCurrentUser();
+    const idUser = UserService.getCurrentUser().id;
     const [top, setTop] = useState(true);
 
     useEffect(() => {
@@ -22,6 +23,10 @@ const NavbarAuth = () => {
     const onLogoutOut = () => {
         EventBus.dispatch("logout", any);
     }
+
+     const addDefaultSrc1= (ev) => {
+         ev.target.src = "https://previews.123rf.com/images/triken/triken1608/triken160800029/61320775-männlich-avatar-profilbild-standard-benutzer-avatar-gast-avatar-einfach-menschlichen-kopf-vektor-ill.jpg" // this could be an imported image or url
+     }
 
     return (
         <header className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${!top && `bg-white backdrop-blur-sm shadow-lg`}`}>
@@ -55,8 +60,9 @@ const NavbarAuth = () => {
                                         width={32}
                                         height={32}
                                         className="rounded-full" 
-                                        alt="A" 
-                                        src="https://w1.pngwing.com/pngs/40/861/png-transparent-circle-silhouette-user-user-interface-avatar-menu-bar-css-sprites-data-personalization-thumbnail.png"
+                                        src={'http://localhost:8080/api/user/landing/' + 0 + '/image/downloadIcon'}
+                                        alt={"Loading"} 
+                                        onError={addDefaultSrc1}
                                     />
                                 </Link>
 

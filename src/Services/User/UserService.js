@@ -1,8 +1,82 @@
 import axios from 'axios';
 
+
 const API_URL = "http://localhost:8080/api/auth/";
 
 class UserService {
+
+
+  uploadLogoAndCover(fileC, fileL, idUser) {
+
+    const token = this.getCurrentUser().accessToken;
+    
+    const formData = new FormData();
+    formData.append("file", fileC);
+    
+    axios.post(
+        'http://localhost:8080/api/user/'+ idUser +'/image/uploadCover', 
+        formData,
+        {
+            headers: {
+                "Content-Type" : "multipart/form-data",
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    )
+    .then(() => {
+        this.uploadImageLogo(fileL, idUser);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+}
+
+uploadImageLogo(fileL, idClub) {
+
+    const token = this.getCurrentUser().accessToken;
+    
+    const formData = new FormData();
+    formData.append("file", fileL);
+    
+    axios.post(
+        'http://localhost:8080/api/user/'+ idClub +'/image/uploadIcon', 
+        formData,
+        {
+            headers: {
+                "Content-Type" : "multipart/form-data",
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    )
+    .then(() => {
+      console.log("profil and cover image changed sucessufly");
+    })
+    .catch(err => {
+        console.log(err);
+    });
+}
+
+updateUser(userName, password, email, idUser) {
+    const token = this.getCurrentUser().accessToken;
+
+    return axios
+      .put('http://localhost:8080/api/user/updateUser/'+ idUser , {
+        userName,
+        password,
+        email
+      },{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        const user = this.getCurrentUser();
+        this.logout();
+        this.login(userName, password)
+        console.log("user have been updated successufly");
+      });
+}
 
   login(username, password) {
     return axios

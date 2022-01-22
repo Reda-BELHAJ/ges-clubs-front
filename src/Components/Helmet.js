@@ -2,21 +2,34 @@ import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 
 import ModalJoin from './ModalJoin';
+import UserService from '../Services/User/UserService';
 
 const Helmet = ({club, state}) => {
-    const username = "RedaBELHAJ"
+    const username = UserService.getCurrentUser().username
+    const idUser = UserService.getCurrentUser().id; 
 
     const [showModal1, setShowModal1] = useState(false);
 
     const handleOpen1 = () => setShowModal1(true);
     const handleClose1 = () => setShowModal1(false);
 
+    const addDefaultSrc1= (ev) => {
+        ev.target.src = "https://previews.123rf.com/images/triken/triken1608/triken160800029/61320775-männlich-avatar-profilbild-standard-benutzer-avatar-gast-avatar-einfach-menschlichen-kopf-vektor-ill.jpg" // this could be an imported image or url
+    }
+
+    const addDefaultSrc2= (ev) => {
+        ev.target.src = "http://apy-ingenierie.fr/wp-content/plugins/uix-page-builder/uixpb_templates/images/UixPageBuilderTmpl/default-cover-2.jpg" // this could be an imported image or url
+    }
+
     return (
         <div className='mt-20 '>
             <div className='bg-cover bg-no-repeat bg-center'>
+                {console.log('http://localhost:8080/api/user/landing/' + 0 + '/image/downloadCover')}
                 <img 
-                    src='https://pbs.twimg.com/profile_banners/975356535676264448/1521378309/1500x500'
-                    alt='Couverture'
+                    className="md rounded-full relative" 
+                    src={'http://localhost:8080/api/user/landing/' + 0 + '/image/downloadCover'}
+                    alt={"Loading"} 
+                    onError={addDefaultSrc2}
                     className='w-full h-40 object-cover'
                 />
             </div>
@@ -27,13 +40,14 @@ const Helmet = ({club, state}) => {
                         <div style={{marginTop: '-6rem'}}>
                             <div className="md rounded-full relative avatar">
                                 <img 
-                                    height={120}
-                                    width={120}
+                                    height={70}
+                                    width={70}
                                     className="md rounded-full relative" 
-                                    src="https://randomuser.me/api/portraits/men/86.jpg"
-                                    alt=""
+                                    src={'http://localhost:8080/api/user/landing/' + 0 + '/image/downloadIcon'}
+                                    alt={"Loading"} 
+                                    onError={addDefaultSrc1}
                                 />
-                                <div className="absolute font-bold ">{username}</div>
+                                <div style={{marginTop: 30}} className="absolute font-bold ">{username}</div>
                             </div>
                             
                         </div>
