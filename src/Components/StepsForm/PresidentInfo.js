@@ -5,36 +5,41 @@ import UserService from '../../Services/User/UserService'
 const PresidentInfo = (props) => {
 
     const username = UserService.getCurrentUser().username
-    const [course, setCourse] = useState("");
-    const [fullName, setFullName] = useState("");
-    const [year, setYear] = useState("");
-    const [email, setEmail] = useState("");
+    const [courseP, setCourseP] = useState("");
+    const [fullNameP, setFullNameP] = useState("");
+    const [yearP, setYearP] = useState("");
+    const [emailP, setEmailP] = useState("");
 
-    useEffect(()=>{
+    useEffect(() => {
         props.nameUser(username);
-      },[])
+    }, []);
+    
 
     const handleChangeC =  (e) => {
-        setCourse(e.target.value);
-        props.filiere(course);
+        e.preventDefault();
+        setCourseP(e.target.value);
+        props.filiere(courseP);
         
     }
 
     const handleChangeF =  (e) => {
-        setFullName(e.target.value);
-        props.nom(fullName);
+        e.preventDefault();
+        setFullNameP(e.target.value);
+        props.nom(fullNameP);
         
     }
 
     const handleChangeY =  (e) => {
-        setYear(e.target.value);
-        props.anneeE(year);
+        e.preventDefault();
+        setYearP(e.target.value);
+        props.anneeE(yearP);
         
     }
 
     const handleChangeE =  (e) => {
-        setEmail(e.target.value);
-        props.email(email);
+        e.preventDefault();
+        setEmailP(e.target.value);
+        props.email(emailP);
         
     }
 

@@ -8,26 +8,30 @@ const AcademicReferent = (props) => {
     const [username, setUsername] = useState("");
 
     const handleChangeC =  (e) => {
+        e.preventDefault();
         setCourse(e.target.value);
-        props.course(course);
+        props.filiere(course);
         
     }
 
     const handleChangeF =  (e) => {
+        e.preventDefault();
         setFullName(e.target.value);
-        props.fullName(fullName);
+        props.nom(fullName);
         
     }
 
     const handleChangeE =  (e) => {
+        e.preventDefault();
         setEmail(e.target.value);
         props.email(email);
         
     }
 
     const handleChangeU =  (e) => {
+        e.preventDefault();
         setUsername(e.target.value);
-        props.username(username);
+        props.nameUser(username);
         
     }
 

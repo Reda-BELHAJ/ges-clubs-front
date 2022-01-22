@@ -82,6 +82,7 @@ class ClubService {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         }
+        console.log(requestCreateClub);
         axios.post("http://localhost:8080/api/clubService/save",
             JSON.stringify(requestCreateClub), {
                 headers: headers
