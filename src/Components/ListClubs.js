@@ -1,18 +1,18 @@
+
 import React from 'react'
 
 import ClubItem from './ClubItem'
 import Pagination from '@mui/material/Pagination';
 
 import usePagination from'./Utils/Pagination';
-import { default as data } from "./Utils/dataClub.json"; // data ghir for test
 
-const ListClubs = () => {
+const ListClubs = (data) => {
     const [page, setPage] = React.useState(1);
-
+    
     const PER_PAGE = 9;
-    const count = Math.ceil(data.length / PER_PAGE); 
+    const count = Math.ceil(data.data.length / PER_PAGE); 
 
-    const _DATA = usePagination(data, PER_PAGE);
+    const _DATA = usePagination(data.data, PER_PAGE);
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -22,15 +22,27 @@ const ListClubs = () => {
     return (
         <div className="box-border">
             <div className="lg:grid lg:grid-cols-3 mx-auto sm:flex-row ">
+                <h1><b>Club you own</b></h1>
+                <ClubItem
+                    club={"still working on it"}
+                    profileImg={"still working on it"}
+                    coverImg={"still working on it"}
+                    detail={"still working on it"}
+                    email={"still working on it"}
+                />
+                <br></br><br></br><br></br><br></br> <br></br>      
+                  
+                <h1><b>Alls Clubs</b></h1>       
                 {
                     _DATA.currentData().map(item => {
                         return (
-                            <div key={item.id}>
+                            <div key={item.idClub}>
                                 <ClubItem 
-                                    club={item.club}
-                                    profileImg={item.profileImg}
-                                    coverImg={item.coverImg}
-                                    detail={item.detail}
+                                    club={item.nomClub}
+                                    profileImg={'http://localhost:8080/api/clubService/landing/' + item.idClub + '/image/downloadIcon'}
+                                    coverImg={'http://localhost:8080/api/clubService/landing/' + item.idClub + '/image/downloadCover'}
+                                    detail={item.descClub}
+                                    email={item.email}
                                 />
                             </div>
                             

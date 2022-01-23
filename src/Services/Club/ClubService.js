@@ -4,6 +4,26 @@ import UserService from '../User/UserService';
 
 class ClubService {
 
+    getClubs() {
+
+        const token = UserService.getCurrentUser().accessToken;
+    
+        axios.get("http://localhost:8080/api/clubService/getClubs",
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+                
+                return JSON.stringify(response.data);
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+    }
+
     uploadImageCover(fileC, idClub) {
 
         const token = UserService.getCurrentUser().accessToken;

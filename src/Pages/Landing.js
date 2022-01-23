@@ -13,7 +13,7 @@ const Landing = () => {
             <Navbar />
 
             <main className="flex-grow">
-                {localStorage.removeItem("user")}
+                
                 <VideoPlayer />
                 <Features />
                 <Showcase />
