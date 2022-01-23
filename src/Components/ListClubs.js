@@ -32,7 +32,7 @@ const ListClubs = (data) => {
                 />
                 <br></br><br></br><br></br><br></br> <br></br>      
                   
-                <h1><b>Alls Clubs</b></h1>       
+                <h1 ><b>Alls Clubs</b></h1>       
                 {
                     _DATA.currentData().map(item => {
                         return (

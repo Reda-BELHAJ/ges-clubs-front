@@ -9,6 +9,8 @@ const Helmet = ({club, state}) => {
     const idUser = UserService.getCurrentUser().id; 
 
     const [showModal1, setShowModal1] = useState(false);
+    const [follow, setFollow] = useState("Unfollow");
+    const [requestFollow, setRequestFollow] = useState({nomClub: club, idUser: idUser});
 
     const handleOpen1 = () => setShowModal1(true);
     const handleClose1 = () => setShowModal1(false);
@@ -21,10 +23,21 @@ const Helmet = ({club, state}) => {
         ev.target.src = "http://apy-ingenierie.fr/wp-content/plugins/uix-page-builder/uixpb_templates/images/UixPageBuilderTmpl/default-cover-2.jpg" // this could be an imported image or url
     }
 
+    const handleFollow= (ev) => {
+        
+        if(follow == "Follow"){
+            setFollow("Unfollow");
+            UserService.followClub(requestFollow);
+        }  
+        else if(follow == "Unfollow"){
+            setFollow("Follow");
+            UserService.unfollowClub(requestFollow);
+        }     
+    }
+
     return (
         <div className='mt-20 '>
             <div className='bg-cover bg-no-repeat bg-center'>
-                {console.log('http://localhost:8080/api/user/landing/' + 0 + '/image/downloadCover')}
                 <img 
                     className="md rounded-full relative" 
                     src={'http://localhost:8080/api/user/landing/' + 0 + '/image/downloadCover'}
@@ -66,9 +79,10 @@ const Helmet = ({club, state}) => {
                             </> : 
                             <>
                                 <button 
+                                    onClick={handleFollow}
                                     className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                                 >
-                                    Follow
+                                    {follow}
                                 </button>
 
                                 <button
@@ -83,7 +97,7 @@ const Helmet = ({club, state}) => {
                 </div>
             </div>
 
-            <ModalJoin handleClose={handleClose1} show={showModal1} club={club}/>
+            <ModalJoin handleClose={handleClose1} show={showModal1} nomClub={"eaze"}/>
         </div>
 
     )

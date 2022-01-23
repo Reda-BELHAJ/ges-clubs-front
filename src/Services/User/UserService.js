@@ -5,6 +5,62 @@ const API_URL = "http://localhost:8080/api/auth/";
 
 class UserService {
 
+  followClub(requestFollow) {
+    const token = this.getCurrentUser().accessToken;
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    
+    axios.post("http://localhost:8080/api/user/follow",
+        JSON.stringify(requestFollow), {
+            headers: headers
+        }   
+    ).then(() => {
+        console.log("club followed +1 ");
+    })
+    .catch(err => {
+        console.log(err);
+    });
+  }
+
+  unfollowClub(requestFollow) {
+    const token = this.getCurrentUser().accessToken;
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    
+    axios.post("http://localhost:8080/api/user/unfollow",
+        JSON.stringify(requestFollow), {
+            headers: headers
+        }   
+    ).then(() => {
+        console.log("club unfollowed -1 ");
+    })
+    .catch(err => {
+        console.log(err);
+    });
+  }
+
+  saveMember(requestCreateMember) {
+    const token = this.getCurrentUser().accessToken;
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    console.log(requestCreateMember);
+    axios.post("http://localhost:8080/api/memberService/save",
+        JSON.stringify(requestCreateMember), {
+            headers: headers
+        }   
+    ).then(() => {
+        console.log("new member added to the club");
+    })
+    .catch(err => {
+        console.log(err);
+    });
+  }
 
   uploadLogoAndCover(fileC, fileL, idUser) {
 
@@ -91,16 +147,6 @@ updateUser(userName, password, email, idUser) {
 
         return response.data;
       });
-  }
-
-  saveMember(fullName, filiere, anneE, username, club){
-    return axios.post("http://localhost:8080/api/memberService/save", {
-      fullName,
-      filiere,
-      anneE,
-      username,
-      club
-    });
   }
 
   logout() {

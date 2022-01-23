@@ -6,7 +6,7 @@ import Widgets from '../Components/Widgets'
 import Feed from '../Components/Feed'
 
 const Profile = ({state}) => {
-    state = true; // for testing true means user and false means club
+    state = false; // for testing true means user and false means club
 
     return (
         <div className='flex flex-col min-h-screen overflow-hidden'>
@@ -15,7 +15,7 @@ const Profile = ({state}) => {
             {
                 state ? 
                 <>
-                    <Helmet club={"test"} state={state}/>
+                    <Helmet club={"eaze"} state={state}/>
                     <main>
                         <div className="w-full lg:grid lg:grid-cols-7 gap-2 max-w-6xl mx-auto px-5 sm:px-6">
                             <div className='lg:col-span-2 hidden lg:block'>
@@ -26,7 +26,7 @@ const Profile = ({state}) => {
                     </main>
                 </> :
                 <>
-                    <Helmet club={"test"} state={state}/>
+                    <Helmet club={"eaze"} state={state}/>
                     <main>
                         <div className="w-full lg:grid lg:grid-cols-7 gap-2 max-w-6xl mx-auto px-5 sm:px-6">
                             <div className='lg:col-span-2 hidden lg:block'>

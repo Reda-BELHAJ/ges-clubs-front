@@ -1,9 +1,20 @@
 import React from 'react'
 
 import Modal from '@mui/material/Modal';
+import UserService from '../Services/User/UserService';
+import { useState } from 'react';
 
-const ModalJoin = ({ handleClose, show, club, username }) => {
-    username = "RedaBELHAJ" // for testing
+const ModalJoin = ({ handleClose, show, nomClub}) => {
+    
+    const [nom, setNom] = useState("");
+    const [filiere, setFiliere] = useState("");
+    const [anneeE, setAnneeE] = useState("");
+    const [email, setEmail] = useState("");
+    const [nameUser, setNameUser] = useState("");
+    const [raison, setRaison] = useState("");
+
+    const [requestCreateMember, setRequestCreateMember] = useState({ nom: "", filiere: "", anneeE: "",
+    email: "", raison: "", raison: "", nomClub: ""});
 
     const style = {
         width: '100%',
@@ -17,6 +28,54 @@ const ModalJoin = ({ handleClose, show, club, username }) => {
         overflowY: 'auto'
     };
 
+    function setData() {
+       setRequestCreateMember({ nom: nom, filiere: filiere, anneeE: anneeE,
+        email: email, nameUser: nameUser, raison: raison, nomClub: nomClub})
+    }
+
+    const handleChangeC =  (e) => {
+        e.preventDefault();
+        setFiliere(e.target.value);
+        
+    }
+
+    const handleChangeF =  (e) => {
+        e.preventDefault();
+        setNom(e.target.value);
+        
+    }
+
+    const handleChangeY =  (e) => {
+        e.preventDefault();
+        setAnneeE(e.target.value);
+        
+    }
+
+    const handleChangeE =  (e) => {
+        e.preventDefault();
+        setEmail(e.target.value);
+        
+    }
+
+    const handleChangeU =  (e) => {
+        e.preventDefault();
+        setNameUser(e.target.value);
+        
+    }
+
+    const handleChangeR =  (e) => {
+        e.preventDefault();
+        setRaison(e.target.value);
+        
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("submit");
+        
+        UserService.saveMember(requestCreateMember);
+    }
+
     return (
         <Modal
             open={show}
@@ -26,58 +85,57 @@ const ModalJoin = ({ handleClose, show, club, username }) => {
         >
             <div style={style} className="w-96 mx-auto bg-white rounded">
 
-                <form name="student_application" id="student_application" action="">
+                <form name="student_application" id="student_application" action="#" onSubmit={handleSubmit}>
                     <div className="py-4 px-8">
+
+                        
+                        <div className="mb-4">
+                            <label className="block text-grey-darker text-sm font-bold mb-2">Full Name:</label>
+                            <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
+                                name="student_user" id="student_user" placeholder="Enter Full Name" onChange={handleChangeF}/>
+                        </div>
 
                         <div className="mb-4">
                             <label className="block text-grey-darker text-sm font-bold mb-2">Username:</label>
                             <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                                name="student_user" id="student_user" placeholder={username} readOnly="readonly"/>
+                                name="student_user" id="student_user" placeholder={"Enter username"} onChange={handleChangeU}/>
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-grey-darker text-sm font-bold mb-2">Full Name:</label>
+                            <label className="block text-grey-darker text-sm font-bold mb-2">Course of study</label>
                             <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                                name="student_name" id="student_name" placeholder="Enter Your Name"/>
+                                name="student_user" id="student_user" placeholder="Enter course of study" onChange={handleChangeC}/>
+                        </div>
+
+                        <div onChange={handleChangeY} className="mb-4">
+                            <label className="block text-grey-darker text-sm font-bold mb-2">school year</label>
+                            <input style={{marginLeft: 30}} type="radio" value="1" name="gender"/> 1
+                            <input style={{marginLeft: 30}} type="radio" value="2" name="gender"/> 2
+                            <input style={{marginLeft: 30}} type="radio" value="3" name="gender"/> 3
+                            <input style={{marginLeft: 30}} type="radio" value="4" name="gender"/> 4
+                            <input style={{marginLeft: 30}} type="radio" value="5" name="gender"/> 5
+                            <input style={{marginLeft: 30}} type="radio" value="6" name="gender"/> 6
+                            <input style={{marginLeft: 30}} type="radio" value="7" name="gender"/> 7
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-grey-darker text-sm font-bold mb-2">Student ID:</label>
+                            <label className="block text-grey-darker text-sm font-bold mb-2">Email:</label>
                             <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                                name="student_id" id="student_id" placeholder="Enter Your ID"/>
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-grey-darker text-sm font-bold mb-2">Phone Number:</label>
-                            <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                                name="student_phoneNbr" id="student_phoneNbr" placeholder="Enter Your Phone Number"/>
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-grey-darker text-sm font-bold mb-2">School:</label>
-                            <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                                name="student_school" id="student_school" placeholder="Enter Your School"/>
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-grey-darker text-sm font-bold mb-2">Year/ Class:</label>
-                            <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="date"
-                                name="addmission_date" id="addmission_date"/>
-                            {/* <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                                name="student_b" id="student_name" placeholder="year"/> */}
+                                name="student_user" id="student_user" placeholder="Enter Email" onChange={handleChangeE}/>
                         </div>
 
                         <div className="mb-4">
                             <label className="block text-grey-darker text-sm font-bold mb-2">Reason for joining the club:</label>
                             <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                                name="student_reason" id="student_reason" placeholder="Why?"/>
+                                name="student_reason" id="student_reason" placeholder="Why?" onChange={handleChangeR}/>
                         </div>
 
                         <div className="mb-4">
                             <button 
                                 className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                onClick={setData}
                             >
-                                Save
+                                Submit
                             </button>
                         </div>
                     </div>

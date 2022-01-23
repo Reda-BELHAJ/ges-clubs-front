@@ -31,7 +31,7 @@ const Clubs = () => {
         <div className='flex flex-col min-h-screen overflow-hidden'>
             <NavbarAuth />
             <main className='mt-20 w-full max-w-6xl mx-auto px-5 sm:px-6'>
-
+                {console.log(d)}
                 { d &&
                     <ListClubs data = {d}></ListClubs>   
                 }
