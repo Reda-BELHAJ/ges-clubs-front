@@ -15,6 +15,7 @@ import CreateClub from './Pages/CreateClub';
 import Admin from './Pages/Admin';
 import SettingsClub from './Pages/SettingsClub'
 import Dashboards from './Pages/Dashboards';
+import Members from './Pages/Members';
 
 import UserService from './Services/User/UserService';
 import EventBus from './Utils/EventBus';
@@ -54,6 +55,7 @@ function App() {
         <Route path="/settingsClub" element={<SettingsClub />} />
 
         <Route path="/dashboards" element={<Dashboards />} />
+        <Route path="/members" element={<Members />} />
 
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />

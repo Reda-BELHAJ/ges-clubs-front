@@ -2,7 +2,7 @@ import React from 'react'
 import { any } from 'prop-types';
 import WidgetItem from './WidgetItem'
 import { FaUser } from "react-icons/fa";
-import { BsFillGearFill, BsGear } from "react-icons/bs";
+import { BsFillGearFill, BsGear, BsPeopleFill } from "react-icons/bs";
 import { MdOutlineEvent, MdLogout } from "react-icons/md";
 import { VscOrganization } from "react-icons/vsc";
 import { AiFillHome } from "react-icons/ai";
@@ -67,6 +67,13 @@ const Widgets = ({recomState}) => {
                             path="/dashboards"
                         >
                             <RiDashboardFill size={20} className='inline-flex justify-center items-center ml-4'/>
+                        </WidgetItem>
+
+                        <WidgetItem
+                            header="Members"
+                            path="/members"
+                        >
+                            <BsPeopleFill size={20} className='inline-flex justify-center items-center ml-4'/>
                         </WidgetItem>
 
                         <WidgetItem

@@ -23,6 +23,34 @@
     display: none;
 }
 
+@layer components {
+    .btn-select {
+      @apply cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left  transition ease-in-out duration-150;
+    }
+}
+
 // AOS styles
 $aos-distance: 10px;
 @import 'node_modules/aos/src/sass/aos.scss';
+
+.table {
+    border-spacing: 0 15px;
+}
+
+i {
+    font-size: 1rem !important;
+}
+
+.table tr {
+    border-radius: 20px;
+}
+
+tr td:nth-child(n+7),
+tr th:nth-child(n+7) {
+    border-radius: 0 .625rem .625rem 0;
+}
+
+tr td:nth-child(1),
+tr th:nth-child(1) {
+    border-radius: .625rem 0 0 .625rem;
+}
