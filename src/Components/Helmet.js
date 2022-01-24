@@ -9,7 +9,7 @@ const Helmet = ({club, state}) => {
     const idUser = UserService.getCurrentUser().id; 
 
     const [showModal1, setShowModal1] = useState(false);
-    const [follow, setFollow] = useState("Unfollow");
+    const [follow, setFollow] = useState("Follow");  // Unfollow - Follow 
     const [requestFollow, setRequestFollow] = useState({nomClub: club, idUser: idUser});
 
     const handleOpen1 = () => setShowModal1(true);

@@ -10,7 +10,7 @@ const Clubs = () => {
 
     const [d, setD] = useState(null);
     const token = UserService.getCurrentUser().accessToken;
-    
+  
     useEffect(() => {
         axios.get("http://localhost:8080/api/clubService/getClubs",
         {
@@ -33,7 +33,10 @@ const Clubs = () => {
             <main className='mt-20 w-full max-w-6xl mx-auto px-5 sm:px-6'>
                 {console.log(d)}
                 { d &&
-                    <ListClubs data = {d}></ListClubs>   
+                    <ListClubs
+                        data = {d}
+                        sendData = {setD}   
+                    />  
                 }
                 
             </main>
