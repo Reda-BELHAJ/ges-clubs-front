@@ -31,7 +31,8 @@ const Feed = ({recomState}) => {
                 creaAt="10:05 AM · Dec 19, 2020"
             />
             {post.map((p) => (
-                        <Post
+                <div key={p.postId}>
+                    <Post
                             key={p.postId}
                             likes={p.likes}
                             text={p.description}
@@ -41,6 +42,7 @@ const Feed = ({recomState}) => {
                             creaAt={p.dateTime}
                             //comments
                         />
+                </div>                  
                     ))
                  }
         </div>

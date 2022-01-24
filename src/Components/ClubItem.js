@@ -2,8 +2,10 @@ import React from 'react'
 
 import InfoIcon from '@mui/icons-material/Info';
 import EmailIcon from '@mui/icons-material/Email';
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import Loyalty from '@mui/icons-material/Loyalty';
 
-const ClubItem = ({club, profileImg, coverImg, detail, email}) => {
+const ClubItem = ({club, profileImg, coverImg, detail, email, followers}) => {
     return (
         <div className="w-auto lg:m-3 mb-2 text-gray-800 bg-white shadow-md border-2 border-gray-200">
             <div className="h-20" style={{backgroundImage: `url(${coverImg})`}}>
@@ -24,6 +26,11 @@ const ClubItem = ({club, profileImg, coverImg, detail, email}) => {
                 <div className="flex my-1 text-gray-600">
                     <EmailIcon className="h-5 mt-1 mr-2"/>
                     <span>{email}</span>
+                </div>
+
+                <div className="flex my-1 text-gray-600">
+                    <Loyalty className="h-5 mt-1 mr-2"/>
+                    <span>{followers}</span>
                 </div>
             </div>
             <div className="flex justify-center my-2">

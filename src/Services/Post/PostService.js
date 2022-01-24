@@ -1,12 +1,18 @@
 import axios from 'axios';
 
-
+import UserService from '../User/UserService';
 
 class PostService {
 
     getPosts() {
-        
-        return axios.get("http://localhost:8080/api/postService/getPost");
+
+        const token = UserService.getCurrentUser().accessToken;
+        return axios.get("http://localhost:8080/api/postService/getPost", {
+            headers: {
+                "Content-Type" : "multipart/form-data",
+                'Authorization': `Bearer ${token}`
+            }
+        });
     }
 
     

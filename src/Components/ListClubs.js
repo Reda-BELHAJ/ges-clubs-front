@@ -73,6 +73,9 @@ const filters_setThree = [
 const ListClubs = (props) => {
     const [page, setPage] = React.useState(1);
     const PER_PAGE = 9;
+    const username = UserService.getCurrentUser().username;
+    const id = UserService.getCurrentUser().id;
+    const allClubs = props.data;
 
     const [changeData, setChangeData] = React.useState("");
     const token = UserService.getCurrentUser().accessToken;
@@ -101,55 +104,97 @@ const ListClubs = (props) => {
     }
 
     useEffect(() => {
-        let sortType = "";
-        let sortOrder = false;
-        {console.log(currentFilter_one.label)}
-        if (currentFilter_one.label == "Sort by Name" && currentFilter_three.label == "Ascending") {
-            sortType = "nomClub";
-            sortOrder = true;
-        }
-        if (currentFilter_one.label == "Sort by Name" && currentFilter_three.label == "Descending") {
-            sortType = "nomClub";
-            sortOrder = false;
-        }
-        if (currentFilter_one.label == "Sort by Date of Creation" && currentFilter_three.label == "Ascending") {
-            sortType = "nomClub";
-            sortOrder = true;
-        }
-        if (currentFilter_one.label == "Sort by Date of Creation" && currentFilter_three.label == "Descending") {
-            sortType = "nomClub";
-            sortOrder = false;
-        }   
-        if (currentFilter_one.label == "Sort by Number of Followers" && currentFilter_three.label == "Ascending") {
-            sortType = "nomClub";
-            sortOrder = true;
-        }
-        if (currentFilter_one.label == "Sort by Number of Followers" && currentFilter_three.label == "Descending") {
-            sortType = "nomClub";
-            sortOrder = false;
+
+        if (currentFilter_two.label == "All Clubs"){
+
+            let sortType = "";
+            let sortOrder = false;
+            
+            if (currentFilter_one.label == "Sort by Name" && currentFilter_three.label == "Ascending") {
+                sortType = "nomClub";
+                sortOrder = true;
+            }
+            if (currentFilter_one.label == "Sort by Name" && currentFilter_three.label == "Descending") {
+                sortType = "nomClub";
+                sortOrder = false;
+            }
+            if (currentFilter_one.label == "Sort by Date of Creation" && currentFilter_three.label == "Ascending") {
+                sortType = "dateCre";
+                sortOrder = true;
+            }
+            if (currentFilter_one.label == "Sort by Date of Creation" && currentFilter_three.label == "Descending") {
+                sortType = "dateCre";
+                sortOrder = false;
+            }   
+            if (currentFilter_one.label == "Sort by Number of Followers" && currentFilter_three.label == "Ascending") {
+                sortType = "nbrFollowers";
+                sortOrder = true;
+            }
+            if (currentFilter_one.label == "Sort by Number of Followers" && currentFilter_three.label == "Descending") {
+                sortType = "nbrFollowers";
+                sortOrder = false;
+            }
+            
+            axios.get("http://localhost:8080/api/clubService/getClubs/" + sortType + "/" + sortOrder ,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+                const newData = response.data;
+                setChangeData(newData);
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+
         }
 
-        axios.get("http://localhost:8080/api/clubService/getClubs/" + sortType + "/" + sortOrder ,
-        {
-            headers: {
-                "Content-Type" : "multipart/form-data",
-                'Authorization': `Bearer ${token}`
+        if (currentFilter_two.label == "Clubs I Own"){
+            
+            axios.get("http://localhost:8080/api/user/findClubOwned/" + username,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
             }
+            ).then(response => {
+                
+                const newData = response.data;
+                setChangeData(newData);
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
         }
-        ).then(response => {
-            const newData = response.data;
-            setChangeData(newData);
-        })
-        .catch(error => {
-            console.log(error.message);
-        }) 
-    }, [currentFilter_one, currentFilter_three]);
+
+        if (currentFilter_two.label == "Clubs I Follow"){
+            
+            axios.get("http://localhost:8080/api/user/findClubFollowed/" + id,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+                
+                const newData = response.data;
+                setChangeData(newData);
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+            
+        }
+        
+    }, [currentFilter_one, currentFilter_three, currentFilter_two]);
 
     return (
         <div className="box-border">
-            <h1 className="font-bold text-base">
-                Alls Clubs
-            </h1>
             
             <div className='lg:grid lg:grid-cols-4'>
                 <Select
@@ -178,7 +223,7 @@ const ListClubs = (props) => {
                         id="username" type="text" placeholder="Search by name"/>
                 </div>
 
-                <div className="mb-14">
+                <div className="mb-4">
                             <button 
                                 className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                                 onClick={HandleFilters}
@@ -191,23 +236,25 @@ const ListClubs = (props) => {
             </div>
 
             <div className="lg:grid lg:grid-cols-3 mx-auto sm:flex-row ">     
-            {console.log(currentFilter_one)}
+           
                 {_DATA && 
-                    _DATA.currentData().map(item => {
+                    _DATA.currentData().map(item => { 
                         return (
                             <div key={item.idClub}>
                                 <ClubItem 
-                                    club={item.dateCre}
+                                    club={item.nomClub}
                                     profileImg={'http://localhost:8080/api/clubService/landing/' + 0 + '/image/downloadIcon'}  // 0 ==> item.idClub
                                     coverImg={'http://localhost:8080/api/clubService/landing/' + 0 + '/image/downloadCover'}  // 0 ==> item.idClub 
-                                    detail={item.nomClub}
+                                    detail={item.descClub}
                                     email={item.email}
+                                    followers={item.nbrFollowers}
                                 />
                             </div>
                             
                         )
                     })
                 }
+
             </div>
 
             <Pagination 
