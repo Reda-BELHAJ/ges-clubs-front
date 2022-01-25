@@ -2,10 +2,12 @@ import React from 'react'
 
 import InfoIcon from '@mui/icons-material/Info';
 import EmailIcon from '@mui/icons-material/Email';
-import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import Loyalty from '@mui/icons-material/Loyalty';
+import UploadIcon from '@mui/icons-material/Upload';
+import Upload from '@mui/icons-material/Upload';
 
-const ClubItem = ({club, profileImg, coverImg, detail, email, followers}) => {
+
+const ClubItem = ({club, profileImg, coverImg, detail, email, followers, dateCre}) => {
     return (
         <div className="w-auto lg:m-3 mb-2 text-gray-800 bg-white shadow-md border-2 border-gray-200">
             <div className="h-20" style={{backgroundImage: `url(${coverImg})`}}>
@@ -26,6 +28,11 @@ const ClubItem = ({club, profileImg, coverImg, detail, email, followers}) => {
                 <div className="flex my-1 text-gray-600">
                     <EmailIcon className="h-5 mt-1 mr-2"/>
                     <span>{email}</span>
+                </div>
+
+                <div className="flex my-1 text-gray-600">
+                    <Upload className="h-5 mt-1 mr-2"/>
+                    <span>{dateCre}</span>                   
                 </div>
 
                 <div className="flex my-1 text-gray-600">

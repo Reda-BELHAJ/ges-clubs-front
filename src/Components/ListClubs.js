@@ -105,35 +105,35 @@ const ListClubs = (props) => {
 
     useEffect(() => {
 
-        if (currentFilter_two.label == "All Clubs"){
-
-            let sortType = "";
-            let sortOrder = false;
+        let sortType = "";
+        let sortOrder = false;
             
-            if (currentFilter_one.label == "Sort by Name" && currentFilter_three.label == "Ascending") {
-                sortType = "nomClub";
-                sortOrder = true;
-            }
-            if (currentFilter_one.label == "Sort by Name" && currentFilter_three.label == "Descending") {
-                sortType = "nomClub";
-                sortOrder = false;
-            }
-            if (currentFilter_one.label == "Sort by Date of Creation" && currentFilter_three.label == "Ascending") {
-                sortType = "dateCre";
-                sortOrder = true;
-            }
-            if (currentFilter_one.label == "Sort by Date of Creation" && currentFilter_three.label == "Descending") {
-                sortType = "dateCre";
-                sortOrder = false;
-            }   
-            if (currentFilter_one.label == "Sort by Number of Followers" && currentFilter_three.label == "Ascending") {
-                sortType = "nbrFollowers";
-                sortOrder = true;
-            }
-            if (currentFilter_one.label == "Sort by Number of Followers" && currentFilter_three.label == "Descending") {
-                sortType = "nbrFollowers";
-                sortOrder = false;
-            }
+        if (currentFilter_one.label == "Sort by Name" && currentFilter_three.label == "Ascending") {
+            sortType = "nomClub";
+            sortOrder = true;
+        }
+        if (currentFilter_one.label == "Sort by Name" && currentFilter_three.label == "Descending") {
+            sortType = "nomClub";
+            sortOrder = false;
+        }
+        if (currentFilter_one.label == "Sort by Date of Creation" && currentFilter_three.label == "Ascending") {
+            sortType = "dateCre";
+            sortOrder = true;
+        }
+        if (currentFilter_one.label == "Sort by Date of Creation" && currentFilter_three.label == "Descending") {
+            sortType = "dateCre";
+            sortOrder = false;
+        }   
+        if (currentFilter_one.label == "Sort by Number of Followers" && currentFilter_three.label == "Ascending") {
+            sortType = "nbrFollowers";
+            sortOrder = true;
+        }
+        if (currentFilter_one.label == "Sort by Number of Followers" && currentFilter_three.label == "Descending") {
+            sortType = "nbrFollowers";
+            sortOrder = false;
+        }
+
+        if (currentFilter_two.label == "All Clubs"){
             
             axios.get("http://localhost:8080/api/clubService/getClubs/" + sortType + "/" + sortOrder ,
             {
@@ -173,7 +173,27 @@ const ListClubs = (props) => {
 
         if (currentFilter_two.label == "Clubs I Follow"){
             
-            axios.get("http://localhost:8080/api/user/findClubFollowed/" + id,
+            axios.get("http://localhost:8080/api/user/findClubFollowed/" + id + "/" + sortType + "/" + sortOrder,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+                
+                const newData = response.data;
+                setChangeData(newData);
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+            
+        }
+
+        if (currentFilter_two.label == "Clubs I Joined"){
+            
+            axios.get("http://localhost:8080/api/memberService/findClubJoined/" + id + "/" + sortType + "/" + sortOrder,
             {
                 headers: {
                     "Content-Type" : "multipart/form-data",
@@ -248,11 +268,19 @@ const ListClubs = (props) => {
                                     detail={item.descClub}
                                     email={item.email}
                                     followers={item.nbrFollowers}
+                                    dateCre={new Date(Date.parse(item.dateCre)).toUTCString()}
                                 />
                             </div>
                             
                         )
                     })
+                }
+
+                {!_DATA.currentData().length &&
+                    <div>
+                        <br></br><br></br>
+                        <b>No Data found for this set of filters  :(</b>
+                    </div> 
                 }
 
             </div>
