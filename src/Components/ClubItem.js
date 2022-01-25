@@ -1,13 +1,17 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import InfoIcon from '@mui/icons-material/Info';
 import EmailIcon from '@mui/icons-material/Email';
 import Loyalty from '@mui/icons-material/Loyalty';
-import UploadIcon from '@mui/icons-material/Upload';
 import Upload from '@mui/icons-material/Upload';
 
 
 const ClubItem = ({club, profileImg, coverImg, detail, email, followers, dateCre}) => {
+    const navigate = useNavigate();
+
+
+
     return (
         <div className="w-auto lg:m-3 mb-2 text-gray-800 bg-white shadow-md border-2 border-gray-200">
             <div className="h-20" style={{backgroundImage: `url(${coverImg})`}}>
@@ -41,12 +45,15 @@ const ClubItem = ({club, profileImg, coverImg, detail, email, followers, dateCre
                 </div>
             </div>
             <div className="flex justify-center my-2">
-                <button 
-                    type="button" 
+                <Link
+                    to = {{
+                        pathname: "/profile",
+                        state: {name: 'zadzdazda'}
+                    }}
                     className="inline-flex items-center px-6 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-blue-500 rounded-md hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
                 >
                     View Profile
-                </button>
+                </Link>
             </div>
         </div>
     )

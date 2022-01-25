@@ -97,7 +97,7 @@ const Helmet = ({club, state}) => {
                 </div>
             </div>
 
-            <ModalJoin handleClose={handleClose1} show={showModal1} nomClub={"eaze"}/>
+            <ModalJoin handleClose={handleClose1} show={showModal1} nomClub={club}/>
         </div>
 
     )
