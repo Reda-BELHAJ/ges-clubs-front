@@ -75,7 +75,7 @@ const ListClubs = (props) => {
     const PER_PAGE = 9;
     const username = UserService.getCurrentUser().username;
     const id = UserService.getCurrentUser().id;
-    const allClubs = props.data;
+    const [searchTerm, setSearchTerm] = React.useState("");
 
     const [changeData, setChangeData] = React.useState("");
     const token = UserService.getCurrentUser().accessToken;
@@ -240,7 +240,7 @@ const ListClubs = (props) => {
                 />
                 <div className='lg:m-3 lg:mr-0 mb-2 '>
                     <input className="mt-1 shadow appearance-none border rounded w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                        id="username" type="text" placeholder="Search by name"/>
+                        id="username" type="text" placeholder="Search by name" onChange={(event) => {setSearchTerm(event.target.value)}}/>
                 </div>
 
                 <div className="mb-4">
@@ -258,7 +258,13 @@ const ListClubs = (props) => {
             <div className="lg:grid lg:grid-cols-3 mx-auto sm:flex-row ">     
            
                 {_DATA && 
-                    _DATA.currentData().map(item => { 
+                    _DATA.currentData().filter((val) => {
+                        if (searchTerm == "") {
+                            return val;
+                        } else if (val.nomClub.toLowerCase().includes(searchTerm.toLowerCase())){
+                            return val;
+                        }
+                    }).map(item => { 
                         return (
                             <div key={item.idClub}>
                                 <ClubItem 
