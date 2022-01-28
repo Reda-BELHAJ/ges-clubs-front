@@ -7,7 +7,7 @@ import Feed from '../Components/Feed'
 import { useLocation } from 'react-router-dom'
 
 const Profile = (props) => {
-    const state = false; // for testing true means user and false means club
+    const state = true; // for testing true means user and false means club
     
     let location = useLocation();   // get parametre nom Club
     
@@ -18,7 +18,7 @@ const Profile = (props) => {
                 state ? 
                 <>
                 
-                    <Helmet club={"azeda"} state={state}  />  {/* club = location.getNomClub */}    
+                    <Helmet club={"azeda"} state={state}  />  {/* club = location.name       state = location.show */}    
                     <main>
                         <div className="w-full lg:grid lg:grid-cols-7 gap-2 max-w-6xl mx-auto px-5 sm:px-6">
                             <div className='lg:col-span-2 hidden lg:block'>

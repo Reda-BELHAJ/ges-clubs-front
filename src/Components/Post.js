@@ -25,6 +25,10 @@ export default function Post ({avatar, image, text, likes, comments, username, c
                 >
                     {text}
                 </p>
+                <p className="text-gray-500 text-base py-1 my-0.5"
+                >
+                    {text}
+                </p>
                 
                 <img 
                     className="mt-2 rounded-2xl border border-gray-100" 

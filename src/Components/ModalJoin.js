@@ -88,7 +88,6 @@ const ModalJoin = ({ handleClose, show, nomClub}) => {
                 <form name="student_application" id="student_application" action="#" onSubmit={handleSubmit}>
                     <div className="py-4 px-8">
 
-                        
                         <div className="mb-4">
                             <label className="block text-grey-darker text-sm font-bold mb-2">Full Name:</label>
                             <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"

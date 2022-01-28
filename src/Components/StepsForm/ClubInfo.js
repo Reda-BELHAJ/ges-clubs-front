@@ -59,7 +59,7 @@ const ClubInfo = (props) => {
                 <label className="block text-grey-darker text-sm font-bold mb-2">Club Name:</label>
                 <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text" 
                     name="student_name" id="student_name" placeholder="Enter The Club Name"
-                    onChange={handleChangeName} value={clubName} />
+                    onChange={e => props.clubName(e.target.value)} />
             </div>
 
             <div className="mb-4">

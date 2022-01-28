@@ -20,7 +20,7 @@ const Clubs = () => {
             }
         }
         ).then(response => {
-            setD(response.data); 
+            setD(response.data);
         })
         .catch(error => {
             console.log(error.message);

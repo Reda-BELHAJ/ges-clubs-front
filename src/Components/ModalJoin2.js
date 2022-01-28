@@ -71,13 +71,14 @@ const ModalJoin2 = ({recomState}) => {
                         <div className="w-full bg-gray-200 h-5 mb-3">
                             <div className="text-xs font-medium text-blue-100 text-center p-1 leading-none bg-blue-500 h-5" style={{width: `${page/6 * 100}%`}}>{`${(page/6 * 100).toFixed(2)}%`}</div>
                         </div>
-
+                        {console.log(club)}
                         {page === 1 && <ClubInfo
+                            
                             clubName={c => setClub({ ...club, nomClub: c})}
                             clubDesc={c => setClub({ ...club, descClub: c})}
                             logo={c => setFileL(c)}
                             cover={c => setFileC(c)}
-                            />}
+                        />}
                         
                         {page === 2 && <PresidentInfo
                             filiere={c => setPresident({ ...president, filiere: c})}
@@ -85,7 +86,7 @@ const ModalJoin2 = ({recomState}) => {
                             anneeE={c => setPresident({ ...president, anneeE: c})}
                             email={c => setPresident({ ...president, email: c})}
                             nameUser={c => setPresident({ ...president, nameUser: c})}
-                            />}
+                        />}
                             
                         
                         {page === 3 && <VicePresident
@@ -94,7 +95,7 @@ const ModalJoin2 = ({recomState}) => {
                             anneeE={c => setVicePresident({ ...vicePresident, anneeE: c})}
                             email={c => setVicePresident({ ...vicePresident, email: c})}
                             nameUser={c => setVicePresident({ ...vicePresident, nameUser: c})}
-                            />}
+                        />}
 
                         {page === 4 && <Treasurer
                             filiere={c => setTreasurer({ ...treasurer, filiere: c})}
@@ -102,7 +103,7 @@ const ModalJoin2 = ({recomState}) => {
                             anneeE={c => setTreasurer({ ...treasurer,anneeE: c})}
                             email={c => setTreasurer({ ...treasurer, email: c})}
                             nameUser={c => setTreasurer({ ...treasurer, nameUser: c})}
-                            />}
+                        />}
 
                         {page === 5 && <GeneralSecretary
                             filiere={c => setGeneralSecretary({ ...generalSecretary, filiere: c})}
@@ -110,14 +111,14 @@ const ModalJoin2 = ({recomState}) => {
                             anneeE={c => setGeneralSecretary({ ...generalSecretary, anneeE: c})}
                             email={c => setGeneralSecretary({ ...generalSecretary, email: c})}
                             nameUser={c => setGeneralSecretary({ ...generalSecretary, nameUser: c})}
-                            />}
+                        />}
 
                         {page === 6 && <AcademicReferent 
                             filiere={c => setAcademicReferent({ ...academicReferent, filiere: c})}
                             nom={c => setAcademicReferent({ ...academicReferent, nom: c})}
                             email={c => setAcademicReferent({ ...academicReferent, email: c})}
                             nameUser={c => setAcademicReferent({ ...academicReferent, nameUser: c})}
-                            />}
+                        />}
 
                         <div className='w-full'>
                             {page !== 6 && 

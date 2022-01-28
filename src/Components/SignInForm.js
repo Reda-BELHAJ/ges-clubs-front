@@ -76,7 +76,7 @@ const SignInForm = () => {
                     <div className="flex flex-wrap -mx-3 mb-4">
                         <div className="w-full px-3">
                             <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="username">Username</label>
-                            <Input id="username" type="text" className="form-input w-full text-gray-800" placeholder="Enter your username"
+                            <Input id="username" type="text" className="border rounded form-input w-full text-gray-800" placeholder="Enter your username"
                                 name="username"
                                 value={username}
                                 onChange={onChangeUsername}
@@ -89,7 +89,7 @@ const SignInForm = () => {
                             <div className="flex justify-between">
                                 <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="password">Password</label>
                             </div>
-                            <Input id="password" type="password" className="form-input w-full text-gray-800" placeholder="Enter your password"
+                            <Input id="password" type="password" className="border rounded form-input w-full text-gray-800" placeholder="Enter your password"
                                 name="password"
                                 value={password}
                                 onChange={onChangePassword}
@@ -102,14 +102,14 @@ const SignInForm = () => {
                         <div className="w-full px-3">
                             <div className="flex justify-between">
                                 <label className="flex items-center">
-                                    <input type="checkbox" className="form-checkbox" />
+                                    <input type="checkbox" className="border rounded form-checkbox" />
                                     <span className="text-gray-600 ml-2">Keep me signed in</span>
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div className="flex flex-wrap -mx-3 mt-6">
-                        <div className="w-full px-3 grid grid-cols-2 gap-4">
+                        <div className="w-full px-3">
                             <button className="btn text-white bg-blue-600 hover:bg-blue-700 w-full" disabled={loading}>
                                 {loading && (
                                     <span className="spinner-border spinner-border-sm"></span>

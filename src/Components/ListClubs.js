@@ -242,17 +242,16 @@ const ListClubs = (props) => {
                     <input className="mt-1 shadow appearance-none border rounded w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                         id="username" type="text" placeholder="Search by name" onChange={(event) => {setSearchTerm(event.target.value)}}/>
                 </div>
+                
+            </div>
 
-                <div className="mb-4">
-                            <button 
-                                className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                                onClick={HandleFilters}
-                            >
-                                Apply filters
-                            </button>
-                        </div>
-                
-                
+            <div className="mb-4 lg:ml-3">
+                <button 
+                    className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                    onClick={HandleFilters}
+                >
+                    Apply filters
+                </button>
             </div>
 
             <div className="lg:grid lg:grid-cols-3 mx-auto sm:flex-row ">     

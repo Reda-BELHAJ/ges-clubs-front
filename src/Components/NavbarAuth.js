@@ -69,9 +69,9 @@ const NavbarAuth = () => {
                                 <span className="w-2 h-2 bg-green-500 absolute bottom-0 right-0 rounded-full"></span>
                                 {/* 
                                     Sleep : Li hya yellow
-                                    <span class="w-2 h-2 bg-yellow-500 absolute bottom-0 right-0 rounded-full"></span>
+                                    <span className="w-2 h-2 bg-yellow-500 absolute bottom-0 right-0 rounded-full"></span>
                                     Away : Li hya red
-                                    <span class="w-2 h-2 bg-red-500 absolute bottom-0 right-0 rounded-full"></span> 
+                                    <span className="w-2 h-2 bg-red-500 absolute bottom-0 right-0 rounded-full"></span> 
                                 */}
                             </div>
                         </div>

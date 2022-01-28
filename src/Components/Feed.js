@@ -12,7 +12,7 @@ const Feed = ({recomState}) => {
 
     useEffect(() => {
         PostService.getPosts().then(res => {
-            setPost(res.data);
+            //setPost(res.data);
             console.log(post);
         });
     
@@ -23,7 +23,7 @@ const Feed = ({recomState}) => {
             <Post 
                 key="12"
                 username="Reda"
-                text="“SIUUUUUUUUUUUUU.” — Cristiano Ronaldo"
+                text=" Posted by : “SIUUUUUUUUUUUUU.” — Cristiano Ronaldo"
                 avatar="https://uifaces.co/our-content/donated/BMGfa1yq.png"
                 image="https://talksport.com/wp-content/uploads/sites/5/2020/12/NINTCHDBPICT000628686290-e1610650343631.jpg?strip=all&w=960"
                 likes="7"
