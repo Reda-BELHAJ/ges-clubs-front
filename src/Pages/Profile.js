@@ -4,16 +4,17 @@ import NavbarAuth from '../Components/NavbarAuth'
 import Helmet from '../Components/Helmet'
 import Widgets from '../Components/Widgets'
 import Feed from '../Components/Feed'
-import { useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
-const Profile = (props) => {
+const Profile = () => {
     const state = true; // for testing true means user and false means club
     
-    let location = useLocation();   // get parametre nom Club
+    let{ nameClub } = useParams;
     
     return (
         <div className='flex flex-col min-h-screen overflow-hidden'>
             <NavbarAuth />
+            {console.log(nameClub)}
             {
                 state ? 
                 <>
