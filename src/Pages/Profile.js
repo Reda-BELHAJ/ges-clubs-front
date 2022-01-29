@@ -44,11 +44,11 @@ const Profile = () => {
                 </> :
                 <>
                 
-                    <Helmet club={"azeda"} state={ state}/>    
+                    <Helmet club={params.nameClub} state={ state}/>    
                     <main>
                         <div className="w-full lg:grid lg:grid-cols-7 gap-2 max-w-6xl mx-auto px-5 sm:px-6">
                             <div className='lg:col-span-2 hidden lg:block'>
-                                <Widgets club={"azeda"} state={state} recomState={false}/>
+                                <Widgets club={params.nameClub} state={state} recomState={false}/>
                             </div>
                             
                         </div>
