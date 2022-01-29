@@ -25,7 +25,7 @@ const User = () => {
                         
                     </div>
                     
-                    <Feed recomState={true}/>
+                    <Feed state = {true} recomState={true}/>
                 </div>
 
             </main>

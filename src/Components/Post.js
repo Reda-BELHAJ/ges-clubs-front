@@ -1,9 +1,52 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import UserService from '../Services/User/UserService';
+import axios from 'axios';
 
-export default function Post ({clubAvatar, image, text, likes, comments, username, creaAt, postedBy, role}) {
+export default function Post ({idPost, key, idClub, idUser, clubAvatar, image, text, likes, comments, username, creaAt, postedBy}) {
 
     const [like,setLike] = useState(likes)
     const [isLiked,setIsLiked] = useState(false)
+    const [role, setRole] = useState("");
+    const [commentsCount, setCommentsCount] = useState("");
+    const token = UserService.getCurrentUser().accessToken;
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/memberService/findMemberRole/" + idClub + "/" + idUser,   
+        {        // http://localhost:8080/api/memberService/checkEMember/
+            headers: {
+                "Content-Type" : "multipart/form-data",
+                'Authorization': `Bearer ${token}`
+            }
+        }
+        ).then(response => {
+            
+            setRole(response.data);
+            
+        })
+        .catch(error => {
+            console.log(error.message);
+        }) 
+      
+    }, []);
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/postService/getCommentsSize/" + idPost,   
+        {        
+            headers: {
+                "Content-Type" : "multipart/form-data",
+                'Authorization': `Bearer ${token}`
+            }
+        }
+        ).then(response => {
+        
+            setCommentsCount(response.data);
+            
+        })
+        .catch(error => {
+            console.log(error.message);
+        }) 
+      
+    }, []);
 
     return (
         <div className="flex w-full">
@@ -33,7 +76,7 @@ export default function Post ({clubAvatar, image, text, likes, comments, usernam
                 <img 
                     className="mt-2 rounded-2xl border border-gray-100" 
                     src={image}          //IMAGE POST
-                    alt="post"                    
+                    alt=""                    
                 />
 
                 <p className="text-gray-500 text-base py-1 my-0.5">
@@ -61,7 +104,7 @@ export default function Post ({clubAvatar, image, text, likes, comments, usernam
                             </svg>
                         </button>
                         <span className="ml-3">
-                            {comments}
+                            {commentsCount}
                         </span>
                     </div>
                 </div>

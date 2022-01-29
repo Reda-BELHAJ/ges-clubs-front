@@ -5,6 +5,8 @@ import Helmet from '../Components/Helmet'
 import Widgets from '../Components/Widgets'
 import Feed from '../Components/Feed'
 import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import UserService from '../Services/User/UserService'
 
 const Profile = () => {
     
@@ -38,7 +40,7 @@ const Profile = () => {
                             <div className='lg:col-span-2 hidden lg:block'>
                                 <Widgets club={"azeda"} state={state} recomState={false}/>
                             </div>
-                            <Feed recomState={false}/>
+                            
                         </div>
                     </main>
                 </> :
@@ -50,7 +52,7 @@ const Profile = () => {
                             <div className='lg:col-span-2 hidden lg:block'>
                                 <Widgets club={params.nameClub} state={state} recomState={false}/>
                             </div>
-                            
+                            <Feed club={params.nameClub}  state = {state} recomState={false}/>
                         </div>
                     </main>
                 </>
