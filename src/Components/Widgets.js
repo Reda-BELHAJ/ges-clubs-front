@@ -7,11 +7,12 @@ import { MdOutlineEvent, MdLogout } from "react-icons/md";
 import { VscOrganization } from "react-icons/vsc";
 import { AiFillHome } from "react-icons/ai";
 import { RiDashboardFill } from "react-icons/ri";
-
+import UserService from '../Services/User/UserService';
 import EventBus from '../Utils/EventBus';
 
-const Widgets = ({recomState}) => {
+const Widgets = ({recomState, state, club}) => {
 
+    const user = UserService.getCurrentUser();
     const onLogoutOut = () => {
         console.log("aeazeazeazeazeazea");
         EventBus.dispatch("logout", any);
@@ -27,69 +28,99 @@ const Widgets = ({recomState}) => {
             <div className="w-full p-4 py-0 text-gray-800 bg-gray-100 divide-y divide-gray-400">
                 <div className="overflow-y-auto overflow-x-hidden flex-grow">
                     <ul className="flex flex-col pb-4 space-y-1">
-                        <WidgetItem
-                            header="Home"
-                            path="/home"
-                        >
-                            <AiFillHome size={20} className='inline-flex justify-center items-center ml-4'/>
-                        </WidgetItem>
+                        {
+                            state ? 
+                            <>
+                                <WidgetItem
+                                    header="Home"
+                                    path="/home"
+                                >
+                                    <AiFillHome size={20} className='inline-flex justify-center items-center ml-4'/>
+                                </WidgetItem>
 
-                        <WidgetItem
-                            header="Profile"
-                            path="/profile"
-                        >
-                            <FaUser size={20} className='inline-flex justify-center items-center ml-4'/>
-                        </WidgetItem>
+                                <WidgetItem
+                                    header="Profile"
+                                    path={`/profile/null/1` }
+                                >
+                                    <FaUser size={20} className='inline-flex justify-center items-center ml-4'/>
+                                </WidgetItem>
 
-                        <WidgetItem
-                            header="Events"
-                            path="/events"
-                        >
-                            <MdOutlineEvent size={20} className='inline-flex justify-center items-center ml-4'/>
-                        </WidgetItem>
+                                <WidgetItem
+                                    header="Clubs"
+                                    path="/clubs"
+                                >
+                                    <VscOrganization size={20} className='inline-flex justify-center items-center ml-4'/>
+                                </WidgetItem>
 
-                        <WidgetItem
-                            header="Clubs"
-                            path="/clubs"
-                        >
-                            <VscOrganization size={20} className='inline-flex justify-center items-center ml-4'/>
-                        </WidgetItem>
+                                <WidgetItem
+                                    header="Settings"
+                                    path="/settings"
+                                >
+                                    <BsFillGearFill size={20} className='inline-flex justify-center items-center ml-4'/>
+                                </WidgetItem>
 
-                        <WidgetItem
-                            header="Settings"
-                            path="/settings"
-                        >
-                            <BsFillGearFill size={20} className='inline-flex justify-center items-center ml-4'/>
-                        </WidgetItem>
+                                {/*  <WidgetItem
+                                            header="Dashboards"
+                                            path="/dashboards"
+                                        >
+                                            <RiDashboardFill size={20} className='inline-flex justify-center items-center ml-4'/>
+                                        </WidgetItem> */ }
 
-                        <WidgetItem
-                            header="Dashboards"
-                            path="/dashboards"
-                        >
-                            <RiDashboardFill size={20} className='inline-flex justify-center items-center ml-4'/>
-                        </WidgetItem>
+                                <WidgetItem
+                                    header="Logout"
+                                    path="/"
+                                    click={onLogoutOut}    
+                                >
+                                    <MdLogout size={20} className='inline-flex justify-center items-center ml-4'/>
+                                </WidgetItem>
+                                
+                            </> :
+                            <>
+                                <WidgetItem
+                                    header="Home"
+                                    path="/home"
+                                >
+                                    <AiFillHome size={20} className='inline-flex justify-center items-center ml-4'/>
+                                </WidgetItem>
 
-                        <WidgetItem
-                            header="Members"
-                            path="/members"
-                        >
-                            <BsPeopleFill size={20} className='inline-flex justify-center items-center ml-4'/>
-                        </WidgetItem>
+                                <WidgetItem
+                                    header="Profile"
+                                    path={`/profile/${club}/0` }
+                                >
+                                    <FaUser size={20} className='inline-flex justify-center items-center ml-4'/>
+                                </WidgetItem>
 
-                        <WidgetItem
-                            header="Settings for Club"
-                            path="/settingsClub"
-                        >
-                            <BsGear size={20} className='inline-flex justify-center items-center ml-4'/>
-                        </WidgetItem>
+                                <WidgetItem
+                                    header="Events"
+                                    path="/events"
+                                >
+                                    <MdOutlineEvent size={20} className='inline-flex justify-center items-center ml-4'/>
+                                </WidgetItem>
 
-                        <WidgetItem
-                            header="Logout"
-                            path="/"
-                            click={onLogoutOut}    
-                        >
-                            <MdLogout size={20} className='inline-flex justify-center items-center ml-4'/>
-                        </WidgetItem>
+                                <WidgetItem
+                                    header="Clubs"
+                                    path="/clubs"
+                                >
+                                    <VscOrganization size={20} className='inline-flex justify-center items-center ml-4'/>
+                                </WidgetItem>
+
+                                <WidgetItem
+                                    header="Settings for Club"
+                                    path="/settingsClub"
+                                >
+                                    <BsGear size={20} className='inline-flex justify-center items-center ml-4'/>
+                                </WidgetItem>
+
+                                <WidgetItem
+                                    header="Members"
+                                    path="/members"
+                                >
+                                    <BsPeopleFill size={20} className='inline-flex justify-center items-center ml-4'/>
+                                </WidgetItem>
+                                
+                            </>
+                        }
+                        
                     </ul>
                 </div>
                 

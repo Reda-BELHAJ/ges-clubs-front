@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-export default function Post ({avatar, image, text, likes, comments, username, creaAt}) {
+export default function Post ({clubAvatar, image, text, likes, comments, username, creaAt, postedBy, role}) {
 
     const [like,setLike] = useState(likes)
     const [isLiked,setIsLiked] = useState(false)
@@ -12,7 +12,7 @@ export default function Post ({avatar, image, text, likes, comments, username, c
                     <div className="flex items-center">
                         <img 
                             className="h-11 w-11 rounded-full" 
-                            src={avatar}   // IMAGE CLUB
+                            src={clubAvatar}   // IMAGE CLUB
                             alt="avatar"
                         />
                         
@@ -27,7 +27,7 @@ export default function Post ({avatar, image, text, likes, comments, username, c
                 </p>
                 <p className="text-gray-500 text-base py-1 my-0.5"
                 >
-                    {text}
+                    {"Posted by : "  +  postedBy + " [" + role + "]"}
                 </p>
                 
                 <img 

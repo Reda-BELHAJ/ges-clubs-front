@@ -45,7 +45,7 @@ const ClubItem = ({club, profileImg, coverImg, detail, email, followers, dateCre
             </div>
             <div className="flex justify-center my-2">
                 <Link
-                    to={`/profile/${club}`}
+                    to={`/profile/${club}/0`}
                     className="inline-flex items-center px-6 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-blue-500 rounded-md hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
                 >
                     View Profile

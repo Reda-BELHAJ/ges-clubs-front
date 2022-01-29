@@ -46,8 +46,7 @@ function App() {
 
         <Route path="/home" element={<Home />} />
 
-        <Route exact path="/profile" element={<Profile />} />
-        <Route path="/profile/:nameClub" element={<Profile />} />
+        <Route path="/profile/:nameClub/:state" element={<Profile />} />
 
         <Route path="/clubs" element={<Clubs />} />
         <Route path="/events" element={<Events />} />

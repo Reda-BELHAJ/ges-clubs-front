@@ -36,10 +36,12 @@ const Feed = ({recomState}) => {
                             key={p.postId}
                             likes={p.likes}
                             text={p.description}
+                            postedBy={p.postedBy}
                             image={p.postImgURL}
                             avatar={p.imageURL}
                             username={p.userName}
                             creaAt={p.dateTime}
+                            role={p.roles}
                             //comments
                         />
                 </div>                  
