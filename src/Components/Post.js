@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import UserService from '../Services/User/UserService';
 import axios from 'axios';
 
-export default function Post ({idPost, key, idClub, idUser, clubAvatar, image, text, likes, comments, username, creaAt, postedBy}) {
+export default function Post ({idPost, idClub, idUser, clubAvatar, image, text, likes, comments, username, creaAt, postedBy}) {
 
     const [like,setLike] = useState(likes)
     const [isLiked,setIsLiked] = useState(false)
@@ -10,8 +10,10 @@ export default function Post ({idPost, key, idClub, idUser, clubAvatar, image, t
     const [commentsCount, setCommentsCount] = useState("");
     const token = UserService.getCurrentUser().accessToken;
 
+
     useEffect(() => {
-        axios.get("http://localhost:8080/api/memberService/findMemberRole/" + idClub + "/" + idUser,   
+        if (idClub != undefined && idUser != undefined) {
+            axios.get("http://localhost:8080/api/memberService/findMemberRole/" + idClub + "/" + idUser,   
         {        // http://localhost:8080/api/memberService/checkEMember/
             headers: {
                 "Content-Type" : "multipart/form-data",
@@ -26,45 +28,50 @@ export default function Post ({idPost, key, idClub, idUser, clubAvatar, image, t
         .catch(error => {
             console.log(error.message);
         }) 
-      
+        }
+          
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/postService/getCommentsSize/" + idPost,   
-        {        
-            headers: {
-                "Content-Type" : "multipart/form-data",
-                'Authorization': `Bearer ${token}`
+        if (idPost != undefined) {
+            axios.get("http://localhost:8080/api/postService/getCommentsSize/" + idPost,   
+            {        
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
             }
-        }
-        ).then(response => {
-        
-            setCommentsCount(response.data);
+            ).then(response => {
             
-        })
-        .catch(error => {
-            console.log(error.message);
-        }) 
-      
+                setCommentsCount(response.data);
+                
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+          
+        }
+       
     }, []);
 
     return (
         <div className="flex w-full">
-            <div className="border-gray-200 rounded-xl border p-4">
+            <div className="w-full border-gray-300 rounded-xl border p-4">
                 <div className="flex justify-between">
                     <div className="flex items-center">
                         <img 
                             className="h-11 w-11 rounded-full" 
                             src={clubAvatar}   // IMAGE CLUB
                             alt="avatar"
+                            
                         />
                         
                         <div className="ml-1.5 text-sm leading-tight">
-                            <span className="text-black font-bold block ">{username}</span>
+                            <span className="text-black font-bold block ">{username}</span>  {/* nom Club */}
                         </div>
                     </div>
                 </div>
-                <p className="text-black block text-xl leading-snug mt-3 "
+                <p className="overflow-hidden text-black block text-xl leading-snug mt-3 "
                 >
                     {text}
                 </p>
@@ -74,16 +81,16 @@ export default function Post ({idPost, key, idClub, idUser, clubAvatar, image, t
                 </p>
                 
                 <img 
-                    className="mt-2 rounded-2xl border border-gray-100" 
+                    className="overflow-hidden mt-2 rounded-2xl border border-gray-100 object-cover" 
                     src={image}          //IMAGE POST
-                    alt=""                    
+                    alt="--------------------------------------------------------------------"                    
                 />
 
                 <p className="text-gray-500 text-base py-1 my-0.5">
                     {creaAt}
                 </p>
 
-                <div className="border-gray-200 border border-b-0 my-1"></div>
+                <div className="border-gray-300 border border-b-0 my-1"></div>
 
                 <div className="text-gray-500 flex mt-3">
                     <div className="flex items-center mr-6">

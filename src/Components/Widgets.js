@@ -13,7 +13,8 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 const Widgets = ({recomState, state, club}) => {
-
+    
+    
     const user = UserService.getCurrentUser();
     const onLogoutOut = () => {
         console.log("aeazeazeazeazeazea");
@@ -24,23 +25,26 @@ const Widgets = ({recomState, state, club}) => {
     const token = UserService.getCurrentUser().accessToken;
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/memberService/checkPresident/" + club + "/" + user.id,
-        {
+
+        if (club != null && user.id != null) {
+            axios.get("http://localhost:8080/api/memberService/checkPresident/" + club + "/" + user.id,
+            {
             headers: {
                 "Content-Type" : "multipart/form-data",
                 'Authorization': `Bearer ${token}`
             }
+            }
+            ).then(response => {
+                console.log("axios ispresident ",response.data);
+                setIsPresident(response.data);
+                
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
         }
-        ).then(response => {
-            console.log(response.data);
-            setIsPresident(response.data);
-            
-        })
-        .catch(error => {
-            console.log(error.message);
-        }) 
-      
-    }, []);
+                
+    }, [state]);
 
     return (
         <div className={`${recomState && 'mt-20'} border-gray-300 rounded-xl border mb-5 flex flex-col items-start justify-between w-full h-auto overflow-hidden bg-white rounded-lg`}>
@@ -100,6 +104,8 @@ const Widgets = ({recomState, state, club}) => {
                                 
                             </> :
                             <>
+                            {console.log("isPresident" ,isPresident)}
+                            {console.log("club" ,club)}
                                 <WidgetItem
                                     header="Home"
                                     path="/home"
@@ -127,7 +133,7 @@ const Widgets = ({recomState, state, club}) => {
                                 >
                                     <VscOrganization size={20} className='inline-flex justify-center items-center ml-4'/>
                                 </WidgetItem>
-
+                                
                                 { isPresident &&
                                     <div>
                                         <WidgetItem

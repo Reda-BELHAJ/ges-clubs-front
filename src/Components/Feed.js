@@ -1,9 +1,11 @@
 import React, { Component, useContext, useEffect, useState } from 'react'
-import { format } from "date-fns";
+
 import Post from './Post'
 import PostService from '../Services/Post/PostService';
 import UserService from '../Services/User/UserService';
+
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import { RiImage2Fill } from "react-icons/ri";
 import { BsFillCameraVideoFill } from "react-icons/bs";
@@ -20,28 +22,29 @@ const Feed = ({recomState, state, club}) => {
     const token = UserService.getCurrentUser().accessToken;
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/memberService/checkPresident/" + club + "/" + user.id,   
-        {        // http://localhost:8080/api/memberService/checkEMember/
-            headers: {
-                "Content-Type" : "multipart/form-data",
-                'Authorization': `Bearer ${token}`
+        if (club != null) {
+                axios.get("http://localhost:8080/api/memberService/checkPresident/" + club + "/" + user.id,   
+            {        // http://localhost:8080/api/memberService/checkEMember/
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
             }
+            ).then(response => {
+                setIsEMember(response.data);
+                
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
         }
-        ).then(response => {
-            console.log(response.data);
-            setIsEMember(response.data);
-            
-        })
-        .catch(error => {
-            console.log(error.message);
-        }) 
+        
       
     }, []);
 
     useEffect(() => {
         PostService.getPosts().then(res => {
             setPost(res.data);
-            console.log(post);
         });
     
       }, []);
@@ -53,25 +56,28 @@ const Feed = ({recomState, state, club}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        PostService.savePost(requestPost, imagePost);
+        if (imagePost != "")
+            PostService.savePost(requestPost, imagePost, 0);
+        if (videoPost != "")
+            PostService.savePost(requestPost, videoPost, 1);
     }
 
     const handleImage = (e) => {
-        console.log(e.target.value.substring(12))
-        setImagePost(e.target.value.substring(12))
+        setImagePost(e.target.files[0]);
+        setVideoPost("");
     }
 
     const handleVideo = (e) => {
-
-        setVideoPost(e.target.value.substring(12))
+        setVideoPost(e.target.files[0]);
+        setImagePost("");
     }
 
     return(
         <div className={`lg:col-span-5 h-auto ${recomState && 'mt-20'}`}>
-            {console.log("State is : ", state)}
+            
             {!state && isEMember &&
-                <div className="flex w-full">
-                <div className="w-full border-gray-200 rounded-xl border p-4">
+                <div className="flex w-full mb-3">
+                <div className="w-full border-gray-300 rounded-xl border p-4">
                     <div className="flex justify-between">
                         <div className="flex items-center">
                             <img 
@@ -94,13 +100,14 @@ const Feed = ({recomState, state, club}) => {
                         rows="2"
                         placeholder="Your message"
                     />
-                    <div className="border-gray-200 border border-b-0 my-1"></div>
+                    <b>{imagePost.name}{videoPost.name}</b>
+                    <div className="border-gray-300 border border-b-0 my-1"></div>
 
                     <div className="text-gray-500 flex mt-3">
                         <div className="flex items-center mr-6">
                             <label className='cursor-pointer hover:text-blue-700'>
-                                <RiImage2Fill size={25}/>
-                                <input onChange={handleImage} type='file' className="hidden"/>
+                                <RiImage2Fill  type={Image} size={25}/>
+                                <input type='file' onChange={handleImage} className="hidden"/>
                             </label>
                         </div>
 
@@ -116,38 +123,29 @@ const Feed = ({recomState, state, club}) => {
                         >
                             Post
                         </button>
-                        <button 
+                        <Link
+                            to = "/createEvent"
                             className="ml-2 py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                         >
                             Create Event
-                        </button>
+                        </Link>
                     </div>
                     
                 </div>
             </div>
             }
-            <Post 
-                key="12"
-                username="Reda"
-                text=" Posted by : “SIUUUUUUUUUUUUU.” — Cristiano Ronaldo"
-                avatar="https://uifaces.co/our-content/donated/BMGfa1yq.png"
-                image="https://talksport.com/wp-content/uploads/sites/5/2020/12/NINTCHDBPICT000628686290-e1610650343631.jpg?strip=all&w=960"
-                likes="7"
-                comments="45"
-                creaAt="10:05 AM · Dec 19, 2020"
-            />
         
             {post.map((p) => (
-                <div key={p.postID}>
+                <div className='mb-3' key={p.postID}>
+                    
                     <Post
-                            key={p.postID}
                             idPost={p.postID}
                             likes={p.likes}
                             text={p.description}
                             postedBy={p.userName}
-                            image={p.postImgURL}
+                            image={'http://localhost:8080/api/postService/landing/' + p.postID  + '/image/downloadImagePost'}  /* 0  =======> p.postID */
                             clubAvatar={p.imageURL}    // ClubIcon Download using idClub
-                            username={p.userName}
+                            username={p.clubName }
                             creaAt={new Date(Date.parse(p.dateTime)).toUTCString()}
                             idClub = {p.idClub}
                             idUser = {p.userID}

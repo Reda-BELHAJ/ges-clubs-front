@@ -9,7 +9,8 @@ const Helmet = ({club, state}) => {
     const idUser = UserService.getCurrentUser().id; 
 
     const [showModal1, setShowModal1] = useState(false);
-    const [follow, setFollow] = useState("Follow");  // Unfollow - Follow 
+    const [follow, setFollow] = useState("Follow");  // Unfollow - Follow    Get from back 
+    const [join, setJoin] = useState("Join");  // UnJoin - Join      Get from back 
     const [requestFollow, setRequestFollow] = useState({nomClub: club, idUser: idUser});
 
     const handleOpen1 = () => setShowModal1(true);
@@ -114,13 +115,26 @@ const Helmet = ({club, state}) => {
                         </div>
                         
                         <div className="flex flex-row gap-3 text-right">
-                        
-                            <button 
-                                onClick={handleFollow}
-                                className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                            >
-                                {follow}
-                            </button>
+                            {
+                                follow == "Follow" ?
+                                <>
+                                    <button 
+                                        onClick={handleFollow}
+                                        className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                    >
+                                        {follow}    
+                                    </button>
+
+                                </> :
+                                <>
+                                    <button 
+                                        onClick={handleFollow}
+                                        className="py-2 px-4 bg-white hover:text-white hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                    >
+                                        {follow}    
+                                    </button>
+                                </>
+                            }
 
                             <button
                                 onClick={handleOpen1} 

@@ -15,7 +15,7 @@ class PostService {
         });
     }
 
-    savePost(requestPost, image) {
+    savePost(requestPost, image, is) {
         const token = UserService.getCurrentUser().accessToken;
         const headers = {
             'Content-Type': 'application/json',
@@ -32,23 +32,47 @@ class PostService {
             
         })
         .then(data => {
-            console.log(data.postID)
-            this.uploadImage(image, data.postID)
+            this.getLastPost(image, is);
         })
         .catch(err => {
             console.log(err);
         });
     }
 
-    
+    getLastPost(image, is) {
+
+        const token = UserService.getCurrentUser().accessToken;
+        axios.get("http://localhost:8080/api/postService/getLastPost",
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+                console.log(response.data);
+                return response.data
+            })
+            .then(data => {
+                if(is == 0)
+                    this.uploadImage(image, data.postID)
+                if(is == 1)
+                    this.uploadVideo(image, data.postID)
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+    }
 
     uploadImage(image, idPost) {
 
         const token = UserService.getCurrentUser().accessToken;
-        console.log(token);
+        
         const formData = new FormData();
         formData.append("file", image);
-        
+        console.log(image);
+        console.log(formData);
+        console.log(formData.file);
         axios.post(
             'http://localhost:8080/api/postService/'+ idPost +'/image/uploadIcon', 
             formData,
@@ -67,6 +91,30 @@ class PostService {
         });
     }
 
+    uploadVideo(image, idPost) {
+
+        const token = UserService.getCurrentUser().accessToken;
+        
+        const formData = new FormData();
+        formData.append("file", image);
+       
+        axios.post(
+            'http://localhost:8080/api/postService/'+ idPost +'/image/uploadVideo', 
+            formData,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        .then(() => {
+            console.log("video uploaded");
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
 
     
 }

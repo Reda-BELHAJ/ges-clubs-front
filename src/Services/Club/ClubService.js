@@ -95,6 +95,36 @@ class ClubService {
             }) 
     }
 
+    getClubName(idClub) {
+
+        const token = UserService.getCurrentUser().accessToken;
+        
+        return new Promise( (resolve, reject) => {
+            
+            axios.get("http://localhost:8080/api/clubService/getClubName/" + idClub,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                 
+                resolve( response.data );
+     
+            })
+            .then(data => {
+                return data;
+            })
+            .catch( error => {
+                 
+                reject( error );
+             
+            } );
+        });
+    }
+
+
     createClub(requestCreateClub, nom, fileC, fileL){
 
         const token = UserService.getCurrentUser().accessToken;

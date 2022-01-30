@@ -46,6 +46,7 @@ const ClubInfo = (props) => {
 
     return (
         <div>
+            {console.log(logo)}
             <div className="block text-grey-darker text-lg font-bold mb-2">
                 Club Information
             </div>

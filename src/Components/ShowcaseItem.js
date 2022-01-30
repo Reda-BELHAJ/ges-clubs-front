@@ -21,13 +21,9 @@ const ShowcaseItem = ({width, height}) => {
 
   const [ClubProfiles, setClubProfiles] = useState([]);
   
-  const token = UserService.getCurrentUser().accessToken;
   const fetchClubProfiles = () => {
     axios.get("http://localhost:8080/api/clubService/getClubs" , {
-      headers: {
-        "Content-Type" : "multipart/form-data",
-        'Authorization': `Bearer ${token}`
-      }
+      
     }).then(res => {
       console.log(res);
       setClubProfiles(res.data);

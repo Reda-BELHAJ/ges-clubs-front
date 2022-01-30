@@ -10,12 +10,13 @@ import UserService from '../Services/User/UserService'
 
 const Profile = () => {
     
-    const params = useParams();
-    const [p, setP] = useState(params.state);
+    const {state: stateFromRoute, nameClub: nameClubFromRoute} = useParams();
+    const [p, setP] = useState(null);
+    const [club, setClub] = useState(null);
     const [state, setState] = useState(undefined);
     
     useEffect(() => {
-      
+        
         if (p == 0){
             setState(false);
         }
@@ -23,36 +24,41 @@ const Profile = () => {
             setState(true);
         }
 
-    }, []);
+    }, [p]);
+
+    useEffect(() => {
+        
+        setP(stateFromRoute);
+        setClub(nameClubFromRoute);
+
+    }, [stateFromRoute, nameClubFromRoute]);
     
     return (
         <div className='flex flex-col min-h-screen overflow-hidden'>
-            <NavbarAuth state={state} club={"azeda"}/>
-            {console.log(params.nameClub)}
-            {console.log(state)}
+            
             {
                 state ? 
                 <>
-                
-                    <Helmet club={"azeda"} state={ state}  />   
+                    <NavbarAuth state={state} club={club}/>
+                    <Helmet club={club} state={ state}  />   
                     <main>
                         <div className="w-full lg:grid lg:grid-cols-7 gap-2 max-w-6xl mx-auto px-5 sm:px-6">
                             <div className='lg:col-span-2 hidden lg:block'>
-                                <Widgets club={"azeda"} state={state} recomState={false}/>
+                                <Widgets club={club} state={state} recomState={false}/>
                             </div>
                             
                         </div>
                     </main>
                 </> :
                 <>
-                
-                    <Helmet club={params.nameClub} state={ state}/>    
+                    <NavbarAuth state={state} club={club}/>
+                    <Helmet club={club} state={ state}/>    
                     <main>
                         <div className="w-full lg:grid lg:grid-cols-7 gap-2 max-w-6xl mx-auto px-5 sm:px-6">
                             <div className='lg:col-span-2 hidden lg:block'>
-                                <Widgets club={params.nameClub} state={state} recomState={false}/>
+                                <Widgets club={club} state={state} recomState={false}/>
                             </div>
-                            <Feed club={params.nameClub}  state = {state} recomState={false}/>
+                            <Feed club={club}  state = {state} recomState={false}/>
                         </div>
                     </main>
                 </>

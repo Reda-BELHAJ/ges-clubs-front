@@ -16,9 +16,11 @@ import Admin from './Pages/Admin';
 import SettingsClub from './Pages/SettingsClub'
 import Dashboards from './Pages/Dashboards';
 import Members from './Pages/Members';
+import CreateEvent from './Components/CreateEvent';
 
 import UserService from './Services/User/UserService';
 import EventBus from './Utils/EventBus';
+import EventForm from './Components/EventForm';
 
 function App() {
   const location = useLocation();
@@ -61,6 +63,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
 
         <Route path="/createClub" element={<CreateClub />} />
+        <Route path="/createEvent" element={<CreateEvent />} />
       </Routes>
     </>
     
