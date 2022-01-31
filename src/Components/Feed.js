@@ -124,7 +124,7 @@ const Feed = ({recomState, state, club}) => {
                             Post
                         </button>
                         <Link
-                            to = "/createEvent"
+                            to = {`/createEvent/${club}/0`}
                             className="ml-2 py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                         >
                             Create Event
@@ -143,7 +143,7 @@ const Feed = ({recomState, state, club}) => {
                             likes={p.likes}
                             text={p.description}
                             postedBy={p.userName}
-                            image={'http://localhost:8080/api/postService/landing/' + p.postID  + '/image/downloadImagePost'}  /* 0  =======> p.postID */
+                            image={'http://localhost:8080/api/postService/landing/' + 0 + '/image/downloadImagePost'}  /* 0  =======> p.postID */
                             clubAvatar={p.imageURL}    // ClubIcon Download using idClub
                             username={p.clubName }
                             creaAt={new Date(Date.parse(p.dateTime)).toUTCString()}

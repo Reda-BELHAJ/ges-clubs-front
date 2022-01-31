@@ -15,6 +15,30 @@ class PostService {
         });
     }
 
+    saveEventPost(requestPost, requestEvent, image, file) {
+        const token = UserService.getCurrentUser().accessToken;
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+
+        axios.post("http://localhost:8080/api/postService/save",
+            JSON.stringify(requestPost), {
+                headers: headers
+            }   
+        ).then(response => {
+            console.log("new post added");
+            return response.data
+            
+        })
+        .then(data => {
+            this.getLastEventPost(image, requestEvent, file);
+        })
+        .catch(err => {
+            console.log(err);
+        }); 
+    }
+
     savePost(requestPost, image, is) {
         const token = UserService.getCurrentUser().accessToken;
         const headers = {
@@ -37,6 +61,80 @@ class PostService {
         .catch(err => {
             console.log(err);
         });
+    }
+
+    saveEventObject(requestEvent, file, postId) {
+        const token = UserService.getCurrentUser().accessToken;
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+
+        requestEvent.postID = postId;
+        axios.post("http://localhost:8080/api/eventService/save",
+            JSON.stringify(requestEvent), {
+                headers: headers
+            }   
+        ).then(response => {
+            console.log("new post added");
+            return response.data
+            
+        })
+        .then(data => {
+            this.getLastEventObject(file);
+        })
+        .catch(err => {
+            console.log(err);
+        }); 
+    }
+
+    getLastEventObject(file) {
+
+        const token = UserService.getCurrentUser().accessToken;
+        axios.get("http://localhost:8080/api/eventService/getLastEvent",
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+                console.log(response.data);
+                return response.data
+            })
+            .then(data => {
+                
+                this.uploadFile(file, data.eventID);
+                
+                
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+    }
+
+    getLastEventPost(image, requestEvent, file) {
+
+        const token = UserService.getCurrentUser().accessToken;
+        axios.get("http://localhost:8080/api/postService/getLastPost",
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+                console.log(response.data);
+                return response.data
+            })
+            .then(data => {
+                
+                this.uploadEventPostImage(image, data.postID, requestEvent, file);
+                
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
     }
 
     getLastPost(image, is) {
@@ -62,6 +160,33 @@ class PostService {
             .catch(error => {
                 console.log(error.message);
             }) 
+    }
+
+    uploadEventPostImage(image, postId, requestEvent, file) {
+
+        const token = UserService.getCurrentUser().accessToken;
+        
+        const formData = new FormData();
+        formData.append("file", image);
+        console.log(image);
+        console.log(formData);
+        console.log(formData.file);
+        axios.post(
+            'http://localhost:8080/api/postService/'+ postId +'/image/uploadIcon', 
+            formData,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        .then(() => {
+            this.saveEventObject(requestEvent, file, postId);
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     uploadImage(image, idPost) {
@@ -110,6 +235,31 @@ class PostService {
         )
         .then(() => {
             console.log("video uploaded");
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+    uploadFile(file, idEvent) {
+
+        const token = UserService.getCurrentUser().accessToken;
+        
+        const formData = new FormData();
+        formData.append("file", file);
+       
+        axios.post(
+            'http://localhost:8080/api/eventService/'+ idEvent +'/file/uploadFile', 
+            formData,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        .then(() => {
+            console.log("file excel uploaded");
         })
         .catch(err => {
             console.log(err);

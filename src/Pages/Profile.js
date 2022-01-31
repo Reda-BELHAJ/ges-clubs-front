@@ -10,8 +10,9 @@ import UserService from '../Services/User/UserService'
 
 const Profile = () => {
     
-    const {state: stateFromRoute, nameClub: nameClubFromRoute} = useParams();
     const [p, setP] = useState(null);
+    const {state: stateFromRoute, nameClub: nameClubFromRoute} = useParams();
+   
     const [club, setClub] = useState(null);
     const [state, setState] = useState(undefined);
     

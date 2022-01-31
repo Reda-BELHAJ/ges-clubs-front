@@ -35,7 +35,7 @@ const Widgets = ({recomState, state, club}) => {
             }
             }
             ).then(response => {
-                console.log("axios ispresident ",response.data);
+                
                 setIsPresident(response.data);
                 
             })
@@ -104,8 +104,7 @@ const Widgets = ({recomState, state, club}) => {
                                 
                             </> :
                             <>
-                            {console.log("isPresident" ,isPresident)}
-                            {console.log("club" ,club)}
+                        
                                 <WidgetItem
                                     header="Home"
                                     path="/home"

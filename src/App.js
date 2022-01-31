@@ -63,7 +63,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
 
         <Route path="/createClub" element={<CreateClub />} />
-        <Route path="/createEvent" element={<CreateEvent />} />
+        <Route path="/createEvent/:nameClub/:state" element={<CreateEvent />} />
       </Routes>
     </>
     
