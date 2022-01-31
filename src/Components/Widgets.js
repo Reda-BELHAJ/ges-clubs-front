@@ -81,6 +81,13 @@ const Widgets = ({recomState, state, club}) => {
                                 </WidgetItem>
 
                                 <WidgetItem
+                                    header="Events"
+                                    path="/events"
+                                >
+                                    <MdOutlineEvent size={20} className='inline-flex justify-center items-center ml-4'/>
+                                </WidgetItem>
+
+                                <WidgetItem
                                     header="Settings"
                                     path="/settings"
                                 >
@@ -119,19 +126,7 @@ const Widgets = ({recomState, state, club}) => {
                                     <FaUser size={20} className='inline-flex justify-center items-center ml-4'/>
                                 </WidgetItem>
 
-                                <WidgetItem
-                                    header="Events"
-                                    path="/events"
-                                >
-                                    <MdOutlineEvent size={20} className='inline-flex justify-center items-center ml-4'/>
-                                </WidgetItem>
-
-                                <WidgetItem
-                                    header="Clubs"
-                                    path="/clubs"
-                                >
-                                    <VscOrganization size={20} className='inline-flex justify-center items-center ml-4'/>
-                                </WidgetItem>
+                    
                                 
                                 { isPresident &&
                                     <div>

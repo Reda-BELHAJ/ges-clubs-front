@@ -54,6 +54,10 @@ export default function Post ({idPost, idClub, idUser, clubAvatar, image, text, 
        
     }, []);
 
+    const addDefaultSrc1= (ev) => {
+            ev.target.src = "https://previews.123rf.com/images/triken/triken1608/triken160800029/61320775-männlich-avatar-profilbild-standard-benutzer-avatar-gast-avatar-einfach-menschlichen-kopf-vektor-ill.jpg" // this could be an imported image or url
+    }
+
     return (
         <div className="flex w-full">
             <div className="w-full border-gray-300 rounded-xl border p-4">
@@ -63,6 +67,7 @@ export default function Post ({idPost, idClub, idUser, clubAvatar, image, text, 
                             className="h-11 w-11 rounded-full" 
                             src={clubAvatar}   // IMAGE CLUB
                             alt="avatar"
+                            onError={addDefaultSrc1}
                             
                         />
                         
