@@ -262,6 +262,7 @@ const ListEvents = (props) => {
                         return (
                             <div key={item.eventID}>
                                 <Event 
+                                    idEvent={item.eventID}
                                     title={item.name}
                                     idPost={item.idPost}
                                     startDate={new Date(Date.parse(item.startDate)).toUTCString()}
@@ -270,6 +271,7 @@ const ListEvents = (props) => {
                                     participantMax={item.maxP}
                                     building={item.building}
                                     amphi={item.amphi}
+                                    status={item.status}
                                 />
                             </div>
                             
