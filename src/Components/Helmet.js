@@ -21,7 +21,7 @@ const Helmet = ({club, state}) => {
 
         let a = club;
         if(club != null) {
-            console.log("nom Club ", a)
+            
             axios.get("http://localhost:8080/api/user/checkClubFollowed/" + idUser + "/" + a,
             {
             headers: {
@@ -30,11 +30,37 @@ const Helmet = ({club, state}) => {
                 }
 
             }).then(response => {  
-                console.log(response.data); 
+                 
                 if(response.data)
                     setFollow("Unfollow");
                 else
-                    setFollow("Follow");       
+                    setFollow("Follow");      
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+            
+        }  
+    }, [club]);
+
+    useEffect(() => {
+
+        let a = club;
+        if(club != null) {
+            
+            axios.get("http://localhost:8080/api/memberService/checkIsMember/" + idUser + "/" + a,
+            {
+            headers: {
+                "Content-Type" : "multipart/form-data",
+                'Authorization': `Bearer ${token}`
+                }
+
+            }).then(response => {  
+                console.log("check Join ", response.data);
+                if(response.data)
+                    setJoin("Unjoin");
+                else
+                    setJoin("Join");             
             })
             .catch(error => {
                 console.log(error.message);
@@ -168,12 +194,27 @@ const Helmet = ({club, state}) => {
                                 </>
                             }
 
-                            <button
-                                onClick={handleOpen1} 
-                                className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                            >
-                                Join
-                            </button>
+                            {
+                                join == "Join" ?
+                                <>
+                                    <button
+                                        onClick={handleOpen1} 
+                                        className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                    >
+                                        {join}
+                                    </button>
+
+                                </> :
+                                <>
+                                    <button
+                                        onClick={handleOpen1} 
+                                        className="py-2 px-4 bg-white hover:text-white hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                    >
+                                        {join}
+                                    </button>
+                                </>
+                            }
+                            
                              
                         </div>
                     </div>
