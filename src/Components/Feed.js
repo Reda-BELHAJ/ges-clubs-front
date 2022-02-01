@@ -139,6 +139,7 @@ const Feed = ({recomState, state, club}) => {
                 <div className='mb-3' key={p.postID}>
                     
                     <Post
+                            comments={p.comments}
                             idPost={p.postID}
                             likes={p.likes}
                             text={p.description}
@@ -149,13 +150,16 @@ const Feed = ({recomState, state, club}) => {
                             creaAt={new Date(Date.parse(p.dateTime)).toUTCString()}
                             idClub = {p.idClub}
                             idUser = {p.userID}
+                            disableComments={false}
                             //comments
                         />
                 </div>                  
                     ))
-                 }
+            }
         </div>
     )
 }
 
 export default Feed
+
+

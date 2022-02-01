@@ -17,6 +17,7 @@ import SettingsClub from './Pages/SettingsClub'
 import Dashboards from './Pages/Dashboards';
 import Members from './Pages/Members';
 import CreateEvent from './Components/CreateEvent';
+import PostDetails from './Components/PostDetails';
 
 import UserService from './Services/User/UserService';
 import EventBus from './Utils/EventBus';
@@ -51,6 +52,7 @@ function App() {
         <Route path="/profile/:nameClub/:state" element={<Profile />} />
 
         <Route path="/clubs" element={<Clubs />} />
+        <Route path="/postDetails/:idPost/:Ccount" element={<PostDetails/>} />
         <Route path="/events" element={<Events />} />
 
         <Route path="/settings" element={<Settings />} />

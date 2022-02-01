@@ -15,6 +15,26 @@ class PostService {
         });
     }
 
+    saveComment(requestComment) {
+
+        const token = UserService.getCurrentUser().accessToken;
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+        axios.post("http://localhost:8080/api/postService/saveComment/",
+            JSON.stringify(requestComment), {
+                headers: headers
+            }
+        ).then(response => {
+            console.log("new Comment added");
+            return response.data
+        })
+        .catch(err => {
+            console.log(err);
+        }); 
+    }
+
     saveEventPost(requestPost, requestEvent, image, file) {
         const token = UserService.getCurrentUser().accessToken;
         const headers = {

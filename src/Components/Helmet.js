@@ -1,20 +1,48 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 
 import ModalJoin from './ModalJoin';
 import UserService from '../Services/User/UserService';
+import axios from 'axios';
 
 const Helmet = ({club, state}) => {
     const username = UserService.getCurrentUser().username
     const idUser = UserService.getCurrentUser().id; 
-
+    const token = UserService.getCurrentUser().accessToken;
     const [showModal1, setShowModal1] = useState(false);
     const [follow, setFollow] = useState("Follow");  // Unfollow - Follow    Get from back 
     const [join, setJoin] = useState("Join");  // UnJoin - Join      Get from back 
-    const [requestFollow, setRequestFollow] = useState({nomClub: club, idUser: idUser});
+    const [requestFollow, setRequestFollow] = useState({nomClub: "", idUser: idUser});
 
     const handleOpen1 = () => setShowModal1(true);
     const handleClose1 = () => setShowModal1(false);
+
+    useEffect(() => {
+
+        let a = club;
+        if(club != null) {
+            console.log("nom Club ", a)
+            axios.get("http://localhost:8080/api/user/checkClubFollowed/" + idUser + "/" + a,
+            {
+            headers: {
+                "Content-Type" : "multipart/form-data",
+                'Authorization': `Bearer ${token}`
+                }
+
+            }).then(response => {  
+                console.log(response.data); 
+                if(response.data)
+                    setFollow("Unfollow");
+                else
+                    setFollow("Follow");       
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+            
+        }  
+    }, [club]);
+    
 
     const addDefaultSrc1= (ev) => {
         ev.target.src = "https://previews.123rf.com/images/triken/triken1608/triken160800029/61320775-männlich-avatar-profilbild-standard-benutzer-avatar-gast-avatar-einfach-menschlichen-kopf-vektor-ill.jpg" // this could be an imported image or url
@@ -25,19 +53,23 @@ const Helmet = ({club, state}) => {
     }
 
     const handleFollow= (ev) => {
-        
-        if(follow == "Follow"){
-            setFollow("Unfollow");
-            UserService.followClub(requestFollow);
-        }  
-        else if(follow == "Unfollow"){
-            setFollow("Follow");
-            UserService.unfollowClub(requestFollow);
-        }     
+        let a = club
+        if(a != null) {
+            if(follow == "Follow"){
+                setFollow("Unfollow");
+                UserService.followClub({nomClub: a, idUser: idUser});
+            }  
+            else if(follow == "Unfollow"){
+                setFollow("Follow");
+                UserService.unfollowClub({nomClub: a, idUser: idUser});
+            }   
+        }
+         
     }
 
     return (
         <div className='mt-20 '>
+                                                        
             {state ?
             <>
                 <div className='bg-cover bg-no-repeat bg-center'>

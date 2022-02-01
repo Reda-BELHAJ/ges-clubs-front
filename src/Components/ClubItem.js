@@ -5,9 +5,6 @@ import InfoIcon from '@mui/icons-material/Info';
 import EmailIcon from '@mui/icons-material/Email';
 import Loyalty from '@mui/icons-material/Loyalty';
 import Upload from '@mui/icons-material/Upload';
-import UserService from '../Services/User/UserService';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const ClubItem = ({club, profileImg, coverImg, detail, email, followers, dateCre}) => {
 
