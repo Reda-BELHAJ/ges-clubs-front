@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { RiImage2Fill } from "react-icons/ri";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 
-const Feed = ({recomState, state, club}) => {
+const FeedForClub = ({recomState, state, club}) => {
     const user = UserService.getCurrentUser();
     const [post, setPost] = useState([]);
     const [requestPost, setRequestPost] = useState({desc: "", nameClub: club, userName: user.username, idUser: user.id});
@@ -43,10 +43,14 @@ const Feed = ({recomState, state, club}) => {
     }, []);
 
     useEffect(() => {
-        PostService.getPosts().then(res => {
-            setPost(res.data);
-        });
-    
+        if(club != null){
+            PostService.getPostsForClub(club).then(res => {
+                setPost(res.data);
+                console.log(res.data);
+            });
+            
+        }
+        
       }, []);
 
       const addDefaultSrc1= (ev) => {
@@ -54,7 +58,7 @@ const Feed = ({recomState, state, club}) => {
     }
 
     const handleSubmit = (e) => {
-        
+       
 
         if (imagePost != "")
             PostService.savePost(requestPost, imagePost, 0);
@@ -62,6 +66,8 @@ const Feed = ({recomState, state, club}) => {
             PostService.savePost(requestPost, videoPost, 1);
         if(imagePost == "" && videoPost == "")
             PostService.savePostOnlyText(requestPost);
+
+        
     }
 
     const handleImage = (e) => {
@@ -138,16 +144,16 @@ const Feed = ({recomState, state, club}) => {
             }
             {post.length == 0 && 
                 
-                        <Link 
-                            to="/clubs"
+                        <div
                             className="flex w-full py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                         >
-                            New User ? Follow Clubs to View their posts
-                        </Link>       
+                            New Club ? No posts Available for this club 
+                        </div>       
             }
             {post.map((p) => (
                 
                 <div className='mb-3' key={p.postID}>
+                    
                     <Post
                             comments={p.comments}
                             idPost={p.postID}
@@ -162,6 +168,9 @@ const Feed = ({recomState, state, club}) => {
                             idUser = {p.userID}
                             disableComments={false}
                             EventBool={p.event}
+                            video ={'http://localhost:8080/api/postService/landing/' + p.postID + '/image/downloadVideoPost'} /* 0  =======> p.postID */
+                            videoCheck={p.postVideo}
+                            imageCheck={p.postImgURL}
                             //comments
                         />
                 </div>                  
@@ -171,6 +180,6 @@ const Feed = ({recomState, state, club}) => {
     )
 }
 
-export default Feed
+export default FeedForClub
 
 

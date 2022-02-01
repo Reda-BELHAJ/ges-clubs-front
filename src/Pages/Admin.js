@@ -1,4 +1,4 @@
-import Feed from "../Components/Feed"
+
 
 const Admin = () => {
     return (

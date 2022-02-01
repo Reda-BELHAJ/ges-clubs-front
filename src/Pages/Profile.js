@@ -7,6 +7,7 @@ import Feed from '../Components/Feed'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import UserService from '../Services/User/UserService'
+import FeedForClub from '../Components/FeedForClub'
 
 const Profile = () => {
     
@@ -59,7 +60,7 @@ const Profile = () => {
                             <div className='lg:col-span-2 hidden lg:block'>
                                 <Widgets club={club} state={state} recomState={false}/>
                             </div>
-                            <Feed club={club}  state = {state} recomState={false}/>
+                            <FeedForClub club={club}  state = {state} recomState={false}/>
                         </div>
                     </main>
                 </>

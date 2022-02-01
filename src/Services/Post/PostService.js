@@ -15,6 +15,17 @@ class PostService {
         });
     }
 
+    getPostsForClub(clubName) {
+
+        const token = UserService.getCurrentUser().accessToken;
+        return axios.get("http://localhost:8080/api/postService/retrievePostsClub/" + clubName, {
+            headers: {
+                "Content-Type" : "multipart/form-data",
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    }
+
     saveComment(requestComment) {
 
         const token = UserService.getCurrentUser().accessToken;
@@ -28,6 +39,7 @@ class PostService {
             }
         ).then(response => {
             console.log("new Comment added");
+            window.location.reload();
             return response.data
         })
         .catch(err => {
@@ -57,6 +69,28 @@ class PostService {
         .catch(err => {
             console.log(err);
         }); 
+    }
+
+    savePostOnlyText(requestPost) {
+        const token = UserService.getCurrentUser().accessToken;
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    
+        axios.post("http://localhost:8080/api/postService/save",
+            JSON.stringify(requestPost), {
+                headers: headers
+            }   
+        ).then(response => {
+            console.log("new post added");
+            window.location.reload();
+            return response.data
+            
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     savePost(requestPost, image, is) {
@@ -230,6 +264,7 @@ class PostService {
         )
         .then(() => {
             console.log("image uploaded");
+            window.location.reload();
         })
         .catch(err => {
             console.log(err);
@@ -255,6 +290,7 @@ class PostService {
         )
         .then(() => {
             console.log("video uploaded");
+            window.location.reload();
         })
         .catch(err => {
             console.log(err);
@@ -280,6 +316,7 @@ class PostService {
         )
         .then(() => {
             console.log("file excel uploaded");
+            window.location.reload();
         })
         .catch(err => {
             console.log(err);

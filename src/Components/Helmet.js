@@ -187,7 +187,7 @@ const Helmet = ({club, state}) => {
                                 <>
                                     <button 
                                         onClick={handleFollow}
-                                        className="py-2 px-4 bg-white hover:text-white hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                        className="py-2 px-4 bg-white hover:text-white hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg border border-blue-200 "
                                     >
                                         {follow}    
                                     </button>
@@ -222,6 +222,7 @@ const Helmet = ({club, state}) => {
             </>}
            
             <ModalJoin handleClose={handleClose1} show={showModal1} nomClub={club}/>
+        
         </div>
 
     )

@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import UserService from '../Services/User/UserService';
 import PostService from '../Services/Post/PostService';
+import Recommendations from './Recommendations';
 
 const PostDetails = () => {
 
@@ -54,14 +55,24 @@ const PostDetails = () => {
         <div className='flex flex-col min-h-screen overflow-hidden'>
             <NavbarAuth />
             
-            <Helmet club={"test"} state={true}/>
             <main>
                 <div className="w-full lg:grid lg:grid-cols-7 gap-2 max-w-6xl mx-auto px-5 sm:px-6">
                     <div className='lg:col-span-2 hidden lg:block'>
-                        <Widgets recomState={false}/>
+                        <Widgets  recomState={true}/>
+
+                        <Recommendations 
+                            header="Which Club To Follow"
+                            recomState={true}
+                        />
+
+                        <Recommendations 
+                            header="Clubs You Follow"
+                            recomState={false}
+                        />
                     </div>
 
-                    <div className='lg:col-span-5 mb-10'>
+
+                    <div className='lg:col-span-5 mb-10 mt-20'>
                         {post != null &&
                             <Post 
                             key={post.postID}
@@ -76,6 +87,9 @@ const PostDetails = () => {
                             idPost={post.postID}
                             postedBy={post.userName}
                             creaAt={new Date(Date.parse(post.dateTime)).toUTCString()}
+                            video = "d"
+                            videoCheck={"nuleee"}
+                            imageCheck={"nuleazel"}
                         />
                         }
                         
@@ -136,7 +150,10 @@ const FormComment = ({postID, club}) => {
 
     const handleComment = (e) => {
         e.preventDefault();
-        PostService.saveComment(co);
+        if(co.text != "")
+            PostService.saveComment(co);
+        
+        
     }
 
     return (
@@ -156,7 +173,7 @@ const FormComment = ({postID, club}) => {
                     </div>
                     <div className="-mr-1">
                         <input 
-                            onClick={handleComment}
+                            onSubmit={handleComment}
                             type='submit' 
                             className="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100" 
                             value='Post Comment'
@@ -176,7 +193,7 @@ const Comment = ({firstItem, avatar, Username, text, date, role, club}) => {
         <div className='mt-2'>
             {firstItem ? null : <div className="border-gray-300 border border-b-0 my-1" />}
             {!firstItem &&
-                <div className="flex flex-row ml-5 md:ml-0">
+                <div className="flex flex-row ml-5 md:ml-0 mb-2">
                     <img className="w-12 h-12 border-2 border-gray-300 rounded-full" alt="Avatar"
                         src={avatar} onError={addDefaultSrc1}/>
                     <div className="flex-col mt-1">

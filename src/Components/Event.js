@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 import axios from 'axios';
 import UserService from '../Services/User/UserService';
 import { useState } from 'react';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
+import {HiLocationMarker} from 'react-icons/hi';
+import {BsCalendar2DateFill} from 'react-icons/bs';
 const Event = ({title, idPost, startDate, endDate, participant, participantMax, building, amphi, status, idEvent}) => {
 
     const [clubName, setClubName] = useState("");
@@ -58,33 +58,28 @@ const Event = ({title, idPost, startDate, endDate, participant, participantMax, 
                 </h2>
             </div>
             <div className="flex px-4 py-4">
-                <svg className="w-6 h-6 mr-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                    </path>
-                </svg>
-
+                
+                <div className='mt-2 text-blue-500'>
+                    <BsCalendar2DateFill size={22}></BsCalendar2DateFill>
+                </div>
                 <div className="text-base font-light text-gray-800">
-                    <span className="font-semibold text-black">{startDate}  </span> to 
-                    <span className="font-semibold text-black"> : {endDate}</span>
+                    <span className="ml-2 font-semibold text-black">{startDate}</span> 
+                    <div className="ml-3 font-semibold text-black"> {endDate}</div>
                 </div>
             </div>
             <div className="flex px-4 py-4">
-                <svg className="w-6 h-6 mr-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 2z">
-                    </path>
-                </svg>
+                <div className='text-blue-500'>
+                    <HiLocationMarker size={25}></HiLocationMarker>
+                </div>
+                
 
                 <div className="text-base font-light text-gray-800">
-                    <span className="font-semibold text-black">{building}</span>
-                    <span className='ml-4 text-base'>Building numero</span>
+                    <span className='ml-2 text-base'>Building</span>
+                    <span className="ml-2 font-semibold text-black">{building}</span>
                 </div>
                 <div className="text-base font-light text-gray-800">
-                <span className="font-semibold text-black">{amphi}</span>
-                    <span className='ml-4 text-base'>amphitheater numero</span>
+                    <span className='ml-4 text-base'>amphitheater </span>
+                    <span className="ml-1 font-semibold text-black">{amphi}</span>
                 </div>
                 
             </div>
@@ -114,7 +109,7 @@ const Event = ({title, idPost, startDate, endDate, participant, participantMax, 
                             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 }  
-                <span className="font-semibold text-black"><b> {eventStatus}</b></span>
+                <span className="font-semibold text-black ml-4"><b> {eventStatus}</b></span>
             </div>
         </div>
     )
