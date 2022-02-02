@@ -87,9 +87,10 @@ const PostDetails = () => {
                             idPost={post.postID}
                             postedBy={post.userName}
                             creaAt={new Date(Date.parse(post.dateTime)).toUTCString()}
-                            video = "d"
-                            videoCheck={"nuleee"}
-                            imageCheck={"nuleazel"}
+                            EventBool={post.event}
+                            video ={'http://localhost:8080/api/postService/landing/' + 0 + '/image/downloadVideoPost'} /* 0  =======> p.postID */
+                            videoCheck={post.postVideo}
+                            imageCheck={post.postImgURL}
                         />
                         }
                         
@@ -150,6 +151,7 @@ const FormComment = ({postID, club}) => {
 
     const handleComment = (e) => {
         e.preventDefault();
+        console.log("handle")
         if(co.text != "")
             PostService.saveComment(co);
         
@@ -173,7 +175,7 @@ const FormComment = ({postID, club}) => {
                     </div>
                     <div className="-mr-1">
                         <input 
-                            onSubmit={handleComment}
+                            onClick={handleComment}
                             type='submit' 
                             className="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100" 
                             value='Post Comment'

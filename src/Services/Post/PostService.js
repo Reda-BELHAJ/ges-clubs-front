@@ -33,6 +33,7 @@ class PostService {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         }
+        console.log("axios begin");
         axios.post("http://localhost:8080/api/postService/saveComment/",
             JSON.stringify(requestComment), {
                 headers: headers

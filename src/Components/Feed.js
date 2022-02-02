@@ -162,6 +162,9 @@ const Feed = ({recomState, state, club}) => {
                             idUser = {p.userID}
                             disableComments={false}
                             EventBool={p.event}
+                            video ={'http://localhost:8080/api/postService/landing/' + 0 + '/image/downloadVideoPost'} /* 0  =======> p.postID */
+                            videoCheck={p.postVideo}
+                            imageCheck={p.postImgURL}
                             //comments
                         />
                 </div>                  

@@ -24,19 +24,40 @@ class UserService {
     });
   }
 
-  unfollowClub(requestFollow) {
+  likePost(requestLike) {
     const token = this.getCurrentUser().accessToken;
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
     }
     
-    axios.post("http://localhost:8080/api/user/unfollow",
-        JSON.stringify(requestFollow), {
+    axios.post("http://localhost:8080/api/user/like",
+        JSON.stringify(requestLike), {
             headers: headers
         }   
     ).then(() => {
-        console.log("club unfollowed -1 ");
+        console.log("post Liked +1 ");
+        window.location.reload();
+    })
+    .catch(err => {
+        console.log(err);
+    });
+  }
+
+  unLikePost(requestLike) {
+    const token = this.getCurrentUser().accessToken;
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    
+    axios.post("http://localhost:8080/api/user/unlike",
+        JSON.stringify(requestLike), {
+            headers: headers
+        }   
+    ).then(() => {
+        console.log("post Unliked -1 ");
+        window.location.reload();
     })
     .catch(err => {
         console.log(err);

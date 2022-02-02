@@ -9,13 +9,35 @@ import { BsHeartFill, BsHeart } from 'react-icons/bs';
 export default function Post ({idPost, idClub, idUser, clubAvatar, image, text, likes, comments, username, creaAt, postedBy, EventBool, video, imageCheck, videoCheck}) {
 
     const [like,setLike] = useState(likes)
-    const [isLiked,setIsLiked] = useState(true)
+    const [isLiked,setIsLiked] = useState(false)
     const [role, setRole] = useState("");
     const [commentsCount, setCommentsCount] = useState("");
     const [commentsColor, setCommentsColor] = useState(false);
     const [likeColor, setLikeColor] = useState(false);
     const token = UserService.getCurrentUser().accessToken;
     
+
+    useEffect(() => {
+        if (idPost != undefined && idUser != undefined) {
+            axios.get("http://localhost:8080/api/user/checkPostLiked/" + idUser + "/" + idPost,   
+            {        
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+            
+                setIsLiked(response.data);
+                
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+          
+        }
+       
+    }, []);
 
     useEffect(() => {
         
@@ -63,6 +85,15 @@ export default function Post ({idPost, idClub, idUser, clubAvatar, image, text, 
 
     const addDefaultSrc1= (ev) => {
             ev.target.src = "https://previews.123rf.com/images/triken/triken1608/triken160800029/61320775-männlich-avatar-profilbild-standard-benutzer-avatar-gast-avatar-einfach-menschlichen-kopf-vektor-ill.jpg" // this could be an imported image or url
+    }
+    const handleLikeClick= () => {
+
+        setIsLiked(!isLiked);
+        if(isLiked)
+            UserService.unLikePost({idPost: idPost, idUser: idUser});
+        if(!isLiked)
+            UserService.likePost({idPost: idPost, idUser: idUser});
+        
     }
 
     return (
@@ -117,7 +148,7 @@ export default function Post ({idPost, idClub, idUser, clubAvatar, image, text, 
 
                 <div className="text-gray-500 flex mt-3">
                     <div className="flex items-center mr-6">
-                        <button onClick={() => {setIsLiked(!isLiked)}} className='focus:outline-0'>
+                        <button onClick={handleLikeClick} className='focus:outline-0'>
                             <div onMouseEnter={() => {
                                 setLikeColor(true);
                             }} onMouseLeave={() => {setLikeColor(false)}} >
@@ -136,7 +167,7 @@ export default function Post ({idPost, idClub, idUser, clubAvatar, image, text, 
                             </div>
                         </button>
                         <span className="ml-3">
-                            {likes}
+                            {like}
                         </span>
                     </div>
 
@@ -164,7 +195,6 @@ export default function Post ({idPost, idClub, idUser, clubAvatar, image, text, 
                             }
                             </Link>
                         </div>
-                            
                         
                         <span className="ml-3">
                             {commentsCount}
