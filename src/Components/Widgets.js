@@ -153,11 +153,6 @@ const Widgets = ({recomState, state, club}) => {
                         
                     </ul>
                 </div>
-                
-                {/* Profile */}
-                {/* Events */}
-                {/* Clubs */}
-                {/* Settings */}
             </div>
         </div>
     )

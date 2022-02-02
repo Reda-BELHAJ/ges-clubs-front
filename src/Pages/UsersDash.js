@@ -2,12 +2,10 @@ import React from 'react';
 
 // import NavbarAuth from '../Components/NavbarAuth'
 import WidgetAdmin from "../Components/AdminComponents/WidgetAdmin"
-import AdminLines from "../Components/AdminComponents/AdminLines"
-import AdminCards from "../Components/AdminComponents/AdminCards"
-import LayoutTables from '../Components/AdminComponents/LayoutTables';
+import UsersTable from "../Components/AdminComponents/UsersTable"
 
-const Admin = () => {
-    return (
+const UsersDash = () => {
+  return (
         <div className='flex flex-col min-h-screen overflow-hidden'>
             {/* <NavbarAuth /> */}
             <main>
@@ -17,20 +15,13 @@ const Admin = () => {
                     </div>
                     
                     <div className='lg:col-span-5 h-auto mt-20'>
-                        <AdminLines />
-                        <div className='mt-2 lg:grid lg:grid-cols-3 lg:gap-2'>
-                            <AdminCards />
-                            <AdminCards />
-                            <AdminCards />
-                        </div>
-
-                        <LayoutTables />
+                        <UsersTable />
                     </div>
                 </div>
 
             </main>
         </div>
-    )
-}
+  );
+};
 
-export default Admin
+export default UsersDash;

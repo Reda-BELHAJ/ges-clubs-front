@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from "react-router-dom";
 import AOS from 'aos';
 import { focusHandling } from 'cruip-js-toolkit';
@@ -19,6 +19,8 @@ import Members from './Pages/Members';
 import CreateEvent from './Components/CreateEvent';
 import PostDetails from './Components/PostDetails';
 import NotFound from './Pages/NotFound'
+import UsersDash from './Pages/UsersDash';
+import ClubsDash from './Pages/ClubsDash';
 
 import UserService from './Services/User/UserService';
 import EventBus from './Utils/EventBus';
@@ -65,6 +67,11 @@ function App() {
         <Route exact path="/signin" element={<SignIn />} />
         <Route exact path="/signup" element={<SignUp />} />
 
+        <Route exact path="/admin" element={<Admin />} />
+
+        <Route exact path="/clubsDash" element={<ClubsDash />} />
+        <Route exact path="/usersDash" element={<UsersDash />} />
+        
         <Route exact path="/createClub" element={<CreateClub />} />
         <Route exact path="/createEvent/:nameClub/:state" element={<CreateEvent />} />
 
