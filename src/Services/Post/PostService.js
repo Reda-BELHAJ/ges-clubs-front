@@ -4,6 +4,17 @@ import UserService from '../User/UserService';
 
 class PostService {
 
+    getPostsForClubFollowed(idClub) {
+
+        const token = UserService.getCurrentUser().accessToken;
+        return axios.get("http://localhost:8080/api/postService/retrievePostClubFollowed/" + idClub, {
+            headers: {
+                "Content-Type" : "multipart/form-data",
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    }
+
     getPosts() {
 
         const token = UserService.getCurrentUser().accessToken;
@@ -14,6 +25,7 @@ class PostService {
             }
         });
     }
+
 
     getPostsForClub(clubName) {
 

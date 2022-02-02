@@ -24,6 +24,25 @@ class UserService {
     });
   }
 
+  unfollowClub(requestFollow) {
+    const token = this.getCurrentUser().accessToken;
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    
+    axios.post("http://localhost:8080/api/user/unfollow",
+        JSON.stringify(requestFollow), {
+            headers: headers
+        }   
+    ).then(() => {
+        console.log("club followed -1 ");
+    })
+    .catch(err => {
+        console.log(err);
+    });
+  }
+
   likePost(requestLike) {
     const token = this.getCurrentUser().accessToken;
     const headers = {

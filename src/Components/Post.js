@@ -93,7 +93,6 @@ export default function Post ({idPost, idClub, idUser, clubAvatar, image, text, 
             UserService.unLikePost({idPost: idPost, idUser: idUser});
         if(!isLiked)
             UserService.likePost({idPost: idPost, idUser: idUser});
-        
     }
 
     return (
