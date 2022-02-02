@@ -18,6 +18,7 @@ import Dashboards from './Pages/Dashboards';
 import Members from './Pages/Members';
 import CreateEvent from './Components/CreateEvent';
 import PostDetails from './Components/PostDetails';
+import NotFound from './Pages/NotFound'
 
 import UserService from './Services/User/UserService';
 import EventBus from './Utils/EventBus';
@@ -45,27 +46,29 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route exact path="/" element={<Landing />} />
 
-        <Route path="/home" element={<Home />} />
+        <Route exact path="/home" element={<Home />} />
 
-        <Route path="/profile/:nameClub/:state" element={<Profile />} />
+        <Route exact path="/profile/:nameClub/:state" element={<Profile />} />
 
-        <Route path="/clubs" element={<Clubs />} />
-        <Route path="/postDetails/:idPost/:Ccount" element={<PostDetails/>} />
-        <Route path="/events" element={<Events />} />
+        <Route exact path="/clubs" element={<Clubs />} />
+        <Route exact path="/postDetails/:idPost/:Ccount" element={<PostDetails/>} />
+        <Route exact path="/events" element={<Events />} />
 
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/settingsClub" element={<SettingsClub />} />
+        <Route exact path="/settings" element={<Settings />} />
+        <Route exact path="/settingsClub" element={<SettingsClub />} />
 
-        <Route path="/dashboards" element={<Dashboards />} />
-        <Route path="/members" element={<Members />} />
+        <Route exact path="/dashboards" element={<Dashboards />} />
+        <Route exact path="/members" element={<Members />} />
 
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route exact path="/signin" element={<SignIn />} />
+        <Route exact path="/signup" element={<SignUp />} />
 
-        <Route path="/createClub" element={<CreateClub />} />
-        <Route path="/createEvent/:nameClub/:state" element={<CreateEvent />} />
+        <Route exact path="/createClub" element={<CreateClub />} />
+        <Route exact path="/createEvent/:nameClub/:state" element={<CreateEvent />} />
+
+        <Route path="*" element={<NotFound />}/>
       </Routes>
     </>
     
