@@ -140,7 +140,7 @@ const Widgets = ({recomState, state, club}) => {
                                     
                                         <WidgetItem
                                             header="Members"
-                                            path="/members"
+                                            path={`/members/${club}`}
                                         >
                                             <BsPeopleFill size={20} className='inline-flex justify-center items-center ml-4'/>
                                         </WidgetItem>

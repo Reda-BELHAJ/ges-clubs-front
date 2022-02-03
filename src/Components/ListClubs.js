@@ -3,10 +3,10 @@ import React from 'react'
 
 import ClubItem from './ClubItem'
 import Pagination from '@mui/material/Pagination';
-
+import usePagination from'./Utils/Pagination';
 import Select from './Select';
 
-import usePagination from'./Utils/Pagination';
+
 import { useEffect } from 'react';
 
 import axios from 'axios';
@@ -255,7 +255,7 @@ const ListClubs = (props) => {
             </div>
 
             <div className="lg:grid lg:grid-cols-3 mx-auto sm:flex-row ">     
-           
+               
                 {_DATA && 
                     _DATA.currentData().filter((val) => {
                         if (searchTerm == "") {

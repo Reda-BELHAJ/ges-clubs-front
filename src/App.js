@@ -62,7 +62,7 @@ function App() {
         <Route exact path="/settingsClub" element={<SettingsClub />} />
 
         <Route exact path="/dashboards" element={<Dashboards />} />
-        <Route exact path="/members" element={<Members />} />
+        <Route exact path="/members/:club" element={<Members />} />
 
         <Route exact path="/signin" element={<SignIn />} />
         <Route exact path="/signup" element={<SignUp />} />
