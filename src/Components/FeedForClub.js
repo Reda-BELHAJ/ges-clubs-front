@@ -10,6 +10,9 @@ import { Link } from 'react-router-dom';
 import { RiImage2Fill } from "react-icons/ri";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const FeedForClub = ({recomState, state, club}) => {
     const user = UserService.getCurrentUser();
     const [post, setPost] = useState([]);
@@ -59,13 +62,26 @@ const FeedForClub = ({recomState, state, club}) => {
 
     const handleSubmit = (e) => {
        
-
-        if (imagePost != "")
+        if (imagePost != ""){
+            toast.success("Post has been submited !", {
+                position: toast.POSITION.TOP_CENTER});
             PostService.savePost(requestPost, imagePost, 0);
-        if (videoPost != "")
-            PostService.savePost(requestPost, videoPost, 1);
-        if(imagePost == "" && videoPost == "")
+        }
+            
+            
+        if (videoPost != ""){
+            toast.success("Post has been submited !", {
+                position: toast.POSITION.TOP_CENTER});
+
             PostService.savePostOnlyText(requestPost);
+        }
+           
+        if(imagePost == "" && videoPost == ""){
+            toast.success("Post has been submited !", {
+                position: toast.POSITION.TOP_CENTER});
+            PostService.savePostOnlyText(requestPost);
+        }
+            
 
         
     }
@@ -129,6 +145,7 @@ const FeedForClub = ({recomState, state, club}) => {
                             onClick={handleSubmit}
                             className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                         >
+                            <ToastContainer></ToastContainer>
                             Post
                         </button>
                         <Link

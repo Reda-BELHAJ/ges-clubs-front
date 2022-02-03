@@ -102,7 +102,7 @@ class UserService {
     });
   }
 
-  uploadLogoAndCover(fileC, fileL, idUser) {
+  uploadImageCover(fileC, idUser) {
 
     const token = this.getCurrentUser().accessToken;
     
@@ -119,9 +119,6 @@ class UserService {
             }
         }
     )
-    .then(() => {
-        this.uploadImageLogo(fileL, idUser);
-    })
     .catch(err => {
         console.log(err);
     });

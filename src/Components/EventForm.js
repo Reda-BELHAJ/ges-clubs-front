@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import PostService from '../Services/Post/PostService';
 import UserService from '../Services/User/UserService';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const EventForm = ({recomState, club, state}) => {
 
     const user = UserService.getCurrentUser();
@@ -23,10 +26,13 @@ const EventForm = ({recomState, club, state}) => {
         setRequestPost({... requestPost, desc: e.target.value});
         setEventRequest({... eventRequest, eventDesc: e.target.value});
     }
+    
     const handleCreate = (e) => {
         e.preventDefault();
-        
-        PostService.saveEventPost(requestPost, eventRequest, imagePost, eventRes);
+        toast.success("Club demand has been submited !", {
+            position: toast.POSITION.TOP_CENTER});
+        if(requestPost != null && eventRequest != null && imagePost != null && eventRes != null)
+            PostService.saveEventPost(requestPost, eventRequest, imagePost, eventRes);
     }
 
      return (
@@ -116,6 +122,7 @@ const EventForm = ({recomState, club, state}) => {
                         onClick={handleCreate} 
                         className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                     >
+                        <ToastContainer></ToastContainer>
                         Create
                     </button>
                 </div>

@@ -8,7 +8,7 @@ import SettingsProfileClub from '../Components/SettingsProfileClub';
 const SettingsClub = () => {
     return (
         <div className='flex flex-col min-h-screen overflow-hidden'>
-            <NavbarAuth />
+            <NavbarAuth state={false} club={"club"}/>
 
             <Helmet club={"test"} state={true}/>
             <main>

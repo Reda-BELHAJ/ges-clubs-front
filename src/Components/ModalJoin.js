@@ -4,6 +4,9 @@ import Modal from '@mui/material/Modal';
 import UserService from '../Services/User/UserService';
 import { useState } from 'react';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const ModalJoin = ({ handleClose, show, nomClub}) => {
     
     const [nom, setNom] = useState("");
@@ -29,6 +32,8 @@ const ModalJoin = ({ handleClose, show, nomClub}) => {
     };
 
     function setData() {
+        toast.success("Join Club demand has been submited !", {
+            position: toast.POSITION.TOP_CENTER});
        setRequestCreateMember({ nom: nom, filiere: filiere, anneeE: anneeE,
         email: email, nameUser: nameUser, raison: raison, nomClub: nomClub})
     }
@@ -134,6 +139,7 @@ const ModalJoin = ({ handleClose, show, nomClub}) => {
                                 className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                                 onClick={setData}
                             >
+                                <ToastContainer></ToastContainer>
                                 Submit
                             </button>
                         </div>

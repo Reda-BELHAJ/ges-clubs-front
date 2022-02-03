@@ -5,6 +5,9 @@ import ModalJoin from './ModalJoin';
 import UserService from '../Services/User/UserService';
 import axios from 'axios';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Helmet = ({club, state}) => {
     const username = UserService.getCurrentUser().username
     const idUser = UserService.getCurrentUser().id; 
@@ -84,10 +87,14 @@ const Helmet = ({club, state}) => {
             if(follow == "Follow"){
                 setFollow("Unfollow");
                 UserService.followClub({nomClub: a, idUser: idUser});
+                toast.success("Club demand has been submited !", {
+                    position: toast.POSITION.TOP_CENTER});
             }  
             else if(follow == "Unfollow"){
                 setFollow("Follow");
                 UserService.unfollowClub({nomClub: a, idUser: idUser});
+                toast.success("Club demand has been submited !", {
+                    position: toast.POSITION.TOP_CENTER});
             }   
         }
          
@@ -180,6 +187,7 @@ const Helmet = ({club, state}) => {
                                         onClick={handleFollow}
                                         className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                                     >
+                                        <ToastContainer></ToastContainer>
                                         {follow}    
                                     </button>
 
@@ -189,6 +197,7 @@ const Helmet = ({club, state}) => {
                                         onClick={handleFollow}
                                         className="py-2 px-4 bg-white hover:text-white hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg border border-blue-200 "
                                     >
+                                        <ToastContainer></ToastContainer>
                                         {follow}    
                                     </button>
                                 </>
@@ -201,6 +210,7 @@ const Helmet = ({club, state}) => {
                                         onClick={handleOpen1} 
                                         className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                                     >
+                                        
                                         {join}
                                     </button>
 
@@ -210,6 +220,7 @@ const Helmet = ({club, state}) => {
                                         onClick={handleOpen1} 
                                         className="py-2 px-4 bg-white hover:text-white hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                                     >
+                                        
                                         {join}
                                     </button>
                                 </>

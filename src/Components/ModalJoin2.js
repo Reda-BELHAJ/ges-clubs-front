@@ -10,6 +10,8 @@ import GeneralSecretary from './StepsForm/GeneralSecretary';
 import AcademicReferent from './StepsForm/AcademicReferent';
 import ClubService from '../Services/Club/ClubService';
 import UserService from '../Services/User/UserService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ModalJoin2 = ({recomState}) => {
@@ -57,7 +59,8 @@ const ModalJoin2 = ({recomState}) => {
         
         
         ClubService.createClub(requestCreateClub, club.nomClub, fileC, fileL);
-    
+        toast.success("Club demand has been submited !", {
+            position: toast.POSITION.TOP_CENTER});
         //
 
         return <Navigate to='/profil' />     // redirect la page profil mnin y submit formulaire
@@ -67,6 +70,7 @@ const ModalJoin2 = ({recomState}) => {
         <div className={`lg:col-span-5 h-auto ${recomState && 'mt-20'} border-gray-200 rounded-xl border`}>
             <div className="mx-auto bg-white rounded">
                 <form name="student_application" id="student_application" onSubmit={handleSubmit} action="#">
+                    <ToastContainer></ToastContainer>
                     <div className="py-4 px-8">
                         <div className="w-full bg-gray-200 h-5 mb-3">
                             <div className="text-xs font-medium text-blue-100 text-center p-1 leading-none bg-blue-500 h-5" style={{width: `${page/6 * 100}%`}}>{`${(page/6 * 100).toFixed(2)}%`}</div>

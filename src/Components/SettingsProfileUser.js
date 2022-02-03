@@ -5,6 +5,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Input from "@material-ui/core/Input";
 import IconButton from "@material-ui/core/IconButton";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import UserService from '../Services/User/UserService';
 
@@ -48,8 +50,14 @@ const SettingsProfileUser = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        UserService.uploadLogoAndCover(coverImg, logo, id);
+        if(logo != null)
+            UserService.uploadImageCover(coverImg, id);
+        if(logo != null)
+            UserService.uploadImageLogo(logo, id)
         UserService.updateUser(username, password, email, id);
+
+        toast.success("Settings Changed Successfly !", {
+            position: toast.POSITION.TOP_CENTER});
     }
 
     function handleUsername(e) {
@@ -71,6 +79,7 @@ const SettingsProfileUser = () => {
         <div className="lg:col-span-5 mb-5 h-auto border-gray-300 rounded-xl border">
             <div className="mx-auto">
                 <form name="settings_profile" id="settings_profile" onSubmit={handleSubmit}>
+                    <ToastContainer/>
                     <div className="py-4 px-8">
                         <div className="block text-grey-darker text-lg font-bold mb-2">
                             Profile Settings
