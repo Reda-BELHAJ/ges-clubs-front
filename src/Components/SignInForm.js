@@ -5,6 +5,9 @@ import CheckButton from "react-validation/build/button";
 import UserService from '../Services/User/UserService';
 import { useNavigate } from 'react-router-dom';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const required = value => {
     if (!value) {
       return (
@@ -44,8 +47,22 @@ const SignInForm = () => {
     if (checkBtn.context._errors.length === 0) {
       UserService.login(username, password).then(
         () => {
-          navigate("/home")
-          window.location.reload();
+          
+          if(UserService.getCurrentUser() == null){
+            toast.error("Admin user still being processed, try to login later", {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 10000
+              });
+            
+          }
+          else{
+            toast.success("Login sucess, redirecting in seconds !", {
+              position: toast.POSITION.TOP_CENTER,
+              onClose: () => {navigate("/home")}
+              });
+          }
+          
+          
         },
         error => {
           const resMessage =
@@ -73,6 +90,7 @@ const SignInForm = () => {
                         setForm(c);
                       }}
                 >
+                  <ToastContainer autoClose={2500}/>
                     <div className="flex flex-wrap -mx-3 mb-4">
                         <div className="w-full px-3">
                             <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="username">Username</label>

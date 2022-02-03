@@ -7,6 +7,8 @@ import axios from 'axios';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { RiLock2Fill } from 'react-icons/ri';
+
 
 const Helmet = ({club, state}) => {
     const username = UserService.getCurrentUser().username
@@ -108,7 +110,7 @@ const Helmet = ({club, state}) => {
                 <div className='bg-cover bg-no-repeat bg-center'>
                     <img 
                         className="md rounded-full relative" 
-                        src={'http://localhost:8080/api/user/landing/' + 0 + '/image/downloadCover'}
+                        src={'http://localhost:8080/api/user/landing/' + idUser + '/image/downloadCover'}
                         alt={"Loading"} 
                         onError={addDefaultSrc2}
                         className='w-full h-40 object-cover'
@@ -124,7 +126,7 @@ const Helmet = ({club, state}) => {
                                         height={70}
                                         width={70}
                                         className="md rounded-full relative" 
-                                        src={'http://localhost:8080/api/user/landing/' + 0 + '/image/downloadIcon'}
+                                        src={'http://localhost:8080/api/user/landing/' + idUser + '/image/downloadIcon'}
                                         alt={"Loading"} 
                                         onError={addDefaultSrc1}
                                     />
@@ -203,28 +205,45 @@ const Helmet = ({club, state}) => {
                                 </>
                             }
 
-                            {
-                                join == "Join" ?
+                            {UserService.getCurrentUser().roles.includes("ROLE_USER_INTERNAL") &&   
                                 <>
-                                    <button
-                                        onClick={handleOpen1} 
-                                        className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                                    >
-                                        
-                                        {join}
-                                    </button>
+                                    {join == "Join" ?
+                                    <>
+                                        {UserService.getCurrentUser().nonLocked == true ? 
+                                            <>
+                                                <button
+                                                    onClick={handleOpen1} 
+                                                    className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                                >
+                                                    
+                                                    {join} 
+                                                </button>
+                                            </>:
+                                            <>
+                                                <button 
+                                                    className="py-2 px-8 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                                    disabled
+                                                >
 
-                                </> :
-                                <>
-                                    <button
-                                        onClick={handleOpen1} 
-                                        className="py-2 px-4 bg-white hover:text-white hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                                    >
-                                        
-                                        {join}
-                                    </button>
-                                </>
+                                                    <RiLock2Fill></RiLock2Fill>
+                                                </button>
+                                            </>
+                                        }
+
+                                    </> :
+                                    <>
+                                        <button
+                                            onClick={handleOpen1} 
+                                            className="py-2 px-4 bg-white hover:text-white hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                        >
+                                            
+                                            {join}
+                                        </button>
+                                    </>
+                                    }
+                                </>     
                             }
+                                
                             
                              
                         </div>

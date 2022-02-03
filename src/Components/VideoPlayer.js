@@ -1,10 +1,20 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import Modal from '../Utils/Modal'
+import Modal from '@mui/material/Modal';
+const style = {
+    width: '80%',
+    maxHeight: '100%',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    p: 4,
+    overflowY: 'auto'
+};
 
 const VideoPlayer = () => {
-    const [videoModalOpen, setVideoModalOpen] = useState(true);
+    const [videoModalOpen, setVideoModalOpen] = useState(false);
 
     return (
         <section className="relative">
@@ -75,10 +85,10 @@ const VideoPlayer = () => {
                     <Modal 
                         id="modal" 
                         ariaLabel="modal-headline" 
-                        show={videoModalOpen} 
-                        handleClose={() => setVideoModalOpen(false)}
+                        open={videoModalOpen} 
+                        onClose={() => setVideoModalOpen(false)}
                     >
-                        <div className="relative pb-9/16">
+                        <div style={style} className="relative pb-9/16">
                             <iframe 
                                 className="absolute w-full h-full" 
                                 src="https://www.youtube-nocookie.com/embed/MGXM2K5FeYk" 

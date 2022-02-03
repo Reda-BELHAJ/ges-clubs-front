@@ -59,7 +59,7 @@ function App() {
         <Route exact path="/events" element={<Events />} />
 
         <Route exact path="/settings" element={<Settings />} />
-        <Route exact path="/settingsClub" element={<SettingsClub />} />
+        <Route exact path="/settingsClub/:club" element={<SettingsClub />} />
 
         <Route exact path="/dashboards" element={<Dashboards />} />
         <Route exact path="/members/:club" element={<Members />} />

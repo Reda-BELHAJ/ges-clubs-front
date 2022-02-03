@@ -172,7 +172,7 @@ const Feed = ({recomState, state, club}) => {
                             likes={p.likes}
                             text={p.description}
                             postedBy={p.userName}
-                            image={'http://localhost:8080/api/postService/landing/' + 0 + '/image/downloadImagePost'}  /* 0  =======> p.postID */
+                            image={'http://localhost:8080/api/postService/landing/' + p.postID + '/image/downloadImagePost'}  /* 0  =======> p.postID */
                             clubAvatar={'http://localhost:8080/api/clubService/landing/' + p.idClub + '/image/downloadIcon'}    // ClubIcon Download using idClub
                             username={p.clubName }
                             creaAt={new Date(Date.parse(p.dateTime)).toUTCString()}
@@ -180,7 +180,7 @@ const Feed = ({recomState, state, club}) => {
                             idUser = {p.userID}
                             disableComments={false}
                             EventBool={p.event}
-                            video ={'http://localhost:8080/api/postService/landing/' + 0 + '/image/downloadVideoPost'} /* 0  =======> p.postID */
+                            video ={'http://localhost:8080/api/postService/landing/' + p.postID + '/image/downloadVideoPost'} /* 0  =======> p.postID */
                             videoCheck={p.postVideo}
                             imageCheck={p.postImgURL}
                             //comments

@@ -12,28 +12,14 @@ const ClubInfo = (props) => {
     const [coverImg, setCoverImg] = useState(null)
 
     const onCoverImgChange = event => {
-        setCoverImg(event.target.files[0]);
-        props.cover(coverImg)
+        props.cover(event.target.files[0])
     };
 
     const onLogoChange = event => {
-        setLogo(event.target.files[0]);
-        props.logo(logo)
+        
+        props.logo(event.target.files[0])
     };
 
-    const handleChangeName =  (e) => {
-        e.preventDefault();
-        setClubName(e.target.value);
-        props.clubName(clubName);
-        
-    };
-    
-    const handleChangeDesc =  (e) => {
-        e.preventDefault();
-        setClubDesc(e.target.value);
-        props.clubDesc(clubDesc);
-        
-    };
 
     function handleEntailmentRequest(e, num) {
         e.preventDefault();
@@ -46,28 +32,28 @@ const ClubInfo = (props) => {
 
     return (
         <div>
-            {console.log(logo)}
+            
             <div className="block text-grey-darker text-lg font-bold mb-2">
                 Club Information
             </div>
             <div className="mb-4">
                 <label className="block text-grey-darker text-sm font-bold mb-2">Username:</label>
                 <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
-                    name="student_user" id="student_user" placeholder={username} readOnly="readonly"/>
+                    name="student_user" id="student_user" placeholder={username} readOnly="readonly"/> 
             </div>
 
             <div className="mb-4">
                 <label className="block text-grey-darker text-sm font-bold mb-2">Club Name:</label>
-                <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text" 
-                    name="student_name" id="student_name" placeholder="Enter The Club Name"
+                <input className=" border rounded w-full py-2 px-3 text-grey-darker" type="text" value={props.getInfo.nomClub}
+                    name="student_name" id="student_name" placeholder="Enter The Club Name" 
                     onChange={e => props.clubName(e.target.value)} />
             </div>
 
             <div className="mb-4">
                 <label className="block text-grey-darker text-sm font-bold mb-2">Club Description:</label>
-                <textarea className=" border rounded w-full py-2 px-3 text-grey-darker" rows="3"
+                <textarea className=" border rounded w-full py-2 px-3 text-grey-darker" rows="3" 
                     name="student_name" id="student_name" placeholder="Enter The Club Description"
-                    onChange={handleChangeDesc} value={clubDesc}/>
+                    onChange={e => props.clubDesc(e.target.value)} value={props.getInfo.descClub}/>
             </div>
 
             <div className="mb-4">
@@ -80,7 +66,7 @@ const ClubInfo = (props) => {
                     <span className="mt-2 text-base leading-normal uppercase">Select a Logo</span>
                     <input type='file' className="hidden" onChange={(e) => handleEntailmentRequest(e, 2)}/>
 
-                    {logo === null ? <span>No file choosen</span> : <span>{logo.name}</span>}
+                    {logo === null ? <span> {props.getInfo.logo === null ? <span>No file choosen </span> : <span>{props.getInfo.logo}</span> }</span> : <span>{logo.name}</span>}
                 </label>
             </div>
 
@@ -94,7 +80,7 @@ const ClubInfo = (props) => {
                     <span className="mt-2 text-base leading-normal uppercase">Select a Cover Image</span>
                     <input type='file' className="hidden" onChange={(e) => handleEntailmentRequest(e, 1)}/>
 
-                    {coverImg === null ? <span>No file choosen</span> : <span>{coverImg.name}</span>}
+                    {coverImg === null ? <span> {props.getInfo.coverImg === null ? <span>No file choosen</span> : <span>{props.getInfo.coverImg}</span>}</span> : <span>{coverImg.name}</span>}
                 </label>
             </div>
         </div>

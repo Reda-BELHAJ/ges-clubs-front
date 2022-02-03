@@ -190,12 +190,13 @@ updateUser(userName, password, email, idUser) {
     localStorage.removeItem("user");
   }
 
-  register(username, role, password) {
-    console.log("UserService: " + role);
+  register(username, userRole, password, email) {
+    
     return axios.post(API_URL + "signup", {
       username,
-      role,
-      password
+      userRole,
+      password,
+      email
     });
   }
 

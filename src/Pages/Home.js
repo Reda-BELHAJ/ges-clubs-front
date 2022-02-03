@@ -28,7 +28,7 @@ const Home = () => {
     if (user) {
       setCurrentUser(user);
       console.log(user);
-      setShowUserBoard(user.roles.includes("ROLE_USER_INTERNAL"));
+      setShowUserBoard(user.roles.includes("ROLE_USER_INTERNAL") || user.roles.includes("ROLE_USER_EXTERNAL"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
     }
 

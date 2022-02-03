@@ -59,8 +59,8 @@ const NavbarAuth = (state, club) => {
                                             <img 
                                                 width={32}
                                                 height={32}
-                                                className="rounded-full" 
-                                                src={'http://localhost:8080/api/user/landing/' + 0 + '/image/downloadIcon'}
+                                                className="w-8 h-8 border-2 border-gray-300 rounded-full"
+                                                src={'http://localhost:8080/api/user/landing/' + idUser + '/image/downloadIcon'}
                                                 alt={"Loading"} 
                                                 onError={addDefaultSrc1}
                                             />

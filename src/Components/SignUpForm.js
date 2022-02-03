@@ -1,10 +1,13 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import UserService from '../Services/User/UserService';
 import Form from "react-validation/build/form";
 import Input from 'react-validation/build/input';
 import CheckButton from "react-validation/build/button";
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const required = value => {
@@ -27,7 +30,7 @@ const required = value => {
     }
   };
   
-  const vpassword = (value1, value2) => {
+  const vpassword = value1 => {
     if (value1.length < 6 || value1.length > 40) {
       return (
         <div className="alert alert-danger" role="alert" style={{ color: 'red' }}>
@@ -35,14 +38,10 @@ const required = value => {
         </div>
       );
     }
-    else if(value1 === value2) {
-        return (
-          <div className="alert alert-danger" role="alert" style={{ color: 'red' }}>
-            It doesn't match with the password.
-          </div>
-        );
-      }
+    
   };
+
+  
 
   const options = [
     { value: 'Administrateur', label: 'Admin' },
@@ -50,10 +49,14 @@ const required = value => {
     { value: 'Etudiant UIR', label: 'Interne de UIR' },
   ];
 
+
+
 const SignUpForm = () => {
+    const [checkV, setCheckV] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState("none");
+    const [email, setEmail] = useState("");
+    const [role, setRole] = useState("Etudiant exterieur");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
@@ -67,10 +70,15 @@ const SignUpForm = () => {
     
     const onChangeRole = (e) => {
         setRole(e.value);
+        
     }
     
     const onChangePassword = (e) => {
         setPassword(e.target.value);
+    }
+
+    const onChangeEmail = (e) => {
+        setEmail(e.target.value);
     }
 
     const onChangeconfirmPassword = (e) => {
@@ -85,20 +93,32 @@ const SignUpForm = () => {
 
         form.validateAll();
 
-        if (checkBtn.context._errors.length === 0) {
+        if(password != confirmPassword)
+            setCheckV(true);
+
+        if (checkBtn.context._errors.length === 0 && password == confirmPassword) {
             console.log(role);
+
+            console.log("email", email);
+            setCheckV(false);
             if (role == null || role === '') {
                 role = [];
             }
-            console.log(role);
+            console.log("send role to axios", role);
             UserService.register(
                 username,
                 role,
-                password
+                password,
+                email
             ).then(
                 response => {
                     setMessage(response.data.message);
                     setSuccessful(true);
+                    toast.success("New user created, redirecting in 3 seconds !", {
+                        position: toast.POSITION.TOP_CENTER,
+                        onClose: () => {window.location = "/signin"}
+                        });
+                      
                 },
                 error => {
                     const resMessage =
@@ -123,8 +143,10 @@ const SignUpForm = () => {
                         setForm(c);
                     }} 
                 >
+                    <ToastContainer autoClose={3000}/>
                     {!successful && (
                         <div>
+                            
                             <div className="flex flex-wrap -mx-3 mb-4">
                                 <div className="w-full px-3">
                                     <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="affiliation">Affiliation<span className="text-red-600">*</span></label>
@@ -134,7 +156,7 @@ const SignUpForm = () => {
                             <div className="flex flex-wrap -mx-3 mb-4">
                                 <div className="w-full px-3">
                                     <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="username">Username <span className="text-red-600">*</span></label>
-                                    <Input id="username" type="text" className="form-input w-full text-gray-800" placeholder="Enter your username" 
+                                    <Input id="username" type="text" className="border rounded form-input w-full text-gray-800" placeholder="Enter your username" 
                                         name="username"
                                         value={username}
                                         onChange={onChangeUsername}
@@ -144,8 +166,19 @@ const SignUpForm = () => {
                             </div>
                             <div className="flex flex-wrap -mx-3 mb-4">
                                 <div className="w-full px-3">
+                                    <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="username">Email <span className="text-red-600">*</span></label>
+                                    <Input id="email" type="text" className="border rounded form-input w-full text-gray-800" placeholder="Enter your username" 
+                                        name="email"
+                                        value={email}
+                                        onChange={onChangeEmail}
+                                        validations={[required]}               
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap -mx-3 mb-4">
+                                <div className="w-full px-3">
                                     <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="password">Password <span className="text-red-600">*</span></label>
-                                    <Input id="password" type="password" className="form-input w-full text-gray-800" placeholder="Enter your password"
+                                    <Input id="password" type="password" className="border rounded form-input w-full text-gray-800" placeholder="Enter your password"
                                         name="password"
                                         value={password}
                                         onChange={onChangePassword}
@@ -156,7 +189,7 @@ const SignUpForm = () => {
                             <div className="flex flex-wrap -mx-3 mb-4">
                                 <div className="w-full px-3">
                                     <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="confirmPassword">Confirm Password <span className="text-red-600">*</span></label>
-                                    <Input id="confirmPassword" type="password" className="form-input w-full text-gray-800" placeholder="Confirm your password"
+                                    <Input id="confirmPassword" type="password" className="border rounded form-input w-full text-gray-800" placeholder="Confirm your password"
                                         name="confirmPassword"
                                         value={confirmPassword}
                                         onChange={onChangeconfirmPassword}
@@ -164,6 +197,12 @@ const SignUpForm = () => {
                                     />
                                 </div>
                             </div>
+                            { checkV && (
+                            <div className="alert alert-danger" role="alert" style={{ color: 'red' }}>
+                            It doesn't match with the password.
+                            </div>
+                             )
+                            }
                             <div className="flex flex-wrap -mx-3 mt-6">
                                 <div className="w-full px-3">
                                     <button className="btn text-white bg-blue-600 hover:bg-blue-700 w-full">Sign up</button>
@@ -175,9 +214,10 @@ const SignUpForm = () => {
                         </div>
                     )}
                     
+                    
                     {message && (
                         <div className="form-group">
-                            <div style={{ color: 'red' }}
+                            <div style={successful ?{ color: 'green' }: {color: 'red'}}
                                 className={
                                     successful
                                     ? "alert alert-success"
@@ -185,6 +225,7 @@ const SignUpForm = () => {
                                 }
                                 role="alert"
                             >
+                                <br></br><br></br><br></br><br></br>
                                 {message}
                             </div>
                         </div>

@@ -47,17 +47,16 @@ const TableMembers = (props) => {
     };
 
 
-    const [data, setData] = useState(members)
+    const [data, setData] = useState(_DATA.currentData())
     const [order, setOrder] = useState("ASC")
 
     const [sortIcons, setSortIcons] = useState(
         {
-            username: "ASC",
-            fullname: "ASC",
+            nameUser: "ASC",
+            nom: "ASC",
             status: "ASC",
-            date: "ASC",
-            field: "ASC",
-            role: "ASC",
+            dateCre: "ASC",
+            filiere: "ASC",
         }
     )
 
@@ -91,6 +90,7 @@ const TableMembers = (props) => {
             }
             ).then(response => {
                 props.sendData(response.data);
+                setData(response.data);
             })
             .catch(error => {
                 console.log(error.message);
@@ -111,6 +111,7 @@ const TableMembers = (props) => {
             }
             ).then(response => {
                 props.sendData(response.data);
+                setData(response.data);
             })
             .catch(error => {
                 console.log(error.message);
@@ -131,6 +132,7 @@ const TableMembers = (props) => {
             }
             ).then(response => {
                 props.sendData(response.data);
+                setData(response.data);
             })
             .catch(error => {
                 console.log(error.message);
@@ -176,7 +178,7 @@ const TableMembers = (props) => {
 
   return (
     <div className="lg:col-span-5 mb-5 h-auto border-gray-300 rounded-xl border">
-        <div className='lg:m-5 lg:mr-5 mb-2'>
+        <div className='m-3 lg:m-5 lg:mr-5 mb-2'>
                 <input className="mt-1 shadow appearance-none border rounded w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                 id="username" type="text" placeholder="Search by name" onChange={(event) => {setSearchTerm(event.target.value)}}/>
             </div>
@@ -206,20 +208,20 @@ const TableMembers = (props) => {
             <table className="table text-gray-400 border-separate w-full text-sm">
                 <thead className="text-gray-500">
                     <tr>
-                        <th className="p-1 cursor-pointer" onClick={() => sorting("username")}>
-                            Username {sortIcons.username === "DESC" ? <>▼</>:<>▲</> }
+                        <th className="p-1 cursor-pointer" onClick={() => sorting("nameUser")}>
+                            Username {sortIcons.nameUser === "DESC" ? <>▼</>:<>▲</> }
                         </th>
-                        <th className=" cursor-pointer text-left" onClick={() => sorting("fullname")}>
-                            Full Name {sortIcons.fullname === "DESC" ? <>▼</>:<>▲</> }
+                        <th className=" cursor-pointer text-left" onClick={() => sorting("nom")}>
+                            Full Name {sortIcons.nom === "DESC" ? <>▼</>:<>▲</> }
                         </th>
                         <th className="p-1 cursor-pointer text-left" onClick={() => sorting("status")}>
                             Status {sortIcons.status === "DESC" ? <>▼</>:<>▲</> }
                         </th>
-                        <th className="cursor-pointer text-center" onClick={() => sorting("date")}>
-                            Date {sortIcons.date === "DESC" ? <>▼</>:<>▲</> }
+                        <th className="cursor-pointer text-center" onClick={() => sorting("dateCre")}>
+                            Date {sortIcons.dateCre === "DESC" ? <>▼</>:<>▲</> }
                         </th>
-                        <th className="p-1 cursor-pointer text-left" onClick={() => sorting("field")}>
-                            Affiliation {sortIcons.field === "DESC" ? <>▼</>:<>▲</> }
+                        <th className="p-1 cursor-pointer text-left" onClick={() => sorting("filiere")}>
+                            Affiliation {sortIcons.filiere === "DESC" ? <>▼</>:<>▲</> }
                         </th>
                         <th className="p-1 cursor-pointer text-left" onClick={() => sorting("role")}>
                             Role {sortIcons.role === "DESC" ? <>▼</>:<>▲</> }
@@ -230,8 +232,9 @@ const TableMembers = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {_DATA &&
-                        _DATA.currentData().filter((val) => {
+                {console.log(_DATA.currentData())}
+                    {data &&
+                        data.filter((val) => {
                             if (searchTerm == "") {
                                 return val;
                             } else if (val.nameUser.toLowerCase().includes(searchTerm.toLowerCase())){
@@ -273,22 +276,22 @@ const TableMembers = (props) => {
                     }
                 </tbody>
             </table>
-            {!_DATA.currentData().length &&
-                    <div>
-                        <br></br><br></br>
-                        <b>No Data found for this set of filters  :(</b>
-                    </div> 
-                }
+            {!data.length &&
+                <div>
+                    <br></br><br></br>
+                    <b>No Data found for this set of filters  :(</b>
+                </div> 
+            }
         </div>
         
         <Pagination 
-                className="flex my-4 justify-center" 
-                page={page} 
-                count={count}
-                color="primary" 
-                onChange={handleChange}
-                size="small"
-            />
+            className="flex my-4 justify-center" 
+            page={page} 
+            count={count}
+            color="primary" 
+            onChange={handleChange}
+            size="small"
+        />
     </div>
   );
 };
