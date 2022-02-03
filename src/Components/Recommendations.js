@@ -22,7 +22,8 @@ const Recommendations = ({header, recomState}) => {
             }
             ).then(response => {
                 
-                setData(response.data);
+                setData(response.data.slice(0,5));
+                
             })
             .catch(error => {
                 console.log(error.message);
@@ -38,7 +39,8 @@ const Recommendations = ({header, recomState}) => {
             }
             ).then(response => {
                 
-                setData(response.data);
+                setData(response.data.slice(0,5));
+                
             })
             .catch(error => {
                 console.log(error.message);

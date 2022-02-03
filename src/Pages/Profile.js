@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import NavbarAuth from '../Components/NavbarAuth'
 import Helmet from '../Components/Helmet'
 import Widgets from '../Components/Widgets'
-import Feed from '../Components/Feed'
+
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import UserService from '../Services/User/UserService'

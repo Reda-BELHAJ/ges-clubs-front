@@ -48,8 +48,8 @@ const FeedForClub = ({recomState, state, club}) => {
     useEffect(() => {
         if(club != null){
             PostService.getPostsForClub(club).then(res => {
-                setPost(res.data);
-                console.log(res.data);
+                setPost(res.data.reverse());
+                console.log(res.data.reverse());
             });
             
         }

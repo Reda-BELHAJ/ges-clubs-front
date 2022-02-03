@@ -47,7 +47,8 @@ const Feed = ({recomState, state, club}) => {
 
     useEffect(() => {
         PostService.getPostsForClubFollowed(user.id).then(res => {
-            setPost(res.data);
+            setPost(res.data.reverse());
+
         });
     
       }, []);

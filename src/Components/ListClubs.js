@@ -35,10 +35,11 @@ const filters_setOne = [
 
 const filters_setTwo = [
     {
-      id: "1",
-      label: "Clubs I Follow",
-      value: "Clubs I Follow"
+        id: "1",
+        label: "All Clubs",
+        value: "All Clubs"
     },
+    
     {
       id: "2",
       label: "Clubs I Own",
@@ -49,11 +50,10 @@ const filters_setTwo = [
       label: "Clubs I Joined",
       value: "Clubs I Joined"
     },
-
     {
         id: "4",
-        label: "All Clubs",
-        value: "All Clubs"
+        label: "Clubs I Follow",
+        value: "Clubs I Follow"
     }
 ];
 
