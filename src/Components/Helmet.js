@@ -14,9 +14,11 @@ const Helmet = ({club, state}) => {
     const username = UserService.getCurrentUser().username
     const idUser = UserService.getCurrentUser().id; 
     const token = UserService.getCurrentUser().accessToken;
+
+    const [idMember, setIdMember] = useState("");
     const [showModal1, setShowModal1] = useState(false);
     const [follow, setFollow] = useState("Follow");  // Unfollow - Follow    Get from back 
-    const [join, setJoin] = useState("Join");  // UnJoin - Join      Get from back 
+    const [join, setJoin] = useState("Join");  // Unjoin - Join      Get from back 
     const [requestFollow, setRequestFollow] = useState({nomClub: "", idUser: idUser});
 
     const handleOpen1 = () => setShowModal1(true);
@@ -61,11 +63,14 @@ const Helmet = ({club, state}) => {
                 }
 
             }).then(response => {  
-                console.log("check Join ", response.data);
-                if(response.data)
+                console.log("checkIsMember", response.data)
+                setIdMember(response.data.idMembre);
+                if(response.data != "" && response.data.status == true)
                     setJoin("Unjoin");
+                else if (response.data != "" && response.data.status == false)
+                    setJoin("Wainting for Join");
                 else
-                    setJoin("Join");             
+                    setJoin("Join");            
             })
             .catch(error => {
                 console.log(error.message);
@@ -83,19 +88,30 @@ const Helmet = ({club, state}) => {
         ev.target.src = "http://apy-ingenierie.fr/wp-content/plugins/uix-page-builder/uixpb_templates/images/UixPageBuilderTmpl/default-cover-2.jpg" // this could be an imported image or url
     }
 
+    const handleUnjoin = () => {
+        let a = club
+        if(a != null) {
+            if(join == "Unjoin"){
+                setJoin("Join");
+                UserService.deleteMember(idMember);
+                toast.warning(" No longer member of club " + a + " !", {
+                    position: toast.POSITION.TOP_CENTER});
+            }   
+        }
+    }
     const handleFollow= (ev) => {
         let a = club
         if(a != null) {
             if(follow == "Follow"){
                 setFollow("Unfollow");
                 UserService.followClub({nomClub: a, idUser: idUser});
-                toast.success("Club demand has been submited !", {
+                toast.success(" followed club " + a + " !", {
                     position: toast.POSITION.TOP_CENTER});
             }  
             else if(follow == "Unfollow"){
                 setFollow("Follow");
                 UserService.unfollowClub({nomClub: a, idUser: idUser});
-                toast.success("Club demand has been submited !", {
+                toast.warning(" Unfollowed club " + a + " !", {
                     position: toast.POSITION.TOP_CENTER});
             }   
         }
@@ -104,7 +120,7 @@ const Helmet = ({club, state}) => {
 
     return (
         <div className='mt-20 '>
-                                                        
+                                                       
             {state ?
             <>
                 <div className='bg-cover bg-no-repeat bg-center'>
@@ -125,7 +141,7 @@ const Helmet = ({club, state}) => {
                                     <img 
                                         height={70}
                                         width={70}
-                                        className="md rounded-full relative" 
+                                        className="w-16 h-16 border-2 border-gray-300 rounded-full" 
                                         src={'http://localhost:8080/api/user/landing/' + idUser + '/image/downloadIcon'}
                                         alt={"Loading"} 
                                         onError={addDefaultSrc1}
@@ -233,7 +249,7 @@ const Helmet = ({club, state}) => {
                                     </> :
                                     <>
                                         <button
-                                            onClick={handleOpen1} 
+                                            onClick={handleUnjoin} 
                                             className="py-2 px-4 bg-white hover:text-white hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                                         >
                                             

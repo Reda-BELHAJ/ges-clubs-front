@@ -102,6 +102,29 @@ class UserService {
     });
   }
 
+  deleteMember(idMembre) {
+    const token = this.getCurrentUser().accessToken;
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    
+    axios.delete("http://localhost:8080/api/memberService/delete/" + idMembre,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+                window.location.reload();
+            })
+            .catch(error => {
+                
+                console.log(error.message);
+            }) 
+  }
+
   uploadImageCover(fileC, idUser) {
 
     const token = this.getCurrentUser().accessToken;

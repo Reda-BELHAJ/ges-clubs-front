@@ -33,7 +33,8 @@ const ModalJoin = ({ handleClose, show, nomClub}) => {
 
     function setData() {
         toast.success("Join Club demand has been submited !", {
-            position: toast.POSITION.TOP_CENTER});
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000});
        setRequestCreateMember({ nom: nom, filiere: filiere, anneeE: anneeE,
         email: email, nameUser: nameUser, raison: raison, nomClub: nomClub})
     }

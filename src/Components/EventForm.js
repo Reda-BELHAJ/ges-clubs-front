@@ -6,9 +6,11 @@ import UserService from '../Services/User/UserService';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const EventForm = ({recomState, club, state}) => {
 
+    let navigate = useNavigate();
     const user = UserService.getCurrentUser();
     const [eventRequest, setEventRequest] = useState({ name: "", eventDesc: "", startDate: "", endDate: "",
      maxP: "", budgetE:"", building: "", amphi:""});
@@ -29,8 +31,10 @@ const EventForm = ({recomState, club, state}) => {
     
     const handleCreate = (e) => {
         e.preventDefault();
-        toast.success("Club demand has been submited !", {
-            position: toast.POSITION.TOP_CENTER});
+        toast.success("Club event have been submited !", {
+            position: toast.POSITION.TOP_CENTER,
+            onClose: () => {navigate("/home")}
+        });
         if(requestPost != null && eventRequest != null && imagePost != null && eventRes != null)
             PostService.saveEventPost(requestPost, eventRequest, imagePost, eventRes);
     }
@@ -122,7 +126,7 @@ const EventForm = ({recomState, club, state}) => {
                         onClick={handleCreate} 
                         className="py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                     >
-                        <ToastContainer></ToastContainer>
+                        <ToastContainer autoClose={3000}></ToastContainer>
                         Create
                     </button>
                 </div>

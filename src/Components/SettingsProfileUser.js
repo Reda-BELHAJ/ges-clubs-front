@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import Visibility from "@material-ui/icons/Visibility";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -7,8 +7,8 @@ import Input from "@material-ui/core/Input";
 import IconButton from "@material-ui/core/IconButton";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import UserService from '../Services/User/UserService';
+import axios from 'axios';
 
 const SettingsProfileUser = () => {
     const [passwordShown, setPasswordShown] = useState(false);
@@ -21,15 +21,49 @@ const SettingsProfileUser = () => {
         e.preventDefault();
     };
 
+    const token = UserService.getCurrentUser().accessToken;
     const id = UserService.getCurrentUser().id;
     const [username, setUsername] = useState(UserService.getCurrentUser().username);
     const [password, setPassword] = useState(UserService.getCurrentUser().password);
     const [email, setEmail] = useState(UserService.getCurrentUser().email);
-
+    const [logoU, setLogoU] = useState(null);
+    const [coverImgU, setCoverImgU] = useState(null);
     // ghir for test above
 
     const [logo, setLogo] = useState(null)
     const [coverImg, setCoverImg] = useState(null)
+
+    useEffect(() => {
+        
+        axios.get("http://localhost:8080/api/user/getUserCover/" + id,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+                setCoverImgU(response.data);
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
+        
+        axios.get("http://localhost:8080/api/user/getUserLogo/" + id,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+                setLogoU(response.data);
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
+    }, []);
+    
 
     const onCoverImgChange = event => {
         setCoverImg(event.target.files[0])
@@ -50,7 +84,7 @@ const SettingsProfileUser = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        if(logo != null)
+        if(coverImg != null)
             UserService.uploadImageCover(coverImg, id);
         if(logo != null)
             UserService.uploadImageLogo(logo, id)
@@ -127,7 +161,7 @@ const SettingsProfileUser = () => {
                                 <span className="mt-2 text-base leading-normal uppercase">Select a Logo</span>
                                 <input type='file' className="hidden" onChange={(e) => handleEntailmentRequest(e, 2)}/>
 
-                                {logo === null ? <span>No file choosen</span> : <span>{logo.name}</span>}
+                                {logo === null ? <span> {logoU === null ? <span>No file choosen </span> : <span>{logoU}</span> }</span> : <span>{logo.name}</span>}
                             </label>
                         </div>
 
@@ -141,7 +175,7 @@ const SettingsProfileUser = () => {
                                 <span className="mt-2 text-base leading-normal uppercase">Select a Cover Image</span>
                                 <input type='file' className="hidden" onChange={(e) => handleEntailmentRequest(e, 1)}/>
 
-                                {coverImg === null ? <span>No file choosen</span> : <span>{coverImg.name}</span>}
+                                {coverImg === null ? <span> {coverImgU === null ? <span>No file choosen</span> : <span>{coverImgU}</span>}</span> : <span>{coverImg.name}</span>}
                             </label>
                         </div>
 

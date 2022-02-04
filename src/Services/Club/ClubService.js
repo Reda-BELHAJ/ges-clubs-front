@@ -4,6 +4,26 @@ import UserService from '../User/UserService';
 
 class ClubService {
 
+    updateClub(requestUpdateClub) {
+
+        const token = UserService.getCurrentUser().accessToken;
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+        console.log(requestUpdateClub);
+        axios.put("http://localhost:8080/api/clubService/update",
+            JSON.stringify(requestUpdateClub), {
+                headers: headers
+            }   
+        ).then(() => {
+            console.log("club updated");
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
     getClubs() {
 
         const token = UserService.getCurrentUser().accessToken;
@@ -77,7 +97,7 @@ class ClubService {
     getClubByName(nom, fileC, fileL) {
 
         const token = UserService.getCurrentUser().accessToken;
-        axios.get("http://localhost:8080/api/clubService/findClubByName?nomClub=" + nom,
+        axios.get("http://localhost:8080/api/clubService/findClubByName/" + nom,
             {
                 headers: {
                     "Content-Type" : "multipart/form-data",

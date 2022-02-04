@@ -12,6 +12,7 @@ import ClubService from '../Services/Club/ClubService';
 import UserService from '../Services/User/UserService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const ModalJoin2 = ({recomState}) => {
@@ -19,7 +20,7 @@ const ModalJoin2 = ({recomState}) => {
     const presidentClub = UserService.getCurrentUser().username;
     const [page, setPage] = useState(1);
     const [ClubProfiles, setClubProfiles] = useState({});
-
+    let navigate = useNavigate();
     const [club, setClub] = useState({ nomClub: "", descClub: ""});
     const [president, setPresident] = useState({ nom: "", filiere: "", anneeE: "", email: "", nameUser: ""});
     const [vicePresident, setVicePresident] = useState({ nom: "", filiere: "", anneeE: "", email: "", nameUser: ""});
@@ -56,11 +57,13 @@ const ModalJoin2 = ({recomState}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("submit");
-        
+        console.log(requestCreateClub)
         
         ClubService.createClub(requestCreateClub, club.nomClub, fileC, fileL);
-        toast.success("Club demand has been submited !", {
-            position: toast.POSITION.TOP_CENTER});
+        toast.success("Club demand have been submited !", {
+            position: toast.POSITION.TOP_CENTER,
+            onClose: () => {navigate("/home")},
+            });
         //
 
         return <Navigate to='/profil' />     // redirect la page profil mnin y submit formulaire
@@ -70,14 +73,14 @@ const ModalJoin2 = ({recomState}) => {
         <div className={`lg:col-span-5 h-auto ${recomState && 'mt-20'} border-gray-200 rounded-xl border`}>
             <div className="mx-auto bg-white rounded">
                 <form name="student_application" id="student_application" onSubmit={handleSubmit} action="#">
-                    <ToastContainer></ToastContainer>
+                    <ToastContainer autoClose={3000} ></ToastContainer>
                     <div className="py-4 px-8">
                         <div className="w-full bg-gray-200 h-5 mb-3">
                             <div className="text-xs font-medium text-blue-100 text-center p-1 leading-none bg-blue-500 h-5" style={{width: `${page/6 * 100}%`}}>{`${(page/6 * 100).toFixed(2)}%`}</div>
                         </div>
-                        {console.log(club)}
+                    
                         {page === 1 && <ClubInfo
-                            
+                            getInfo={{}}
                             clubName={c => setClub({ ...club, nomClub: c})}
                             clubDesc={c => setClub({ ...club, descClub: c})}
                             logo={c => setFileL(c)}
@@ -85,6 +88,7 @@ const ModalJoin2 = ({recomState}) => {
                         />}
                         
                         {page === 2 && <PresidentInfo
+                            getInfo={{}}
                             filiere={c => setPresident({ ...president, filiere: c})}
                             nom={c => setPresident({ ...president, nom: c})}
                             anneeE={c => setPresident({ ...president, anneeE: c})}
@@ -94,6 +98,7 @@ const ModalJoin2 = ({recomState}) => {
                             
                         
                         {page === 3 && <VicePresident
+                            getInfo={{}}
                             filiere={c => setVicePresident({ ...vicePresident, filiere: c})}
                             nom={c => setVicePresident({ ...vicePresident, nom: c})}
                             anneeE={c => setVicePresident({ ...vicePresident, anneeE: c})}
@@ -102,6 +107,7 @@ const ModalJoin2 = ({recomState}) => {
                         />}
 
                         {page === 4 && <Treasurer
+                            getInfo={{}}
                             filiere={c => setTreasurer({ ...treasurer, filiere: c})}
                             nom={c => setTreasurer({ ...treasurer, nom: c})}
                             anneeE={c => setTreasurer({ ...treasurer,anneeE: c})}
@@ -110,6 +116,7 @@ const ModalJoin2 = ({recomState}) => {
                         />}
 
                         {page === 5 && <GeneralSecretary
+                            getInfo={{}}
                             filiere={c => setGeneralSecretary({ ...generalSecretary, filiere: c})}
                             nom={c => setGeneralSecretary({ ...generalSecretary, nom: c})}
                             anneeE={c => setGeneralSecretary({ ...generalSecretary, anneeE: c})}
@@ -118,6 +125,7 @@ const ModalJoin2 = ({recomState}) => {
                         />}
 
                         {page === 6 && <AcademicReferent 
+                            getInfo={{}}
                             filiere={c => setAcademicReferent({ ...academicReferent, filiere: c})}
                             nom={c => setAcademicReferent({ ...academicReferent, nom: c})}
                             email={c => setAcademicReferent({ ...academicReferent, email: c})}

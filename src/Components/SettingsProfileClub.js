@@ -130,15 +130,27 @@ const SettingsProfileClub = ({clubS}) => {
 
     }, [nameClub]);
 
+    useEffect(() => {
+        setClub({nomClub: infos.nomClub, descClub: infos.descClub})
+        setPresident({ nom: infosP.nom, filiere: infosP.filiere, anneeE: infosP.anneeE, email: infosP.email, nameUser: infosP.nameUser});
+        setVicePresident({ nom: infosV.nom, filiere: infosV.filiere, anneeE: infosV.anneeE, email: infosV.email, nameUser: infosV.nameUser});
+        setTreasurer({ nom: infosT.nom, filiere: infosT.filiere, anneeE: infosT.anneeE, email: infosT.email, nameUser: infosT.nameUser});
+        setGeneralSecretary({ nom: infosS.nom, filiere: infosS.filiere, anneeE: infosS.anneeE, email: infosS.email, nameUser: infosS.nameUser});
+        //setAcademicReferent({ nom: infos.referent.nom, filiere: infos.referent.filiere, email: infos.referent.email, nameUser: infos.referent.nameUser});
+        setFileC(infos.coverImg);
+        setFileL(infos.log);
+
+    }, [infos, infosP, infosS, infosT, infosV]);
+
     const [page, setPage] = useState(1);
     const [ClubProfiles, setClubProfiles] = useState([]);
 
     const [club, setClub] = useState({ nomClub: "", descClub: ""});
     const [president, setPresident] = useState({ nom: "", filiere: "", anneeE: "", email: "", nameUser: ""});
-    const [vicePresident, setVicePresident] = useState({ fullName: "", course: "", year: "", email: "", username: ""});
-    const [treasurer, setTreasurer] = useState({ fullName: "", course: "", year: "", email: "", username: ""});
-    const [generalSecretary, setGeneralSecretary] = useState({ fullName: "", course: "", year: "", email: "", username: ""});
-    const [academicReferent, setAcademicReferent] = useState({ fullName: "", course: "", email: "", username: ""});
+    const [vicePresident, setVicePresident] = useState({ nom: "", filiere: "", anneeE: "", email: "", nameUser: ""});
+    const [treasurer, setTreasurer] = useState({ nom: "", filiere: "", anneeE: "", email: "", nameUser: ""});
+    const [generalSecretary, setGeneralSecretary] = useState({ nom: "", filiere: "", anneeE: "", email: "", nameUser: ""});
+    const [academicReferent, setAcademicReferent] = useState({ nom: "", filiere: "", email: "", nameUser: ""});
     const [fileC, setFileC] = useState(undefined);
     const [fileL, setFileL] = useState(undefined);
 
@@ -163,7 +175,8 @@ const SettingsProfileClub = ({clubS}) => {
     }
 
     function setData() {
-        setRequestCreateClub({clubRequest: club, referentRequest: academicReferent, presidentRequest: president, vicePresidentRequest: vicePresident, tresorierRequest: treasurer, secretaireRequest: generalSecretary}); 
+        if (nameClub != null)
+            setRequestCreateClub({clubRequest: club, referentRequest: academicReferent, presidentRequest: president, vicePresidentRequest: vicePresident, tresorierRequest: treasurer, secretaireRequest: generalSecretary, nameClub: nameClub}); 
     }
 
       
@@ -172,14 +185,14 @@ const SettingsProfileClub = ({clubS}) => {
         console.log("submit");
         console.log(requestCreateClub);
         setPage(1);   // hadi wakha redirect mata7yadhach hiya lif lakhar kat update state dyal RequestCreateClub
-        ClubService.createClub(requestCreateClub);
+        ClubService.updateClub(requestCreateClub);
 
         return <Navigate to='/profil' />     // redirect la page profil mnin y submit formulaire
     }
 
     return (
         <div className="lg:col-span-5 mb-5 h-auto border-gray-300 rounded-xl border">
-            
+            {console.log(fileC)}
             <div className="mx-auto">
                 <form name="settings_profile" id="settings_profile" onSubmit={handleSubmit}>
                     <div className="py-4 px-8">
@@ -206,37 +219,37 @@ const SettingsProfileClub = ({clubS}) => {
 
                         {page === 3 && <VicePresident
                             getInfo={infosV}
-                            course={c => setVicePresident({ ...vicePresident, course: c})}
-                            fullName={c => setVicePresident({ ...vicePresident, fullName: c})}
-                            year={c => setVicePresident({ ...vicePresident, year: c})}
+                            filiere={c => setVicePresident({ ...vicePresident, filiere: c})}
+                            nom={c => setVicePresident({ ...vicePresident, nom: c})}
+                            anneeE={c => setVicePresident({ ...vicePresident, anneeE: c})}
                             email={c => setVicePresident({ ...vicePresident, email: c})}
-                            username={c => setPresident({ ...vicePresident, username: c})}
+                            nameUser={c => setPresident({ ...vicePresident, nameUser: c})}
                         />}
 
                         {page === 4 && <Treasurer
                             getInfo={infosT}
-                            course={c => setTreasurer({ ...treasurer, course: c})}
-                            fullName={c => setTreasurer({ ...treasurer, fullName: c})}
-                            year={c => setTreasurer({ ...treasurer, year: c})}
+                            filiere={c => setTreasurer({ ...treasurer, filiere: c})}
+                            nom={c => setTreasurer({ ...treasurer, nome: c})}
+                            anneeE={c => setTreasurer({ ...treasurer, anneeE: c})}
                             email={c => setTreasurer({ ...treasurer, email: c})}
-                            username={c => setPresident({ ...treasurer, username: c})}
+                            nameUser={c => setPresident({ ...treasurer, nameUser: c})}
                         />}
 
                         {page === 5 && <GeneralSecretary
                             getInfo={infosS}
-                            course={c => setGeneralSecretary({ ...generalSecretary, course: c})}
-                            fullName={c => setGeneralSecretary({ ...generalSecretary, fullName: c})}
-                            year={c => setGeneralSecretary({ ...generalSecretary, year: c})}
+                            filiere={c => setGeneralSecretary({ ...generalSecretary, filiere: c})}
+                            nom={c => setGeneralSecretary({ ...generalSecretary, nom: c})}
+                            anneeE={c => setGeneralSecretary({ ...generalSecretary, anneeE: c})}
                             email={c => setGeneralSecretary({ ...generalSecretary, email: c})}
-                            username={c => setPresident({ ...generalSecretary, username: c})}
+                            nameUser={c => setPresident({ ...generalSecretary, nameUser: c})}
                         />}
 
                         {page === 6 && <AcademicReferent 
-                            getInfo={infos.referent}
-                            course={c => setAcademicReferent({ ...academicReferent, course: c})}
-                            fullName={c => setAcademicReferent({ ...academicReferent, fullName: c})}
+                            getInfo={{}} // getInfo={infos.referent}
+                            filiere={c => setAcademicReferent({ ...academicReferent, filiere: c})}
+                            nom={c => setAcademicReferent({ ...academicReferent, nom: c})}
                             email={c => setAcademicReferent({ ...academicReferent, email: c})}
-                            username={c => setPresident({ ...academicReferent, username: c})}
+                            nameUser={c => setPresident({ ...academicReferent, nameUser: c})}
                         />}
 
                         <div className='w-full'>

@@ -268,8 +268,8 @@ const ListClubs = (props) => {
                             <div key={item.idClub}>
                                 <ClubItem 
                                     club={item.nomClub}
-                                    profileImg={'http://localhost:8080/api/clubService/landing/' + 0 + '/image/downloadIcon'}  // 0 ==> item.idClub
-                                    coverImg={'http://localhost:8080/api/clubService/landing/' + 0 + '/image/downloadCover'}  // 0 ==> item.idClub 
+                                    profileImg={'http://localhost:8080/api/clubService/landing/' + item.idClub + '/image/downloadIcon'}  // 0 ==> item.idClub
+                                    coverImg={'http://localhost:8080/api/clubService/landing/' + item.idClub + '/image/downloadCover'}  // 0 ==> item.idClub 
                                     detail={item.descClub}
                                     email={item.email}
                                     followers={item.nbrFollowers}

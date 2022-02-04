@@ -47,11 +47,11 @@ const Members = () => {
         <div className='flex flex-col min-h-screen overflow-hidden'>
             { <NavbarAuth /> }
 
-            { <Helmet club={nameClub} state={true}/> }
+            { <Helmet club={nameClub} state={false}/> }
             <main>
                 <div className="w-full lg:grid lg:grid-cols-7 gap-2 max-w-6xl mx-auto px-5 sm:px-6">
                     <div className='lg:col-span-2 hidden lg:block'>
-                        <Widgets state={true} recomState={false}/>
+                        <Widgets state={false} recomState={false}/>
                     </div>
                     {d &&
                         <TableMembers
