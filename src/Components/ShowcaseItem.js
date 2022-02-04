@@ -36,7 +36,7 @@ const ShowcaseItem = ({width, height}) => {
 
     return (
         ClubProfiles.map((clubProfiles) => {
-            // 'http://localhost:8080/api/clubService/landing/'+ clubProfiles.idClub +'/image/downloadIcon'  ============== src={}
+            //   ============== src={}
           return (
             <div className="flex items-center justify-center py-2 grayscale col-span-2 md:col-auto" key={clubProfiles.idClub}>
               
@@ -47,7 +47,7 @@ const ShowcaseItem = ({width, height}) => {
                   width={width}
                   height={height}
                   alt={clubProfiles.idClub} 
-                  //src={} 
+                  src={'http://localhost:8080/api/clubService/landing/'+ clubProfiles.idClub +'/image/downloadIcon'} 
                 />
               ) : null }
             </div>

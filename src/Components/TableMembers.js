@@ -30,6 +30,7 @@ const members = [
 
 const TableMembers = (props) => {
     const [page, setPage] = React.useState(1);
+    const [etat, setEtat] = React.useState(1);
     const PER_PAGE = 9;
     const username = UserService.getCurrentUser().username;
     const id = UserService.getCurrentUser().id;
@@ -78,7 +79,7 @@ const TableMembers = (props) => {
         }
     }
     const handleEM = () => {
-        
+        setEtat(1);
         if(props.clubName != null){
             
             axios.get("http://localhost:8080/api/memberService/findAllEMembersOfClub/" + props.clubName,
@@ -100,6 +101,7 @@ const TableMembers = (props) => {
     }
 
     const handleA = () => {
+        setEtat(2);
         if(props.clubName != null){
             
             axios.get("http://localhost:8080/api/memberService/findAllAMembersOfClub/" + props.clubName,
@@ -121,6 +123,7 @@ const TableMembers = (props) => {
     }
 
     const handleP = () => {
+        setEtat(3);
         if(props.clubName != null){
             
             axios.get("http://localhost:8080/api/memberService/findAllPMembersOfClub/" + props.clubName,
@@ -226,13 +229,14 @@ const TableMembers = (props) => {
                         <th className="p-1 cursor-pointer text-left" onClick={() => sorting("role")}>
                             Role {sortIcons.role === "DESC" ? <>▼</>:<>▲</> }
                         </th>
-                        <th className=" text-left">
+                        {etat != 1 && <th className=" text-left">
                             Action
-                        </th>
+                        </th>}
+                        
                     </tr>
                 </thead>
                 <tbody>
-                {console.log(_DATA.currentData())}
+                {console.log(data)}
                     {data &&
                         data.filter((val) => {
                             if (searchTerm == "") {
@@ -262,14 +266,16 @@ const TableMembers = (props) => {
                                     <td className="p-3">
                                         {item.fonctionnalites[0].name}
                                     </td>
-                                    <td className="p-3">
+                                    {etat != 1 && <td className="p-3">
                                         <button onClick={() => {if(!item.status)handleAccept(item.idMembre)}} className="inline-block text-gray-400 hover:text-green-500 ml-2 mr-1">
                                             <BsCheckLg />
                                         </button>
-                                        <button onClick={() => {if(!item.status)handleDelete(item.idMembre)}} className="inline-block text-gray-400 hover:text-red-600">
+                                        <button onClick={() => {if(item.status)handleDelete(item.idMembre)}} className="inline-block text-gray-400 hover:text-red-600">
                                             <AiFillDelete  />
                                         </button>
-                                    </td>
+                                    </td>}
+                                    
+                                    
                                 </tr>
                             )
                         })

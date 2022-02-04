@@ -22,6 +22,7 @@ const Widgets = ({recomState, state, club}) => {
     }
 
     const [isPresident, setIsPresident] = useState(false);
+    const [President, setPresident] = useState({});
     const token = UserService.getCurrentUser().accessToken;
 
     useEffect(() => {
@@ -46,6 +47,28 @@ const Widgets = ({recomState, state, club}) => {
                 
     }, [state]);
 
+    useEffect(() => {
+
+        if (club != null && user.id != null) {
+            axios.get("http://localhost:8080/api/memberService/President/" + club + "/" + user.id,
+            {
+            headers: {
+                "Content-Type" : "multipart/form-data",
+                'Authorization': `Bearer ${token}`
+            }
+            }
+            ).then(response => {
+                
+                setPresident(response.data);
+                
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+        }
+                
+    }, [state]);
+
     return (
         <div className={`${recomState && 'mt-20'} border-gray-300 rounded-xl border mb-5 flex flex-col items-start justify-between w-full h-auto overflow-hidden bg-white rounded-lg`}>
             <div className="flex flex-row items-baseline justify-around w-full p-2 pb-0 mb-3">
@@ -56,6 +79,7 @@ const Widgets = ({recomState, state, club}) => {
             <div className="w-full p-4 py-0 text-gray-800 bg-gray-100 divide-y divide-gray-400">
                 <div className="overflow-y-auto overflow-x-hidden flex-grow">
                     <ul className="flex flex-col pb-4 space-y-1">
+                        {console.log("President is : ", President.status)}
                         {
                             state ? 
                             <>
@@ -94,12 +118,12 @@ const Widgets = ({recomState, state, club}) => {
                                     <BsFillGearFill size={20} className='inline-flex justify-center items-center ml-4'/>
                                 </WidgetItem>
 
-                                {/*  <WidgetItem
+                                { <WidgetItem
                                             header="Dashboards"
                                             path="/dashboards"
                                         >
                                             <RiDashboardFill size={20} className='inline-flex justify-center items-center ml-4'/>
-                                        </WidgetItem> */ }
+                                        </WidgetItem> }
 
                                 <WidgetItem
                                     header="Logout"
@@ -128,7 +152,7 @@ const Widgets = ({recomState, state, club}) => {
 
                     
                                 
-                                { isPresident &&
+                                { isPresident && President.status &&
                                     <div>
                                         <WidgetItem
                                             header="Settings for Club"

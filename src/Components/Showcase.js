@@ -25,8 +25,9 @@ const Showcase = () => {
                 <div className="py-12 md:py-20">
                     <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
                         <h2 className="h2 mb-4">Club showcase</h2>
-                        <p className="text-xl text-gray-600" data-aos="zoom-y-out">Arcu cursus vitae congue mauris rhoncus viverra nibh cras pulvinar mattis
-                            blandit libero cursus mattis.</p>
+                        <p className="text-xl text-gray-600" data-aos="zoom-y-out">
+                            Here's a list of active clubs in UIR that you can join.
+                        </p>
                     </div>
                     
                     <div className="max-w-sm md:max-w-4xl mx-auto grid gap-2 grid-cols-4 md:grid-cols-5">
