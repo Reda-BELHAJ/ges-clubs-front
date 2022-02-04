@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import ModalJoin from './ModalJoin';
 import UserService from '../Services/User/UserService';
+import ClubService from '../Services/Club/ClubService';
 import axios from 'axios';
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -13,6 +14,7 @@ import { RiLock2Fill } from 'react-icons/ri';
 const Helmet = ({club, state}) => {
     const username = UserService.getCurrentUser().username
     const idUser = UserService.getCurrentUser().id; 
+    const [idClub, setIdClub] = useState(""); 
     const token = UserService.getCurrentUser().accessToken;
 
     const [idMember, setIdMember] = useState("");
@@ -23,6 +25,29 @@ const Helmet = ({club, state}) => {
 
     const handleOpen1 = () => setShowModal1(true);
     const handleClose1 = () => setShowModal1(false);
+
+    useEffect(() => {
+
+        let a = club;
+        if(club != null) {
+            
+           
+         axios.get("http://localhost:8080/api/clubService/findClubByName/" + club,
+            {
+                headers: {
+                    "Content-Type" : "multipart/form-data",
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            ).then(response => {
+                setIdClub(response.data.idClub);
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
+            
+        }  
+    }, [club]);
 
     useEffect(() => {
 
@@ -170,7 +195,7 @@ const Helmet = ({club, state}) => {
                  <div className='bg-cover bg-no-repeat bg-center'>
                     <img 
                         className="md rounded-full relative" 
-                        src={'http://localhost:8080/api/clubService/landing/' + 0 + '/image/downloadCover'}
+                        src={'http://localhost:8080/api/clubService/landing/' + idClub + '/image/downloadCover'}
                         alt={"Loading"} 
                         onError={addDefaultSrc2}
                         className='w-full h-40 object-cover'
@@ -185,8 +210,8 @@ const Helmet = ({club, state}) => {
                                     <img 
                                         height={70}
                                         width={70}
-                                        className="md rounded-full relative" 
-                                        src={'http://localhost:8080/api/clubService/landing/' + 0 + '/image/downloadIcon'}
+                                        className="w-16 h-16 border-2 border-gray-300 rounded-full" 
+                                        src={'http://localhost:8080/api/clubService/landing/' + idClub + '/image/downloadIcon'}
                                         alt={"Loading"} 
                                         onError={addDefaultSrc1}
                                     />
