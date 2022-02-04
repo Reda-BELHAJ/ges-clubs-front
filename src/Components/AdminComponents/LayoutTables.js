@@ -14,9 +14,9 @@ const LayoutTables = () => {
                 </div>
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200">
-                        <RowItem />
-                        <RowItem />
-                        <RowItem />
+                        <RowItem name="RedaBELHAJ" email="reda.belhaj@uir.ac.ma"/>
+                        <RowItem name="YassineBOUZIANE" email="yassine.bouziane@uir.ac.ma"/>
+                        <RowItem name="OmarJAMIL" email="omar.jamil@uir.ac.ma"/>
                     </ul>
                 </div>
             </div>
@@ -29,9 +29,7 @@ const LayoutTables = () => {
                 </div>
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200">
-                        <RowItem />
-                        <RowItem />
-                        <RowItem />
+                        <RowItem name="U1R 17" email="U1R17@uir.ac.ma"/>
                     </ul>
                 </div>
             </div>

@@ -7,7 +7,16 @@ import { FaUserFriends } from "react-icons/fa";
 import { BsFillGearFill } from "react-icons/bs";
 import { RiDashboardFill } from "react-icons/ri";
 
+import { MdOutlineEvent, MdLogout } from "react-icons/md";
+
+import EventBus from '../../Utils/EventBus';
+
 const WidgetAdmin = ({recomState}) => {
+
+  const onLogoutOut = () => {
+    console.log("aeazeazeazeazeazea");
+    EventBus.dispatch("logout");
+}
   return (
     <div className={`${recomState && 'mt-20'} border-gray-300 rounded-xl border mb-5 flex flex-col items-start justify-between w-full h-auto overflow-hidden bg-white rounded-lg`}>
       <div className="flex flex-row items-baseline justify-around w-full p-2 pb-0 mb-3">
@@ -32,6 +41,13 @@ const WidgetAdmin = ({recomState}) => {
 
             <WidgetItem header="Settings" path="/settings" >
               <BsFillGearFill size={20} className='inline-flex justify-center items-center ml-4'/>
+            </WidgetItem>
+            <WidgetItem
+                header="Logout"
+                path="/"
+                click={onLogoutOut}    
+            >
+                <MdLogout size={20} className='inline-flex justify-center items-center ml-4'/>
             </WidgetItem>
           </ul>
         </div>

@@ -60,17 +60,17 @@ const UsersTable = () => {
             <button 
                 className="mb-2 lg:mb-0 py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
             >
-                Executive members
+                External Users
             </button>
             <button 
                 className="mb-2 lg:mb-0 py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
             >
-                Adherent Members
+                Internal Users
             </button>
             <button 
                 className="mb-2 lg:mb-0 py-2 px-4 bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
             >
-                Pending Members
+                Admin Users
             </button>
 
         </div>

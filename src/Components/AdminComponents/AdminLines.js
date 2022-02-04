@@ -44,7 +44,7 @@ export default class Foo extends React.Component {
                 size: 0,
             },
             title: {
-                text: 'Stock Price Movement',
+                text: 'Users Per Date',
                 align: 'left'
             },
             fill: {
@@ -65,7 +65,7 @@ export default class Foo extends React.Component {
                     },
                 },
                 title: {
-                    text: 'Price'
+                    text: 'Users'
                 },
             },
             xaxis: {
